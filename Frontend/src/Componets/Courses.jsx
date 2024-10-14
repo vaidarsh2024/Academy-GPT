@@ -4,18 +4,20 @@ import cour3 from "../assets/Image/courseimage2.png";
 import cour4 from "../assets/Image/courseimage3.png";
 import cart from '../assets/Image/shopbag.png';
 import { IoMdHeart } from "react-icons/io";
+import { FaArrowRight } from "react-icons/fa6";
 
 const Courses = () => {
   return (
     <>
-      <div className="px-5 py-4 pb-10 font-urbanist bg-black ">
+      <div className="px-5 py-4  font-urbanist bg-black ">
         <div className=" space-y-3 pb-5">
           <h2 className=" text-center lg:text-4xl text-3xl font-bold text-primary">
             Our Courses
           </h2>
           <p className="text-center text-xl lg:text-3xl px-5 font-medium text-white">
             {" "}
-            Our Best Courses Offered and Teach <br />By Best of The Instructors
+            Our Best Courses Offered and Teach <br />
+            By Best of The Instructors
           </p>
         </div>
         <div className=" grid grid-flow-col grid-cols-2 grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 gap-4  ">
@@ -167,6 +169,12 @@ const Courses = () => {
               </button>
             </div>
           </div>
+        </div>
+
+        <div className="flex mx-auto py-5 justify-center lg:justify-end">
+          <button className="flex text-base border-[1px] border-white p-2 rounded-3xl font-semibold text-white">
+            All Courses <FaArrowRight  className='my-auto ml-2'/>
+          </button>
         </div>
       </div>
     </>
