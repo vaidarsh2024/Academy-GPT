@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Excalidraw } from "@excalidraw/excalidraw";
+import { Excalidraw, WelcomeScreen } from "@excalidraw/excalidraw";
 
 const WhiteBoard = () => {
     const [gridMode, setGridMode] = useState(false);
@@ -14,7 +14,13 @@ const WhiteBoard = () => {
                     <button onClick={toggleGridBackground} style={{ padding: '8px', marginRight: '8px' }}>
                         {gridMode ? "Disable Grid" : "Enable Grid"}
                     </button>
-                )}/>
+                )}><WelcomeScreen>
+                <WelcomeScreen.Hints.ToolbarHint>
+                  <p> ToolBar Hints </p>
+                </WelcomeScreen.Hints.ToolbarHint>
+                <WelcomeScreen.Hints.MenuHint />
+                <WelcomeScreen.Hints.HelpHint />
+              </WelcomeScreen></Excalidraw>
         </div>
     </>
 };
