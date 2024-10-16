@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Excalidraw, WelcomeScreen } from "@excalidraw/excalidraw";
+import { Excalidraw, WelcomeScreen, MainMenu } from "@excalidraw/excalidraw";
 
 const WhiteBoard = () => {
     const [gridMode, setGridMode] = useState(false);
@@ -20,7 +20,16 @@ const WhiteBoard = () => {
                 </WelcomeScreen.Hints.ToolbarHint>
                 <WelcomeScreen.Hints.MenuHint />
                 <WelcomeScreen.Hints.HelpHint />
-              </WelcomeScreen></Excalidraw>
+              </WelcomeScreen><MainMenu>
+          <MainMenu.DefaultItems.Export />
+          <MainMenu.DefaultItems.LiveCollaborationTrigger/>
+          <MainMenu.DefaultItems.SaveAsImage/>
+          <MainMenu.DefaultItems.ChangeCanvasBackground/>
+          <MainMenu.DefaultItems.SaveToActiveFile/>
+          <MainMenu.DefaultItems.ToggleTheme/>
+          <MainMenu.DefaultItems.ClearCanvas/>
+          <MainMenu.DefaultItems.Help/>
+        </MainMenu></Excalidraw>
         </div>
     </>
 };
