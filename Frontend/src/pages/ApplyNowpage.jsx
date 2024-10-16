@@ -4,7 +4,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import CreatableSelect from "react-select/creatable";
 import LoginNavbar from "../Componets/loginNavbar";
-import Applynow from "../assets/image/Applynow.png"; 
+import Applynow from "../assets/Image/Applynow.png"; 
 import PropTypes from "prop-types";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";

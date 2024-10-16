@@ -1,13 +1,14 @@
 import { IoIosPhonePortrait } from "react-icons/io";
-import question from "../../assets/image/question.png";
-import answer from "../../assets/image/answer.png";
+import question from "../../assets/Image/question.png";
+import answer from "../../assets/Image/answer.png";
 import { FaAngleRight } from "react-icons/fa6";
 import { CgClose } from "react-icons/cg";
-import person1 from "../../assets/image/person1.png";
-import person2 from "../../assets/image/person2.png";
-import person3 from "../../assets/image/person3.png";
-import whatapp from "../../assets/image/whatsapp.png";
+import person1 from "../../assets/Image/person1.png";
+import person2 from "../../assets/Image/person2.png";
+import person3 from "../../assets/Image/person3.png";
+import whatapp from "../../assets/Image/whatsapp.png";
 import { IoMdCheckmarkCircle } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 
 const LeanerDashboard = () => {
@@ -34,9 +35,11 @@ const LeanerDashboard = () => {
                     Get the Simex app
                   </h4>
                   <div className="lg:flex lg:justify-center">
+                    <Link to={"/leanernavbar/whiteboard"}>
                     <button className="bg-primary text-sm lg:text-[20px] font-bold text-white p-2 rounded-md my-auto whitespace-nowrap">
                       Try Our Whiteboard
                     </button>
+                    </Link>
                   </div>
                 </div>
               </div>
