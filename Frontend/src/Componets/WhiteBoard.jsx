@@ -1,13 +1,55 @@
 import React, { useState, useRef } from "react";
 import { Excalidraw, WelcomeScreen, MainMenu } from "@excalidraw/excalidraw";
+import { FaTh, FaExpand, FaCompress } from "react-icons/fa";
+import { MdOutlineScreenShare, MdStopScreenShare } from "react-icons/md";
+
 
 const WhiteBoard = () => {
     const containerRef = useRef(null);
     const [gridMode, setGridMode] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
+    const [peer, setPeer] = useState(null);
+    const [isSharingScreen, setIsSharingScreen] = useState(false);
 
     const toggleGridBackground = () => {
         setGridMode((prevMode) => !prevMode);
+    };
+
+    const startScreenShare = async () => {
+        try {
+            const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+            const newPeer = new Peer({ initiator: true, stream });
+
+            newPeer.on('signal', (data) => {
+                // Send signal data to the other peer via signaling server
+                console.log('Signal data', data);
+            });
+
+            newPeer.on('connect', () => {
+                console.log('Peer connected');
+            });
+
+            newPeer.on('stream', (remoteStream) => {
+                // Handle receiving the remote stream
+                const video = document.createElement('video');
+                video.srcObject = remoteStream;
+                video.play();
+                document.body.appendChild(video); // Display remote video
+            });
+
+            setPeer(newPeer);
+            setIsSharingScreen(true);
+        } catch (err) {
+            console.error("Error sharing screen:", err);
+        }
+    };
+
+    const stopScreenShare = () => {
+        if (peer) {
+            peer.destroy();
+            setPeer(null);
+            setIsSharingScreen(false);
+        }
     };
 
     const toggleFullscreen = () => {
@@ -40,10 +82,13 @@ const WhiteBoard = () => {
         <Excalidraw gridModeEnabled={gridMode} renderTopRightUI={() => (
                 <div>
                     <button onClick={toggleGridBackground} style={{ padding: '8px', marginRight: '8px' }}>
-                            {gridMode ? "Disable Grid" : "Enable Grid"}
+                        {gridMode ? <FaTh style={{ color: '#007bff' }} /> : <FaTh />}
                     </button>
                     <button onClick={toggleFullscreen} style={{ padding: '8px' }}>
-                        {isFullscreen ? "Exit Fullscreen" : "Go Fullscreen"}
+                        {isFullscreen ? <FaCompress style={{ color: '#007bff' }} /> : <FaExpand />}
+                    </button>
+                    <button onClick={isSharingScreen ? stopScreenShare : startScreenShare} style={{ padding: '8px' }}>
+                        {isSharingScreen ? <MdStopScreenShare style={{ color: '#e74c3c' }} /> : <MdOutlineScreenShare />}
                     </button>
                 </div>
                 )}>
