@@ -1,5 +1,8 @@
 import React, { useState, useRef } from "react";
 import { Excalidraw, WelcomeScreen, MainMenu } from "@excalidraw/excalidraw";
+import { FaTh, FaExpand, FaCompress } from "react-icons/fa";
+import { MdOutlineScreenShare, MdStopScreenShare } from "react-icons/md";
+
 
 const WhiteBoard = () => {
     const containerRef = useRef(null);
@@ -79,13 +82,13 @@ const WhiteBoard = () => {
         <Excalidraw gridModeEnabled={gridMode} renderTopRightUI={() => (
                 <div>
                     <button onClick={toggleGridBackground} style={{ padding: '8px', marginRight: '8px' }}>
-                            {gridMode ? "Disable Grid" : "Enable Grid"}
+                        {gridMode ? <FaTh style={{ color: '#007bff' }} /> : <FaTh />}
                     </button>
                     <button onClick={toggleFullscreen} style={{ padding: '8px' }}>
-                        {isFullscreen ? "Exit Fullscreen" : "Go Fullscreen"}
+                        {isFullscreen ? <FaCompress style={{ color: '#007bff' }} /> : <FaExpand />}
                     </button>
                     <button onClick={isSharingScreen ? stopScreenShare : startScreenShare} style={{ padding: '8px' }}>
-                            {isSharingScreen ? "Stop Screen Share" : "Start Screen Share"}
+                        {isSharingScreen ? <MdStopScreenShare style={{ color: '#e74c3c' }} /> : <MdOutlineScreenShare />}
                     </button>
                 </div>
                 )}>
