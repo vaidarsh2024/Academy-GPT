@@ -5,9 +5,48 @@ const WhiteBoard = () => {
     const containerRef = useRef(null);
     const [gridMode, setGridMode] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
+    const [peer, setPeer] = useState(null);
+    const [isSharingScreen, setIsSharingScreen] = useState(false);
 
     const toggleGridBackground = () => {
         setGridMode((prevMode) => !prevMode);
+    };
+
+    const startScreenShare = async () => {
+        try {
+            const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+            const newPeer = new Peer({ initiator: true, stream });
+
+            newPeer.on('signal', (data) => {
+                // Send signal data to the other peer via signaling server
+                console.log('Signal data', data);
+            });
+
+            newPeer.on('connect', () => {
+                console.log('Peer connected');
+            });
+
+            newPeer.on('stream', (remoteStream) => {
+                // Handle receiving the remote stream
+                const video = document.createElement('video');
+                video.srcObject = remoteStream;
+                video.play();
+                document.body.appendChild(video); // Display remote video
+            });
+
+            setPeer(newPeer);
+            setIsSharingScreen(true);
+        } catch (err) {
+            console.error("Error sharing screen:", err);
+        }
+    };
+
+    const stopScreenShare = () => {
+        if (peer) {
+            peer.destroy();
+            setPeer(null);
+            setIsSharingScreen(false);
+        }
     };
 
     const toggleFullscreen = () => {
@@ -44,6 +83,9 @@ const WhiteBoard = () => {
                     </button>
                     <button onClick={toggleFullscreen} style={{ padding: '8px' }}>
                         {isFullscreen ? "Exit Fullscreen" : "Go Fullscreen"}
+                    </button>
+                    <button onClick={isSharingScreen ? stopScreenShare : startScreenShare} style={{ padding: '8px' }}>
+                            {isSharingScreen ? "Stop Screen Share" : "Start Screen Share"}
                     </button>
                 </div>
                 )}>
