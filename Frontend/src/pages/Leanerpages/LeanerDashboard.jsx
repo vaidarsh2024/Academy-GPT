@@ -1,12 +1,12 @@
 import { IoIosPhonePortrait } from "react-icons/io";
-import question from "../assets/image/question.png";
-import answer from "../assets/image/answer.png";
+import question from "../../assets/image/question.png";
+import answer from "../../assets/image/answer.png";
 import { FaAngleRight } from "react-icons/fa6";
 import { CgClose } from "react-icons/cg";
-import person1 from "../assets/image/person1.png";
-import person2 from "../assets/image/person2.png";
-import person3 from "../assets/image/person3.png";
-import whatapp from "../assets/image/whatsapp.png";
+import person1 from "../../assets/image/person1.png";
+import person2 from "../../assets/image/person2.png";
+import person3 from "../../assets/image/person3.png";
+import whatapp from "../../assets/image/whatsapp.png";
 import { IoMdCheckmarkCircle } from "react-icons/io";
 
 

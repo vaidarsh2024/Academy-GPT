@@ -2,12 +2,12 @@ import { useState } from "react";
 import { MenuOutlined } from "@ant-design/icons"; 
 import logo from "../assets/Image/logo.png";
 import { CgClose } from "react-icons/cg";
-import LeanerDashboard from "../pages/LeanerDashboard";
 import { GoDotFill } from "react-icons/go";
 import { IoSearch } from "react-icons/io5";
 import person from "../assets/image/person2.png";
 import { IoIosArrowDropdown } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+
 
 const LeanerNavbar = () => {
   const [collapsed, setCollapsed] = useState(true);
@@ -17,47 +17,28 @@ const LeanerNavbar = () => {
   const toggleDrawer = () => setCollapsed(!collapsed);
 
   // Menu items
-  const menuItems = [
-    { label: "DASHBOARD", key: "DASHBOARD" },
-    { label: "ONE ON ONE", key: "ONE_ON_ONE" },
-    { label: "GROUP (4)", key: "GROUP_4" },
-    { label: "GROUP (4+)", key: "GROUP_4_PLUS" },
-    { label: "LEARNER QUESTIONS", key: "LEARNER_QUESTIONS" },
-    { label: "ASK QUESTION", key: "ASK_QUESTION" },
-    { label: "CONTACT", key: "CONTACT" },
-    { label: "REVIEW", key: "REVIEW" },
-    { label: "FAQ", key: "FAQ" },
-  ];
+
 
   // Render content based on selected menu
-  const renderComponent = () => {
-    switch (activeComponent) {
-      case "DASHBOARD":
-        return (
-          <div >
-            <LeanerDashboard />
-          </div>
-        );
-      case "ONE_ON_ONE":
-        return <div>One on One Component</div>;
-      case "GROUP_4":
-        return <div>Group (4) Component</div>;
-      case "GROUP_4_PLUS":
-        return <div>Group (4+) Component</div>;
-      case "LEARNER_QUESTIONS":
-        return <div>One on One Component</div>;
-      case "ASK_QUESTION":
-        return <div>One on One Component</div>;
-      case "CONTACT":
-        return <div>One on One Component</div>;
-      case "REVIEW":
-        return <div>One on One Component</div>;
-      case "FAQ":
-        return <div>One on One Component</div>;
-      default:
-        return <div>Select a menu item</div>;
-    }
-  };
+ const menuItems = [
+   { label: "DASHBOARD", key: "dashboard", path: "/leanernavbar/dashboard" },
+   { label: "ONE ON ONE", key: "oneonone", path: "/leanernavbar/oneonone" },
+   { label: "GROUP (4)", key: "group4", path: "/leanernavbar/group4" },
+   { label: "GROUP (4+)", key: "group4plus", path: "/leanernavbar/group4plus" },
+   {
+     label: "LEARNER QUESTIONS",
+     key: "learnerquestions",
+     path: "/leanernavbar/leanerquestions",
+   },
+   {
+     label: "ASK QUESTION",
+     key: "askquestion",
+     path: "/leanernavbar/askquestion",
+   },
+   { label: "CONTACT", key: "contact", path: "/leanernavbar/contact" },
+   { label: "REVIEW", key: "review", path: "/leanernavbar/review" },
+   { label: "FAQ", key: "faq", path: "/leanernavbar/leanerfaq" },
+ ];
 
 
   const handellogout = () => {
@@ -89,7 +70,7 @@ const LeanerNavbar = () => {
                   {activeComponent === item.key && (
                     <span className="absolute -left-10 rounded-r-xl top-0 bottom-0 w-1 bg-primary"></span>
                   )}
-                  {item.label}
+                  <Link to={item.path}>{item.label}</Link>
                 </li>
               ))}
             </div>
@@ -97,8 +78,7 @@ const LeanerNavbar = () => {
         </div>
 
         {/* Logout Button */}
-        <div onClick={handellogout}
-         className="px-12 p-4">
+        <div onClick={handellogout} className="px-12 p-4">
           <button className="bg-primary font-semibold w-full text-white py-2 rounded-md ">
             Logout
           </button>
@@ -150,7 +130,7 @@ const LeanerNavbar = () => {
                   setActiveComponent(item.key);
                   // Close the drawer on selection
                 }}>
-                {item.label}
+                <Link to={item.path}>{item.label}</Link>
               </li>
             ))}
           </ul>
@@ -167,8 +147,8 @@ const LeanerNavbar = () => {
 
       {/* Main content area with fixed user info and search bar */}
 
-      <div className="ml-0 lg:ml-64 p-6 lg:w-full  relative">
-        <div className="hidden lg:flex lg:absolute  drop-shadow-md top-0 left-0 lg:w-full bg-gray-100  z-10 p-4 items-center lg:justify-between">
+      <div className="ml-0 lg:ml-64 p-5 lg:p-6 lg:w-full  relative">
+        <div className="hidden  lg:flex lg:absolute  shadow-md drop-shadow-md top-0 left-0 lg:w-full bg-gray-100  z-10 p-4 items-center lg:justify-between">
           <div className="flex-1 relative mx-4">
             <input
               type="text"
@@ -193,8 +173,9 @@ const LeanerNavbar = () => {
             </div>
           </div>
         </div>
-        {/* Padding to account for fixed top */}
-        <div className="mt-16 lg:p-6 ">{renderComponent()}</div>
+        <div className="ml-0 mt-12 p-5 lg:px-1 lg:py-5 lg:w-full relative">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
