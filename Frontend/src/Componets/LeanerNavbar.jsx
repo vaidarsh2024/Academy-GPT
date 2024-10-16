@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { MenuOutlined } from "@ant-design/icons"; 
-import logo from "../assets/Image/logo.png";
+import logo from "../assets/Image/Logo.png";
 import { CgClose } from "react-icons/cg";
 import { GoDotFill } from "react-icons/go";
 import { IoSearch } from "react-icons/io5";
-import person from "../assets/image/person2.png";
+import person from "../assets/Image/person2.png";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
