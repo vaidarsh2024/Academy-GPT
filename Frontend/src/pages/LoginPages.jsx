@@ -1,11 +1,11 @@
 import LoginNavbar from "../Componets/loginNavbar";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
-import facebook from "../assets/image/facebook.png";
-import google from "../assets/image/google.png";
-import apple from "../assets/image/apple.png";
+import facebook from "../assets/Image/facebook.png";
+import google from "../assets/Image/google.png";
+import apple from "../assets/Image/apple.png";
 import { Link } from "react-router-dom";
-import login from "../assets/image/Login.png";
+import login from "../assets/Image/Login.png";
 
 const LoginPages = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);

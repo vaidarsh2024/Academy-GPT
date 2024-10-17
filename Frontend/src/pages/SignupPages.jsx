@@ -3,10 +3,10 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import CreatableSelect from "react-select/creatable"; // Import CreatableSelect
 import LoginNavbar from "../Componets/loginNavbar";
-import facebook from "../assets/image/facebook.png";
-import google from "../assets/image/google.png";
-import apple from "../assets/image/apple.png";
-import signupImage from "../assets/image/Sign up.png";
+import facebook from "../assets/Image/facebook.png";
+import google from "../assets/Image/google.png";
+import apple from "../assets/Image/apple.png";
+import signupImage from "../assets/Image/Sign up.png";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import PropTypes from "prop-types";

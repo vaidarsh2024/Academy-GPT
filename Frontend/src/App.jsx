@@ -17,6 +17,7 @@ import AskQuestion from "./pages/Leanerpages/AskQuestion";
 import Contact from "./pages/Leanerpages/Contact";
 import Review from "./pages/Leanerpages/Review";
 import LeanerFaq from "./pages/Leanerpages/LeanerFaq";
+import WhiteBoard from "./Componets/WhiteBoard";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
             <Route path="contact" element={<Contact />} />
             <Route path="review" element={<Review />} />
             <Route path="leanerfaq" element={<LeanerFaq />} />
+            <Route path="whiteboard" element={<WhiteBoard/>} />
           </Route>
 
           <Route path="/tutordetails/:id" element={<TutorDetails />} />
