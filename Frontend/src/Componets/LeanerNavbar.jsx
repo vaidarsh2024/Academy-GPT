@@ -173,7 +173,7 @@ const LeanerNavbar = () => {
             </div>
           </div>
         </div>
-        <div className="ml-0 mt-12 p-5 lg:px-1 lg:py-5 lg:w-full relative">
+        <div className="ml-0 mt-16  px-0 mr-0 lg:px-1 lg:py-5 lg:w-full relative">
           <Outlet />
         </div>
       </div>

@@ -33,9 +33,9 @@ function App() {
 
           {/* Nested routing under LeanerNavbar */}
           <Route path="/leanernavbar" element={<LeanerNavbar />}>
+            <Route index element={<LeanerDashboard/>} />
             <Route path="dashboard" element={<LeanerDashboard />} />
             <Route path="oneonone" element={<OneOnOne />} />
-
             <Route path="group4" element={<Group4 />} />
             <Route path="group4plus" element={<Group4plus />} />
             <Route path="leanerquestions" element={<LearnerQuestions />} />
