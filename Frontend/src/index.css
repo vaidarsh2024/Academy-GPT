@@ -47,3 +47,15 @@ Excalidraw styling overrides
 .excalidraw .App-menu_top {
     position: relative;
 }
+
+.excalidraw .App-toolbar {
+    margin-left: 2rem;
+}
+
+.zoom-actions {
+    background-color: #000 !important;
+}
+
+.excalidraw canvas {
+    margin-top: 5rem;
+}
