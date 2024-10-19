@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Excalidraw, WelcomeScreen, MainMenu, excalidrawAPI } from "@excalidraw/excalidraw";
 import { BsGrid } from "react-icons/bs";
-import { FaTh, FaExpand, FaCompress, FaUndo, FaRedo, FaSquareFull } from "react-icons/fa";
+import { FaTh, FaExpand, FaCompress, FaUndo, FaRedo, FaSquareFull, FaSearchMinus, FaSearchPlus } from "react-icons/fa";
 import { MdOutlineScreenShare, MdStopScreenShare } from "react-icons/md";
 
 const ColorToolBar = ({onChangeBackground}) => {
@@ -71,7 +71,24 @@ const styles = {
   };
 
   
-
+  const ZoomToolBar = ({handleZoom}) => {
+    return <><div className="zoom-toolbar" style={{backgroundColor: '#000', color: '#fff', padding: '8px', height: 'min-content', display: 'flex', flexDirection: 'column', marginTop: '16px', alignItems: 'center', justifyContent: 'space-between'}}>
+            <button 
+                onClick={() => handleZoom("in")} 
+                style={{ background: 'none', border: 'none', cursor: 'pointer'}}
+                title="Zoom In"
+            >
+                <FaSearchPlus size={24} />
+            </button>
+            <button 
+                onClick={() => handleZoom("out")} 
+                style={{ background: 'none', border: 'none', cursor: 'pointer', marginTop: '10px' }}
+                title="Zoom Out"
+            >
+                <FaSearchMinus size={24} />
+            </button>
+        </div></>;
+}
 
 const WhiteBoard = () => {
     const containerRef = useRef(null);
@@ -82,10 +99,6 @@ const WhiteBoard = () => {
     const [excalidrawAPI, setExcalidrawAPI] = useState(null);
 
     const [backgroundColor, setBackgroundColor] = useState("#ffffff");
-    const [fontSize, setFontSize] = useState(16);
-    const [fontFamily, setFontFamily] = useState('Arial');
-    const [isBold, setIsBold] = useState(false);
-    const [isItalic, setIsItalic] = useState(false);
 
     useEffect(() => {
         if (!excalidrawAPI) {
@@ -189,10 +202,31 @@ const WhiteBoard = () => {
     
     }
 
+    const handleZoom = (state) => {
+        debugger;
+        if(excalidrawAPI) {
+            const { zoom } = excalidrawAPI.getAppState();
+            if(state === 'in') {
+                excalidrawAPI.updateScene({
+                    appState: {
+                        zoom: Math.min(zoom * 1.2, 2), // Increase zoom by 20% but cap it at 200%
+                    },
+                });
+            } else {
+                excalidrawAPI.updateScene({
+                    appState: {
+                        zoom: Math.max(zoom * 0.8, 0.5), // Decrease zoom by 20% but not below 50%
+                    },
+                });
+            }
+        }
+    }
+
     return <>
         <div ref={containerRef} style={{ height: "80vh", width: "100%", display: 'flex', flexDirection: 'row' }}>
         <div style={{display: 'flex', flexDirection: 'column'}}>
             <ColorToolBar onChangeBackground={handleBackgroundColor}/>
+            <ZoomToolBar  handleZoom={handleZoom} />
         </div>
         <Excalidraw excalidrawAPI={(api)=> setExcalidrawAPI(api)} gridModeEnabled={gridMode} renderTopRightUI={() => (
                 <div>
