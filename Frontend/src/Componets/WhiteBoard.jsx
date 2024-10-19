@@ -81,24 +81,17 @@ const WhiteBoard = () => {
         <div ref={containerRef} style={{ height: "100vh", width: "100%" }}>
         <Excalidraw gridModeEnabled={gridMode} renderTopRightUI={() => (
                 <div>
-                    <button onClick={toggleGridBackground} style={{ padding: '8px', marginRight: '8px' }}>
+                    {/* <button onClick={toggleGridBackground} style={{ padding: '8px', marginRight: '8px' }}>
                         {gridMode ? <FaTh style={{ color: '#007bff' }} /> : <FaTh />}
+                    </button> */}
+                    <button onClick={toggleFullscreen} style={{ padding: '8px', backgroundColor: '#D2D0D0', borderRadius: '3px' }}>
+                        Full Board
                     </button>
-                    <button onClick={toggleFullscreen} style={{ padding: '8px' }}>
-                        {isFullscreen ? <FaCompress style={{ color: '#007bff' }} /> : <FaExpand />}
-                    </button>
-                    <button onClick={isSharingScreen ? stopScreenShare : startScreenShare} style={{ padding: '8px' }}>
-                        {isSharingScreen ? <MdStopScreenShare style={{ color: '#e74c3c' }} /> : <MdOutlineScreenShare />}
+                    <button onClick={isSharingScreen ? stopScreenShare : startScreenShare} style={{ padding: '8px', backgroundColor: '#ff8000', color: "white", fontWeight: "bolder", position: "absolute", left: "0px", padding: "15px 25px", top: "0px", bottom: "0px" }}>
+                        Share Screen
                     </button>
                 </div>
-                )}>
-            <WelcomeScreen>
-                <WelcomeScreen.Hints.ToolbarHint>
-                  <p> ToolBar Hints </p>
-                </WelcomeScreen.Hints.ToolbarHint>
-                <WelcomeScreen.Hints.MenuHint />
-                <WelcomeScreen.Hints.HelpHint />
-            </WelcomeScreen>
+                )} isCollaborating={false}>
             <MainMenu>
                 <MainMenu.DefaultItems.LoadScene/>
                 <MainMenu.DefaultItems.Export />
@@ -106,7 +99,6 @@ const WhiteBoard = () => {
                 <MainMenu.DefaultItems.SaveAsImage/>
                 <MainMenu.DefaultItems.ChangeCanvasBackground/>
                 <MainMenu.DefaultItems.SaveToActiveFile/>
-                <MainMenu.DefaultItems.ToggleTheme/>
                 <MainMenu.DefaultItems.ClearCanvas/>
                 <MainMenu.DefaultItems.Help/>
             </MainMenu>
