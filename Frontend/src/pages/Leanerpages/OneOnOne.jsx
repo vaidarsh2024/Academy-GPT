@@ -47,7 +47,7 @@ const OneOnOne = () => {
 
   return (
     <>
-      <div className="grid grid-cols-5">
+      <div className="grid grid-cols-5 px-3">
         <div className="flex justify-between py-3 col-span-5 w-full">
           <div className="my-auto">
             <h2 className="text-xs lg:text-sm xl:text-base font-normal">
@@ -152,7 +152,7 @@ const OneOnOne = () => {
 
                 <div>
                   <Link
-                    to={`/leanernavbar/oneonone/tutordetails/${tutor.id}`}
+                    to={`tutordetails/${tutor.id}`}
                     className="p-2 rounded-md text-xs md:text-sm xl:text-lg font-semibold text-white bg-primary">
                     View Profile
                   </Link>

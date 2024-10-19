@@ -5,29 +5,21 @@ import { IoIosSearch } from "react-icons/io";
 const LearnerQuestions = () => {
   return (
     <>
-      <div className="font-urbanist">
+      <div className="font-urbanist px-3">
         <div className="grid grid-cols-4 lg:grid-cols-8 ">
           <div className=" relative lg:flex lg:justify-between w-full col-span-4 lg:col-span-8">
-            <div className="lg:w-6/12 relative">
-              <button className="bg-primary absolute text-[10px] lg:text-xs lg:px-6 font-semibold right-[1px] top-[1px] p-[8px] lg:p-[8.5px] px-6 text-white  rounded-r-md">
+            <div className="lg:w-7/12 relative">
+              <button className="bg-primary absolute text-[10px] lg:text-xs lg:px-6 font-semibold right-[1px] top-[1px] p-[8px] lg:p-[8.5px] px-6 xl:py-3 xl:px-9  text-white  rounded-r-md">
                 Search
               </button>
               <input
-                className="w-full  border-[1px] pl-8 placeholder:text-black placeholder:text-xs font-medium border-black p-[3.5px] lg:p-[4.5px] lg:pl-8 px-2  rounded-md focus:outline-none"
+                className="w-full  border-[1px] pl-8 placeholder:text-black placeholder:text-xs font-medium border-black p-[3.5px] lg:p-[4.5px] lg:pl-8 px-2  xl:p-2 xl:pl-8 rounded-md focus:outline-none"
                 type="search"
                 name="searchQuestion"
                 id="searchQuestion"
                 placeholder="What would you like to learn?"
               />
-              <IoIosSearch className=" absolute top-2 left-2 lg:top-[10px]" />
-            </div>
-            <div className="lg:w-3/12">
-              <select
-                className="border-[1px] lg:p-[4.5px] w-full rounded-md border-black p-1 xl:p-[6x]"
-                name="Answer"
-                id="answer">
-                <option value="Answer">Answer Question</option>
-              </select>
+              <IoIosSearch className=" absolute top-2 left-2 lg:top-[10px] xl:top-[14px]" />
             </div>
           </div>
 
@@ -75,12 +67,7 @@ const LearnerQuestions = () => {
                     <span className="text-primary">More</span>
                   </p>
                 </div>
-                <div className="flex justify-between">
-                  <div className="my-auto">
-                    <h4 className="text-xs my-auto lg:text-base xl:text-xl font-semibold">
-                      Answer Style: Online Classroom
-                    </h4>
-                  </div>
+                <div className="flex justify-end">
                   <div>
                     <button className=" bg-[#046B49] p-1 px-2 text-xs lg:text-base xl:text-lg font-semibold text-white rounded-md">
                       Answer Now
@@ -135,12 +122,7 @@ const LearnerQuestions = () => {
                     <span className="text-primary">More</span>
                   </p>
                 </div>
-                <div className="flex justify-between">
-                  <div className="my-auto">
-                    <h4 className="text-xs my-auto lg:text-base xl:text-xl font-semibold">
-                      Answer Style: Online Classroom
-                    </h4>
-                  </div>
+                <div className="flex justify-end">
                   <div>
                     <button className=" bg-[#046B49] p-1 px-2 text-xs lg:text-base xl:text-lg font-semibold text-white rounded-md">
                       Answer Now
@@ -195,12 +177,7 @@ const LearnerQuestions = () => {
                     <span className="text-primary">More</span>
                   </p>
                 </div>
-                <div className="flex justify-between">
-                  <div className="my-auto">
-                    <h4 className="text-xs my-auto lg:text-base xl:text-xl font-semibold">
-                      Answer Style: Online Classroom
-                    </h4>
-                  </div>
+                <div className="flex justify-end">
                   <div>
                     <button className=" bg-[#046B49] p-1 px-2 text-xs lg:text-base xl:text-lg font-semibold text-white rounded-md">
                       Answer Now
