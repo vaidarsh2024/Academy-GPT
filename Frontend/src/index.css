@@ -7,3 +7,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/**
+Excalidraw styling overrides
+**/
+
+.excalidraw .App-menu_top {
+    background-color: #E9E7E8;
+    padding: 5px 10px;
+}
+
+.excalidraw .Island {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
