@@ -62,15 +62,32 @@ Excalidraw styling overrides
     margin-left: 2rem;
 }
 
-.zoom-actions {
-    display: none !important;
-    background-color: #000 !important;
-}
-
 .excalidraw canvas {
     margin-top: 5rem;
 }
 
 .undo-redo-buttons {
     display: none !important;
+}
+
+/** zoom button **/
+.excalidraw .ToolIcon_type_button, .excalidraw .Modal .ToolIcon_type_button, .excalidraw .ToolIcon_type_button {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+/* Target the zoom-out button SVG */
+.zoom-out-button .ToolIcon__icon svg {
+    stroke: white;
+}
+
+/* Target the zoom-in button SVG */
+.zoom-in-button .ToolIcon__icon svg {
+    stroke: white;
+}
+
+/* Optional: Apply a hover effect to change color on hover */
+.zoom-out-button:hover .ToolIcon__icon svg,
+.zoom-in-button:hover .ToolIcon__icon svg {
+    stroke: #f0f0f0; /* A lighter white color */
 }

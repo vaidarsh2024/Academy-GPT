@@ -197,11 +197,11 @@ const WhiteBoard = () => {
             onItalic={handleItalic}
             onFontSizeChange={handleFontSizeChange}
             onAlign={handleAlign}/>
-            <ZoomToolBar 
+            {/* <ZoomToolBar 
                 onZoomIn={handleZoomIn} 
                 onZoomOut={handleZoomOut} 
                 zoomLevel={zoomLevel}
-            />
+            /> */}
         </div>
         <Excalidraw excalidrawAPI={(api)=> setExcalidrawAPI(api)} gridModeEnabled={gridMode} renderTopRightUI={() => (
                 <div>
