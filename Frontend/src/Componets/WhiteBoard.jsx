@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
-import { Excalidraw, WelcomeScreen, MainMenu } from "@excalidraw/excalidraw";
-import { FaTh, FaExpand, FaCompress } from "react-icons/fa";
-import { MdOutlineScreenShare, MdStopScreenShare } from "react-icons/md";
-
+import React, { useState, useRef, useEffect } from "react";
+import { Excalidraw,excalidrawAPI } from "@excalidraw/excalidraw";
+import { ZoomToolBar } from "./ZoomToolBar";
+import { ColorToolBar } from "./ColorToolBar";
+import { TextFormatToolBar } from "./TextFormatToolBar";
 
 const WhiteBoard = () => {
     const containerRef = useRef(null);
@@ -10,9 +10,30 @@ const WhiteBoard = () => {
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [peer, setPeer] = useState(null);
     const [isSharingScreen, setIsSharingScreen] = useState(false);
+    const [excalidrawAPI, setExcalidrawAPI] = useState(null);
+    const [zoomLevel, setZoomLevel] = useState(100);
 
-    const toggleGridBackground = () => {
-        setGridMode((prevMode) => !prevMode);
+    const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+
+    useEffect(() => {
+        if (!excalidrawAPI) {
+          return;
+        }
+        // to open the library sidebar
+        excalidrawAPI.updateScene({ appState: { openSidebar: "library" } });
+      }, [excalidrawAPI]);
+
+    const handleUndo = () => {
+        console.log(excalidrawAPI)
+        if (excalidrawAPI.history) {
+            excalidrawAPI.history.clear();
+        }
+    };
+
+    const handleRedo = () => {
+        if (excalidrawAPI.history) {
+            excalidrawAPI.history.clear();
+        }
     };
 
     const startScreenShare = async () => {
@@ -77,39 +98,133 @@ const WhiteBoard = () => {
         setIsFullscreen(!isFullscreen);
     };
 
+    const handleBackgroundColor = (color) => {
+        if (color === 'grid') {
+            setGridMode((prevMode) => !prevMode);
+            return;
+        }
+        
+        setBackgroundColor(color);
+        
+        if (excalidrawAPI) {
+            excalidrawAPI.updateScene({
+                appState: {
+                    ...excalidrawAPI.getAppState(),
+                    viewBackgroundColor: color,
+                }
+            });
+        }
+    
+    }
+
+    const handleZoomIn = () => {
+        setZoomLevel((prevZoom) => Math.min(prevZoom + 10, 200)); // Maximum 200%
+        excalidrawAPI.updateScene({
+            appState: {
+                zoom: zoomLevel,
+            },
+        });
+    };
+
+    const handleZoomOut = () => {
+        setZoomLevel((prevZoom) => Math.max(prevZoom - 10, 10)); // Minimum 10%
+        excalidrawAPI.updateScene({
+            appState: {
+                zoom: zoomLevel,
+            },
+        });
+    };
+
+    const handleBold = () => {
+        if (excalidrawAPI) {
+          excalidrawAPI.updateScene({
+            elements: excalidrawAPI.getSceneElements().map(el => {
+              if (el.type === 'text') {
+                el.fontStyle = el.fontStyle === 'bold' ? 'normal' : 'bold';
+              }
+              return el;
+            }),
+          });
+        }
+      };
+    
+      const handleItalic = () => {
+        if (excalidrawAPI) {
+          excalidrawAPI.updateScene({
+            elements: excalidrawAPI.getSceneElements().map(el => {
+              if (el.type === 'text') {
+                el.fontStyle = el.fontStyle === 'italic' ? 'normal' : 'italic';
+              }
+              return el;
+            }),
+          });
+        }
+      };
+    
+      const handleFontSizeChange = (size) => {
+        if (excalidrawAPI) {
+          const newFontSize = size === 'small' ? 14 : size === 'medium' ? 18 : 22;
+          excalidrawAPI.updateScene({
+            elements: excalidrawAPI.getSceneElements().map(el => {
+              if (el.type === 'text') {
+                el.fontSize = newFontSize;
+              }
+              return el;
+            }),
+          });
+        }
+      };
+    
+      const handleAlign = (alignment) => {
+        if (excalidrawAPI) {
+          excalidrawAPI.updateScene({
+            elements: excalidrawAPI.getSceneElements().map(el => {
+              if (el.type === 'text') {
+                el.textAlign = alignment;
+              }
+              return el;
+            }),
+          });
+        }
+      };
+
     return <>
-        <div ref={containerRef} style={{ height: "100vh", width: "100%" }}>
-        <Excalidraw gridModeEnabled={gridMode} renderTopRightUI={() => (
+        <div ref={containerRef} style={{ height: "80vh", width: "100%", display: 'flex', flexDirection: 'row' }}>
+        <div style={{display: 'flex', flexDirection: 'column', width: '4rem', alignItems: 'baseline'}}>
+            <ColorToolBar onChangeBackground={handleBackgroundColor}/>
+            <TextFormatToolBar 
+            onBold={handleBold}
+            onItalic={handleItalic}
+            onFontSizeChange={handleFontSizeChange}
+            onAlign={handleAlign}/>
+            <ZoomToolBar 
+                onZoomIn={handleZoomIn} 
+                onZoomOut={handleZoomOut} 
+                zoomLevel={zoomLevel}
+            />
+        </div>
+        <Excalidraw excalidrawAPI={(api)=> setExcalidrawAPI(api)} gridModeEnabled={gridMode} renderTopRightUI={() => (
                 <div>
-                    <button onClick={toggleGridBackground} style={{ padding: '8px', marginRight: '8px' }}>
-                        {gridMode ? <FaTh style={{ color: '#007bff' }} /> : <FaTh />}
+                    {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
+                        <FaUndo />
                     </button>
-                    <button onClick={toggleFullscreen} style={{ padding: '8px' }}>
-                        {isFullscreen ? <FaCompress style={{ color: '#007bff' }} /> : <FaExpand />}
+                    <button onClick={handleRedo} style={{ padding: "8px", margin: "0 4px" }}>
+                        <FaRedo />
+                    </button> */}
+                    <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
+                        Video & Chat
                     </button>
-                    <button onClick={isSharingScreen ? stopScreenShare : startScreenShare} style={{ padding: '8px' }}>
-                        {isSharingScreen ? <MdStopScreenShare style={{ color: '#e74c3c' }} /> : <MdOutlineScreenShare />}
+                    <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
+                        Full Board
+                    </button>
+                    <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
+                        Full Video
+                    </button>
+                    <button onClick={isSharingScreen ? stopScreenShare : startScreenShare} style={{ padding: '8px', backgroundColor: '#ff8000', color: "white", fontWeight: "bolder", position: "absolute", left: "0px", padding: "15px 25px", top: "0px", bottom: "0px" }}>
+                        Share Screen
                     </button>
                 </div>
-                )}>
-            <WelcomeScreen>
-                <WelcomeScreen.Hints.ToolbarHint>
-                  <p> ToolBar Hints </p>
-                </WelcomeScreen.Hints.ToolbarHint>
-                <WelcomeScreen.Hints.MenuHint />
-                <WelcomeScreen.Hints.HelpHint />
-            </WelcomeScreen>
-            <MainMenu>
-                <MainMenu.DefaultItems.LoadScene/>
-                <MainMenu.DefaultItems.Export />
-                <MainMenu.DefaultItems.LiveCollaborationTrigger/>
-                <MainMenu.DefaultItems.SaveAsImage/>
-                <MainMenu.DefaultItems.ChangeCanvasBackground/>
-                <MainMenu.DefaultItems.SaveToActiveFile/>
-                <MainMenu.DefaultItems.ToggleTheme/>
-                <MainMenu.DefaultItems.ClearCanvas/>
-                <MainMenu.DefaultItems.Help/>
-            </MainMenu>
+                )} isCollaborating={false}>
         </Excalidraw>
         </div>
     </>

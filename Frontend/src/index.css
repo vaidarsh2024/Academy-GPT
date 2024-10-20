@@ -7,3 +7,70 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/**
+Excalidraw styling overrides
+**/
+
+.excalidraw .ToolIcon .ToolIcon_type_radio:checked + .ToolIcon__icon, .excalidraw .ToolIcon .ToolIcon_type_checkbox:checked + .ToolIcon__icon {
+    background-color: #ff8000 !important;
+}
+.ToolIcon__icon:hover {
+    background-color: #ff8000 !important;
+}
+.ToolIcon__icon:focus {
+    background-color: #ff8000 !important;
+}
+
+.excalidraw .App-menu_top {
+    background-color: #E9E7E8;
+    padding: 10px;
+}
+
+.excalidraw .Island {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.excalidraw .ToolIcon {
+    border-left: 1px solid #D2D0D0 !important;
+    border-radius: unset !important;
+}
+
+.excalidraw .sidebar-trigger {
+    display: none !important;
+}
+
+.excalidraw .App-toolbar__divider {
+    display: none !important;
+}
+
+.excalidraw .App-menu_top {
+    grid-template-columns: 0fr 1fr 1fr !important;
+}
+
+/** dropdown button disable **/
+.excalidraw .main-menu-trigger {
+    display: none !important;
+}
+
+.excalidraw .App-menu_top {
+    position: relative;
+}
+
+.excalidraw .App-toolbar {
+    margin-left: 2rem;
+}
+
+.zoom-actions {
+    display: none !important;
+    background-color: #000 !important;
+}
+
+.excalidraw canvas {
+    margin-top: 5rem;
+}
+
+.undo-redo-buttons {
+    display: none !important;
+}
