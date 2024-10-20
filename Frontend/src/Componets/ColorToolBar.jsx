@@ -2,7 +2,7 @@ import { FaSquareFull } from "react-icons/fa";
 
 export const ColorToolBar = ({onChangeBackground}) => {
     return <>
-        <div style={{backgroundColor: '#27292C', padding: '12px', height: 'min-content', display: 'flex', flexDirection: 'column', marginTop: '16px'}}>
+        <div style={{backgroundColor: '#27292C', padding: '8px', height: 'min-content', display: 'flex', flexDirection: 'column', marginTop: '16px'}}>
         <FaSquareFull 
                 onClick={() => onChangeBackground("#ffffff")} 
                 style={{ color: "#ffffff", background: '#ffffff', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", padding: '15px', borderRadius: '5px' }} 
@@ -48,21 +48,3 @@ export const ColorToolBar = ({onChangeBackground}) => {
         </div>
     </>
 }
-
-const styles = {
-    toolbar: {
-      display: "flex",
-      justifyContent: "space-around",
-      padding: "10px",
-      backgroundColor: "#eaeaea",
-      borderRadius: "8px",
-      marginBottom: "10px",
-    },
-    button: {
-      padding: "8px 12px",
-      border: "none",
-      cursor: "pointer",
-      borderRadius: "4px",
-      fontWeight: "bold",
-    },
-  };
