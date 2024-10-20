@@ -135,11 +135,68 @@ const WhiteBoard = () => {
         });
     };
 
+    const handleBold = () => {
+        if (excalidrawAPI) {
+          excalidrawAPI.updateScene({
+            elements: excalidrawAPI.getSceneElements().map(el => {
+              if (el.type === 'text') {
+                el.fontStyle = el.fontStyle === 'bold' ? 'normal' : 'bold';
+              }
+              return el;
+            }),
+          });
+        }
+      };
+    
+      const handleItalic = () => {
+        if (excalidrawAPI) {
+          excalidrawAPI.updateScene({
+            elements: excalidrawAPI.getSceneElements().map(el => {
+              if (el.type === 'text') {
+                el.fontStyle = el.fontStyle === 'italic' ? 'normal' : 'italic';
+              }
+              return el;
+            }),
+          });
+        }
+      };
+    
+      const handleFontSizeChange = (size) => {
+        if (excalidrawAPI) {
+          const newFontSize = size === 'small' ? 14 : size === 'medium' ? 18 : 22;
+          excalidrawAPI.updateScene({
+            elements: excalidrawAPI.getSceneElements().map(el => {
+              if (el.type === 'text') {
+                el.fontSize = newFontSize;
+              }
+              return el;
+            }),
+          });
+        }
+      };
+    
+      const handleAlign = (alignment) => {
+        if (excalidrawAPI) {
+          excalidrawAPI.updateScene({
+            elements: excalidrawAPI.getSceneElements().map(el => {
+              if (el.type === 'text') {
+                el.textAlign = alignment;
+              }
+              return el;
+            }),
+          });
+        }
+      };
+
     return <>
         <div ref={containerRef} style={{ height: "80vh", width: "100%", display: 'flex', flexDirection: 'row' }}>
-        <div style={{display: 'flex', flexDirection: 'column'}}>
+        <div style={{display: 'flex', flexDirection: 'column', width: '4rem', alignItems: 'baseline'}}>
             <ColorToolBar onChangeBackground={handleBackgroundColor}/>
-            <TextFormatToolBar/>
+            <TextFormatToolBar 
+            onBold={handleBold}
+            onItalic={handleItalic}
+            onFontSizeChange={handleFontSizeChange}
+            onAlign={handleAlign}/>
             <ZoomToolBar 
                 onZoomIn={handleZoomIn} 
                 onZoomOut={handleZoomOut} 

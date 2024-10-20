@@ -70,3 +70,7 @@ Excalidraw styling overrides
 .excalidraw canvas {
     margin-top: 5rem;
 }
+
+.undo-redo-buttons {
+    display: none !important;
+}

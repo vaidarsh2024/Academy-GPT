@@ -1,0 +1,20 @@
+  
+  .toolbar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .toolbar button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .toolbar button span {
+    margin-left: 5px;
+    font-size: 12px;
+  }
+  
