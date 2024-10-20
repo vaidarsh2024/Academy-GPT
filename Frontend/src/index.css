@@ -63,6 +63,7 @@ Excalidraw styling overrides
 }
 
 .zoom-actions {
+    display: none !important;
     background-color: #000 !important;
 }
 

@@ -1,36 +1,38 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Excalidraw, WelcomeScreen, MainMenu, excalidrawAPI } from "@excalidraw/excalidraw";
 import { BsGrid } from "react-icons/bs";
-import { FaTh, FaExpand, FaCompress, FaUndo, FaRedo, FaSquareFull, FaSearchMinus, FaSearchPlus } from "react-icons/fa";
+import { FaTh, FaExpand, FaCompress, FaUndo, FaRedo, FaSquareFull, FaSearchMinus, FaSearchPlus, FaMinus, FaPlus } from "react-icons/fa";
 import { MdOutlineScreenShare, MdStopScreenShare } from "react-icons/md";
+import { AiOutlineZoomIn, AiOutlineZoomOut } from 'react-icons/ai';
+
 
 const ColorToolBar = ({onChangeBackground}) => {
     return <>
-        <div style={{backgroundColor: '#000', padding: '4px', height: 'min-content', display: 'flex', flexDirection: 'column', marginTop: '16px'}}>
+        <div style={{backgroundColor: '#27292C', padding: '12px', height: 'min-content', display: 'flex', flexDirection: 'column', marginTop: '16px'}}>
         <FaSquareFull 
                 onClick={() => onChangeBackground("#ffffff")} 
-                style={{ color: "#ffffff", background: '#ffffff', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", padding: '15px' }} 
+                style={{ color: "#ffffff", background: '#ffffff', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", padding: '15px', borderRadius: '5px' }} 
                 title="White Background"
             />
             
             {/* Black Color Icon */}
             <FaSquareFull 
                 onClick={() => onChangeBackground("#000000")} 
-                style={{ color: "#000000", background: '#000000', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", marginTop: "10px", padding: '15px' }} 
+                style={{ color: "#000000", background: '#000000', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", marginTop: "10px", padding: '15px', borderRadius: '5px' }} 
                 title="Black Background"
             />
 
             {/* Red Color Icon */}
             <FaSquareFull 
                 onClick={() => onChangeBackground("#ff0000")} 
-                style={{ color: "#ff0000", background: '#ff0000', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", marginTop: "10px", padding: '15px' }} 
+                style={{ color: "#ff0000", background: '#ff0000', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", marginTop: "10px", padding: '15px', borderRadius: '5px' }} 
                 title="Black Background"
             />
 
             {/* Yellow Color Icon */}
             <FaSquareFull 
                 onClick={() => onChangeBackground("#FFFF00")} 
-                style={{ color: "#FFFF00", background: '#FFFF00', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", marginTop: "10px", padding: '15px' }} 
+                style={{ color: "#FFFF00", background: '#FFFF00', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", marginTop: "10px", padding: '15px', borderRadius: '5px' }} 
                 title="Black Background"
             />
 
@@ -44,7 +46,8 @@ const ColorToolBar = ({onChangeBackground}) => {
                     cursor: "pointer", 
                     fontSize: "42px", 
                     marginTop: "10px", 
-                    padding: '15px' 
+                    padding: '15px',
+                    borderRadius: '5px'
                 }} 
                 title="Grid Background"
             />
@@ -71,24 +74,33 @@ const styles = {
   };
 
   
-  const ZoomToolBar = ({handleZoom}) => {
-    return <><div className="zoom-toolbar" style={{backgroundColor: '#000', color: '#fff', padding: '8px', height: 'min-content', display: 'flex', flexDirection: 'column', marginTop: '16px', alignItems: 'center', justifyContent: 'space-between'}}>
-            <button 
-                onClick={() => handleZoom("in")} 
-                style={{ background: 'none', border: 'none', cursor: 'pointer'}}
-                title="Zoom In"
-            >
-                <FaSearchPlus size={24} />
-            </button>
-            <button 
-                onClick={() => handleZoom("out")} 
-                style={{ background: 'none', border: 'none', cursor: 'pointer', marginTop: '10px' }}
-                title="Zoom Out"
-            >
-                <FaSearchMinus size={24} />
-            </button>
-        </div></>;
+  const ZoomToolBar = ({ onZoomIn, onZoomOut, zoomLevel }) => {
+    return <div className="zoom-toolbar" style={{backgroundColor: '#27292C', color: '#fff', padding: '12px', height: 'min-content', display: 'flex', flexDirection: 'column', marginTop: '16px', alignItems: 'center', justifyContent: 'space-between'}}>
+                <FaMinus 
+                    onClick={onZoomOut} 
+                    style={zoomToolStyles.icon} 
+                    title="Zoom Out" 
+                />
+                <span style={zoomToolStyles.zoomLevel}>{zoomLevel}%</span>
+                <FaPlus 
+                    onClick={onZoomIn} 
+                    style={zoomToolStyles.icon} 
+                    title="Zoom In" 
+                />
+        </div>;
 }
+
+const zoomToolStyles = {
+    icon: {
+        cursor: 'pointer',
+        fontSize: '24px',
+        margin: '4px 10px',
+    },
+    zoomLevel: {
+        fontSize: '16px',
+        fontWeight: 'bold',
+    },
+};
 
 const WhiteBoard = () => {
     const containerRef = useRef(null);
@@ -97,6 +109,7 @@ const WhiteBoard = () => {
     const [peer, setPeer] = useState(null);
     const [isSharingScreen, setIsSharingScreen] = useState(false);
     const [excalidrawAPI, setExcalidrawAPI] = useState(null);
+    const [zoomLevel, setZoomLevel] = useState(100);
 
     const [backgroundColor, setBackgroundColor] = useState("#ffffff");
 
@@ -202,37 +215,36 @@ const WhiteBoard = () => {
     
     }
 
-    const handleZoom = (state) => {
-        debugger;
-        if(excalidrawAPI) {
-            const { zoom } = excalidrawAPI.getAppState();
-            if(state === 'in') {
-                excalidrawAPI.updateScene({
-                    appState: {
-                        zoom: Math.min(zoom * 1.2, 2), // Increase zoom by 20% but cap it at 200%
-                    },
-                });
-            } else {
-                excalidrawAPI.updateScene({
-                    appState: {
-                        zoom: Math.max(zoom * 0.8, 0.5), // Decrease zoom by 20% but not below 50%
-                    },
-                });
-            }
-        }
-    }
+    const handleZoomIn = () => {
+        setZoomLevel((prevZoom) => Math.min(prevZoom + 10, 200)); // Maximum 200%
+        excalidrawAPI.updateScene({
+            appState: {
+                zoom: zoomLevel,
+            },
+        });
+    };
+
+    const handleZoomOut = () => {
+        setZoomLevel((prevZoom) => Math.max(prevZoom - 10, 10)); // Minimum 10%
+        excalidrawAPI.updateScene({
+            appState: {
+                zoom: zoomLevel,
+            },
+        });
+    };
 
     return <>
         <div ref={containerRef} style={{ height: "80vh", width: "100%", display: 'flex', flexDirection: 'row' }}>
         <div style={{display: 'flex', flexDirection: 'column'}}>
             <ColorToolBar onChangeBackground={handleBackgroundColor}/>
-            <ZoomToolBar  handleZoom={handleZoom} />
+            <ZoomToolBar 
+                onZoomIn={handleZoomIn} 
+                onZoomOut={handleZoomOut} 
+                zoomLevel={zoomLevel}
+            />
         </div>
         <Excalidraw excalidrawAPI={(api)=> setExcalidrawAPI(api)} gridModeEnabled={gridMode} renderTopRightUI={() => (
                 <div>
-                    {/* <button onClick={toggleGridBackground} style={{ padding: '8px', marginRight: '8px' }}>
-                        {gridMode ? <FaTh style={{ color: '#007bff' }} /> : <FaTh />}
-                    </button> */}
                     {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
                         <FaUndo />
                     </button>
