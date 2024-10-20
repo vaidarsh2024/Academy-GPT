@@ -138,12 +138,15 @@ const WhiteBoard = () => {
     const handleBold = () => {
         if (excalidrawAPI) {
           excalidrawAPI.updateScene({
-            elements: excalidrawAPI.getSceneElements().map(el => {
-              if (el.type === 'text') {
-                el.fontStyle = el.fontStyle === 'bold' ? 'normal' : 'bold';
-              }
-              return el;
-            }),
+            appState: {
+                ...excalidrawAPI.getAppState(),
+                elements: excalidrawAPI.getSceneElements().map(el => {
+                    if (el.type === 'text') {
+                      el.fontStyle = el.fontStyle === 'bold' ? 'normal' : 'bold';
+                    }
+                    return el;
+                  }),
+            }
           });
         }
       };
@@ -151,12 +154,15 @@ const WhiteBoard = () => {
       const handleItalic = () => {
         if (excalidrawAPI) {
           excalidrawAPI.updateScene({
-            elements: excalidrawAPI.getSceneElements().map(el => {
-              if (el.type === 'text') {
-                el.fontStyle = el.fontStyle === 'italic' ? 'normal' : 'italic';
-              }
-              return el;
-            }),
+            appState: {
+                ...excalidrawAPI.getAppState(),
+                elements: excalidrawAPI.getSceneElements().map(el => {
+                    if (el.type === 'text') {
+                      el.fontStyle = el.fontStyle === 'italic' ? 'normal' : 'italic';
+                    }
+                    return el;
+                  }),
+            }
           });
         }
       };
@@ -165,6 +171,7 @@ const WhiteBoard = () => {
         if (excalidrawAPI) {
           const newFontSize = size === 'small' ? 14 : size === 'medium' ? 18 : 22;
           excalidrawAPI.updateScene({
+            ...excalidrawAPI.getAppState(),
             elements: excalidrawAPI.getSceneElements().map(el => {
               if (el.type === 'text') {
                 el.fontSize = newFontSize;
@@ -178,12 +185,15 @@ const WhiteBoard = () => {
       const handleAlign = (alignment) => {
         if (excalidrawAPI) {
           excalidrawAPI.updateScene({
-            elements: excalidrawAPI.getSceneElements().map(el => {
-              if (el.type === 'text') {
-                el.textAlign = alignment;
-              }
-              return el;
-            }),
+            appState: {
+                ...excalidrawAPI.getAppState(),
+                elements: excalidrawAPI.getSceneElements().map(el => {
+                    if (el.type === 'text') {
+                      el.textAlign = alignment;
+                    }
+                    return el;
+                  }),
+            }
           });
         }
       };
