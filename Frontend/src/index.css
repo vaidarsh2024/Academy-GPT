@@ -69,8 +69,8 @@ Excalidraw styling overrides
     margin-top: 5rem;
 }
 
-.undo-redo-buttons {
-    display: none !important;
+.undo-redo-buttons .ToolIcon__icon svg {
+    stroke: white;
 }
 
 /** zoom button **/
