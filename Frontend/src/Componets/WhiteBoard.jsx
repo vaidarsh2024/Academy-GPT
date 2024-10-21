@@ -4,6 +4,7 @@ import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
 import AudioTranscriber from "./audioTranscriber";
+import './WhiteBoard.css';
 
 const WhiteBoard = () => {
     const containerRef = useRef(null);
@@ -230,7 +231,7 @@ const WhiteBoard = () => {
       };
 
     return <>
-        <div className="whiteboard" ref={containerRef} style={{ height: "80vh", width: "100%", display: 'flex', flexDirection: 'row', padding: '5px', marginTop: '-40px' }}>
+        <div className="whiteboard" ref={containerRef} style={{ height: "80vh", width: "100%"}}>
             <div style={{display: 'flex', flexDirection: 'column', width: '4rem', alignItems: 'baseline'}}>
                 <ColorToolBar onChangeBackground={handleBackgroundColor}/>
                 <TextFormatToolBar 
@@ -245,13 +246,14 @@ const WhiteBoard = () => {
                 /> */}
             </div>
             <Excalidraw excalidrawAPI={(api)=> setExcalidrawAPI(api)} gridModeEnabled={gridMode} renderTopRightUI={() => (
-                    <div>
+                    <div className="controlsUniqueContainer">
                         {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
                             <FaUndo />
                         </button>
                         <button onClick={handleRedo} style={{ padding: "8px", margin: "0 4px" }}>
                             <FaRedo />
                         </button> */}
+                        <div className="controlsUniqueContainer--right">
                         <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
                             Video & Chat
                         </button>
@@ -261,7 +263,8 @@ const WhiteBoard = () => {
                         <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
                             Full Video
                         </button>
-                        <button onClick={isSharingScreen ? stopScreenShare : startScreenShare} style={{ padding: '8px', backgroundColor: '#ff8000', color: "white", fontWeight: "bolder", position: "absolute", left: "0px", padding: "15px 25px", top: "0px", bottom: "0px" }}>
+                        </div>
+                        <button className="shareButton" onClick={isSharingScreen ? stopScreenShare : startScreenShare}>
                             Share Screen
                         </button>
                     </div>
