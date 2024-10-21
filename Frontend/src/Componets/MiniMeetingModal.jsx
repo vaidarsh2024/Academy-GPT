@@ -5,17 +5,12 @@ import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
 import { KJUR } from "jsrsasign";
 import videoIcon from "../assets/Image/video-icon.png";
 
-const JoinMeetingModal = ({ modalIsOpen, handleModal, size }) => {
+const MiniMeetingModal = ({ modalIsOpen, handleModal, size }) => {
   let sessionContainer;
 
   useEffect(() => {
-    console.log("join");
     getVideoSDKJWT();
-    return () => {
-      // uitoolkit.closeSession();
-      // handleModal("close");
-      console.log("return");
-    };
+    return () => {};
   }, [modalIsOpen]);
 
   function generateSignature() {
@@ -47,7 +42,7 @@ const JoinMeetingModal = ({ modalIsOpen, handleModal, size }) => {
     sessionName: "test",
     userName: "React",
     // sessionPasscode: "123",
-    features: ["video", "audio", "settings", "users", "chat", "share"],
+    // features: ["video", "audio", "settings", "users", "chat", "share"],
     options: { init: {}, audio: {}, video: {}, share: {} },
     virtualBackground: {
       allowVirtualBackground: true,
@@ -98,40 +93,29 @@ const JoinMeetingModal = ({ modalIsOpen, handleModal, size }) => {
   return (
     <div
       style={{
-        // height: "max-content",
-        width: "100wh",
-        // overflow: "hidden",
-        // transform: " translate(50, -50)",
         zIndex: 99,
         position: "absolute",
+        left: "75%",
+        top: "30%",
+        border: "1px solid gray",
+        borderRadius: "5px",
       }}
     >
-      <ReactModal
-        disableResize={true}
-        isOpen={modalIsOpen}
-        onRequestClose={() => handleModal("close")}
-        minWidth={200}
-        minHeight={150}
-        className="flexible-modal"
+      <div
+        style={{
+          backgroundColor: "#D3443C",
+          justifyItems: "center",
+          fontSize: "26px",
+        }}
       >
-        <div className="header h-[80px] items-center w-full flex">
-          <div className="icon h-[58px] w-[58px]">
-            <img src={videoIcon} alt="video-icon" />
-          </div>
-          <div className="flex flex-col pl-[10px] ">
-            <h5>Lesson 1st</h5>
-            <h6 className=" text-[#ACACAC] " style={{ fontSize: "13px" }}>
-              June 12th, 2022 | 11:00 AM{" "}
-            </h6>
-          </div>
-        </div>
-        <div
-          style={{ width: "746px", height: "471px" }}
-          id="sessionContainer"
-        ></div>
-      </ReactModal>
+        <h3>Your Video is Abled</h3>
+      </div>
+      <div
+        style={{ width: "301px", height: "188px" }}
+        id="sessionContainer"
+      ></div>
     </div>
   );
 };
 
-export default JoinMeetingModal;
+export default MiniMeetingModal;

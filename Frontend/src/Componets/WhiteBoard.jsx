@@ -4,6 +4,7 @@ import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
 import JoinMeetingModal from "./JoinMeetingModal";
+import MiniMeetingModal from "./MiniMeetingModal";
 
 const WhiteBoard = () => {
   const containerRef = useRef(null);
@@ -13,7 +14,8 @@ const WhiteBoard = () => {
   const [isSharingScreen, setIsSharingScreen] = useState(false);
   const [excalidrawAPI, setExcalidrawAPI] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(100);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpenLarge, setModalIsOpenLarge] = useState(false);
+  const [modalIsOpenMini, setModalIsOpenMini] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
 
   useEffect(() => {
@@ -24,13 +26,24 @@ const WhiteBoard = () => {
     excalidrawAPI.updateScene({ appState: { openSidebar: "library" } });
   }, [excalidrawAPI]);
 
-  const handleModal = (aciton) => {
+  const handleModalLarge = (aciton) => {
     console.log({ aciton });
     if (aciton === "open") {
-      setModalIsOpen(true);
+      setModalIsOpenMini(false);
+      setModalIsOpenLarge(true);
       return;
     }
-    setModalIsOpen(false);
+    setModalIsOpenLarge(false);
+    return;
+  };
+  const handleModalMini = (aciton) => {
+    console.log({ aciton });
+    if (aciton === "open") {
+      setModalIsOpenLarge(false);
+      setModalIsOpenMini(true);
+      return;
+    }
+    setModalIsOpenMini(false);
     return;
   };
   const handleUndo = () => {
@@ -237,8 +250,17 @@ const WhiteBoard = () => {
                 zoomLevel={zoomLevel}
             /> */}
         </div>
-        {modalIsOpen && (
-          <JoinMeetingModal modalIsOpen handleModal={handleModal} />
+        {modalIsOpenMini && (
+          <MiniMeetingModal
+            modalIsOpen={modalIsOpenMini}
+            handleModal={handleModalMini}
+          />
+        )}
+        {modalIsOpenLarge && (
+          <JoinMeetingModal
+            modalIsOpen={modalIsOpenLarge}
+            handleModal={handleModalLarge}
+          />
         )}
         <Excalidraw
           excalidrawAPI={(api) => setExcalidrawAPI(api)}
@@ -252,7 +274,7 @@ const WhiteBoard = () => {
                         <FaRedo />
                     </button> */}
               <button
-                onClick={() => handleModal("open")}
+                onClick={() => handleModalMini("open")}
                 style={{
                   padding: "10px",
                   backgroundColor: "#D2D0D0",
@@ -274,7 +296,7 @@ const WhiteBoard = () => {
                 Full Board
               </button>
               <button
-                onClick={toggleFullscreen}
+                onClick={() => handleModalLarge("open")}
                 style={{
                   padding: "10px",
                   backgroundColor: "#D2D0D0",
