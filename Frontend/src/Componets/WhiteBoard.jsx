@@ -230,51 +230,51 @@ const WhiteBoard = () => {
       };
 
     return <>
-        <div ref={containerRef} style={{ height: "80vh", width: "100%", display: 'flex', flexDirection: 'row' }}>
-        <div style={{display: 'flex', flexDirection: 'column', width: '4rem', alignItems: 'baseline'}}>
-            <ColorToolBar onChangeBackground={handleBackgroundColor}/>
-            <TextFormatToolBar 
-            onBold={handleBold}
-            onItalic={handleItalic}
-            onFontSizeChange={handleFontSizeChange}
-            onAlign={handleAlign}/>
-            {/* <ZoomToolBar 
-                onZoomIn={handleZoomIn} 
-                onZoomOut={handleZoomOut} 
-                zoomLevel={zoomLevel}
-            /> */}
-        </div>
-        <Excalidraw excalidrawAPI={(api)=> setExcalidrawAPI(api)} gridModeEnabled={gridMode} renderTopRightUI={() => (
-                <div>
-                    {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
-                        <FaUndo />
-                    </button>
-                    <button onClick={handleRedo} style={{ padding: "8px", margin: "0 4px" }}>
-                        <FaRedo />
-                    </button> */}
-                    <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
-                        Video & Chat
-                    </button>
-                    <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
-                        Full Board
-                    </button>
-                    <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
-                        Full Video
-                    </button>
-                    <button onClick={isSharingScreen ? stopScreenShare : startScreenShare} style={{ padding: '8px', backgroundColor: '#ff8000', color: "white", fontWeight: "bolder", position: "absolute", left: "0px", padding: "15px 25px", top: "0px", bottom: "0px" }}>
-                        Share Screen
-                    </button>
-                </div>
-                )} isCollaborating={false}>
-                    <WelcomeScreen>
-                        <WelcomeScreen.Center>
-                            <WelcomeScreen.Center.Heading>
-                                <div style={{color: '#000', position: 'absolute', bottom: '0px'}}>{speechToText}</div>
-                            </WelcomeScreen.Center.Heading>
-                        </WelcomeScreen.Center>
-                        </WelcomeScreen>
-        </Excalidraw>
-        <AudioTranscriber onTranscription={handleTranscription}/>
+        <div className="whiteboard" ref={containerRef} style={{ height: "80vh", width: "100%", display: 'flex', flexDirection: 'row', padding: '5px', marginTop: '-40px' }}>
+            <div style={{display: 'flex', flexDirection: 'column', width: '4rem', alignItems: 'baseline'}}>
+                <ColorToolBar onChangeBackground={handleBackgroundColor}/>
+                <TextFormatToolBar 
+                onBold={handleBold}
+                onItalic={handleItalic}
+                onFontSizeChange={handleFontSizeChange}
+                onAlign={handleAlign}/>
+                {/* <ZoomToolBar 
+                    onZoomIn={handleZoomIn} 
+                    onZoomOut={handleZoomOut} 
+                    zoomLevel={zoomLevel}
+                /> */}
+            </div>
+            <Excalidraw excalidrawAPI={(api)=> setExcalidrawAPI(api)} gridModeEnabled={gridMode} renderTopRightUI={() => (
+                    <div>
+                        {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
+                            <FaUndo />
+                        </button>
+                        <button onClick={handleRedo} style={{ padding: "8px", margin: "0 4px" }}>
+                            <FaRedo />
+                        </button> */}
+                        <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
+                            Video & Chat
+                        </button>
+                        <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
+                            Full Board
+                        </button>
+                        <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
+                            Full Video
+                        </button>
+                        <button onClick={isSharingScreen ? stopScreenShare : startScreenShare} style={{ padding: '8px', backgroundColor: '#ff8000', color: "white", fontWeight: "bolder", position: "absolute", left: "0px", padding: "15px 25px", top: "0px", bottom: "0px" }}>
+                            Share Screen
+                        </button>
+                    </div>
+                    )} isCollaborating={false}>
+                        <WelcomeScreen>
+                            <WelcomeScreen.Center>
+                                <WelcomeScreen.Center.Heading>
+                                    <div style={{color: '#000', position: 'absolute', bottom: '0px'}}>{speechToText}</div>
+                                </WelcomeScreen.Center.Heading>
+                            </WelcomeScreen.Center>
+                            </WelcomeScreen>
+            </Excalidraw>
+            <AudioTranscriber onTranscription={handleTranscription}/>
         </div>
     </>
 };
