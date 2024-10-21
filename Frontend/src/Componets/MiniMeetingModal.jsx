@@ -4,7 +4,7 @@ import uitoolkit from "@zoom/videosdk-ui-toolkit";
 import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
 import { KJUR } from "jsrsasign";
 import videoIcon from "../assets/Image/video-icon.png";
-
+import Draggable from "react-draggable";
 const MiniMeetingModal = ({ modalIsOpen, handleModal, size }) => {
   let sessionContainer;
 
@@ -99,30 +99,32 @@ const MiniMeetingModal = ({ modalIsOpen, handleModal, size }) => {
     }
   };
   return (
-    <div
-      style={{
-        zIndex: 99,
-        position: "absolute",
-        left: "75%",
-        top: "30%",
-        border: "1px solid gray",
-        borderRadius: "5px",
-      }}
-    >
+    <Draggable>
       <div
         style={{
-          backgroundColor: "#D3443C",
-          justifyItems: "center",
-          fontSize: "26px",
+          zIndex: 99,
+          position: "absolute",
+          left: "75%",
+          top: "30%",
+          border: "1px solid gray",
+          borderRadius: "5px",
         }}
       >
-        <h3>Your Video is Abled</h3>
+        <div
+          style={{
+            backgroundColor: "#D3443C",
+            justifyItems: "center",
+            fontSize: "26px",
+          }}
+        >
+          <h3>Your Video is Abled</h3>
+        </div>
+        <div
+          style={{ width: "301px", height: "188px" }}
+          id="sessionContainer"
+        ></div>
       </div>
-      <div
-        style={{ width: "301px", height: "188px" }}
-        id="sessionContainer"
-      ></div>
-    </div>
+    </Draggable>
   );
 };
 
