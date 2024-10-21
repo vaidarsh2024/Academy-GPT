@@ -18,6 +18,11 @@
   background: transparent !important;
 }
 .self-view {
+  width: 746px !important;
+  height: 471px;
+  max-width: max-content !important;
+}
+.user-view {
   display: none !important;
 }
 /**

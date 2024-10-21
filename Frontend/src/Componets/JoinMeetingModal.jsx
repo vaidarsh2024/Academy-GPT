@@ -5,7 +5,7 @@ import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
 import { KJUR } from "jsrsasign";
 import videoIcon from "../assets/Image/video-icon.png";
 
-const JoinMeetingModal = ({ modalIsOpen, handleModal }) => {
+const JoinMeetingModal = ({ modalIsOpen, handleModal, size }) => {
   let sessionContainer;
 
   useEffect(() => {
