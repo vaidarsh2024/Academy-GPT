@@ -3,7 +3,7 @@ import oneimg from "../../assets/Image/oneon.png";
 import { IoMdStar } from "react-icons/io";
 import { LuClock3 } from "react-icons/lu";
 import { FaRegHeart } from "react-icons/fa6";
-import flag from "../../assets/image/UK Flag.png";
+import flag from "../../assets/Image/UK Flag.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 

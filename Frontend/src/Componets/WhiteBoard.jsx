@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Excalidraw,excalidrawAPI } from "@excalidraw/excalidraw";
+import { Excalidraw,excalidrawAPI, MainMenu, WelcomeScreen } from "@excalidraw/excalidraw";
 import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
 import AudioTranscriber from "./audioTranscriber";
+import './WhiteBoard.css';
 
 const WhiteBoard = () => {
     const containerRef = useRef(null);
@@ -13,6 +14,7 @@ const WhiteBoard = () => {
     const [isSharingScreen, setIsSharingScreen] = useState(false);
     const [excalidrawAPI, setExcalidrawAPI] = useState(null);
     const [zoomLevel, setZoomLevel] = useState(100);
+    const [speechToText, setSpeechToText] = useState('');
 
     const [backgroundColor, setBackgroundColor] = useState("#ffffff");
 
@@ -139,12 +141,15 @@ const WhiteBoard = () => {
     const handleBold = () => {
         if (excalidrawAPI) {
           excalidrawAPI.updateScene({
-            elements: excalidrawAPI.getSceneElements().map(el => {
-              if (el.type === 'text') {
-                el.fontStyle = el.fontStyle === 'bold' ? 'normal' : 'bold';
-              }
-              return el;
-            }),
+            appState: {
+                ...excalidrawAPI.getAppState(),
+                elements: excalidrawAPI.getSceneElements().map(el => {
+                    if (el.type === 'text') {
+                      el.fontStyle = el.fontStyle === 'bold' ? 'normal' : 'bold';
+                    }
+                    return el;
+                  }),
+            }
           });
         }
       };
@@ -152,12 +157,15 @@ const WhiteBoard = () => {
       const handleItalic = () => {
         if (excalidrawAPI) {
           excalidrawAPI.updateScene({
-            elements: excalidrawAPI.getSceneElements().map(el => {
-              if (el.type === 'text') {
-                el.fontStyle = el.fontStyle === 'italic' ? 'normal' : 'italic';
-              }
-              return el;
-            }),
+            appState: {
+                ...excalidrawAPI.getAppState(),
+                elements: excalidrawAPI.getSceneElements().map(el => {
+                    if (el.type === 'text') {
+                      el.fontStyle = el.fontStyle === 'italic' ? 'normal' : 'italic';
+                    }
+                    return el;
+                  }),
+            }
           });
         }
       };
@@ -166,6 +174,7 @@ const WhiteBoard = () => {
         if (excalidrawAPI) {
           const newFontSize = size === 'small' ? 14 : size === 'medium' ? 18 : 22;
           excalidrawAPI.updateScene({
+            ...excalidrawAPI.getAppState(),
             elements: excalidrawAPI.getSceneElements().map(el => {
               if (el.type === 'text') {
                 el.fontSize = newFontSize;
@@ -179,12 +188,15 @@ const WhiteBoard = () => {
       const handleAlign = (alignment) => {
         if (excalidrawAPI) {
           excalidrawAPI.updateScene({
-            elements: excalidrawAPI.getSceneElements().map(el => {
-              if (el.type === 'text') {
-                el.textAlign = alignment;
-              }
-              return el;
-            }),
+            appState: {
+                ...excalidrawAPI.getAppState(),
+                elements: excalidrawAPI.getSceneElements().map(el => {
+                    if (el.type === 'text') {
+                      el.textAlign = alignment;
+                    }
+                    return el;
+                  }),
+            }
           });
         }
       };
@@ -214,48 +226,58 @@ const WhiteBoard = () => {
 
       const handleTranscription = (transcript) => {
         console.log('Transcription:', transcript);
-        updateScene(transcript);
+        setSpeechToText(transcript);
+        // updateScene(transcript);
       };
 
     return <>
-        <div ref={containerRef} style={{ height: "80vh", width: "100%", display: 'flex', flexDirection: 'row' }}>
-        <div style={{display: 'flex', flexDirection: 'column', width: '4rem', alignItems: 'baseline'}}>
-            <ColorToolBar onChangeBackground={handleBackgroundColor}/>
-            <TextFormatToolBar 
-            onBold={handleBold}
-            onItalic={handleItalic}
-            onFontSizeChange={handleFontSizeChange}
-            onAlign={handleAlign}/>
-            {/* <ZoomToolBar 
-                onZoomIn={handleZoomIn} 
-                onZoomOut={handleZoomOut} 
-                zoomLevel={zoomLevel}
-            /> */}
-        </div>
-        <Excalidraw excalidrawAPI={(api)=> setExcalidrawAPI(api)} gridModeEnabled={gridMode} renderTopRightUI={() => (
-                <div>
-                    {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
-                        <FaUndo />
-                    </button>
-                    <button onClick={handleRedo} style={{ padding: "8px", margin: "0 4px" }}>
-                        <FaRedo />
-                    </button> */}
-                    <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
-                        Video & Chat
-                    </button>
-                    <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
-                        Full Board
-                    </button>
-                    <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
-                        Full Video
-                    </button>
-                    <button onClick={isSharingScreen ? stopScreenShare : startScreenShare} style={{ padding: '8px', backgroundColor: '#ff8000', color: "white", fontWeight: "bolder", position: "absolute", left: "0px", padding: "15px 25px", top: "0px", bottom: "0px" }}>
-                        Share Screen
-                    </button>
-                </div>
-                )} isCollaborating={false}>
-        </Excalidraw>
-        <AudioTranscriber onTranscription={handleTranscription}/>
+        <div className="whiteboard" ref={containerRef} style={{ height: "80vh", width: "100%"}}>
+            <div style={{display: 'flex', flexDirection: 'column', width: '4rem', alignItems: 'baseline'}}>
+                <ColorToolBar onChangeBackground={handleBackgroundColor}/>
+                <TextFormatToolBar 
+                onBold={handleBold}
+                onItalic={handleItalic}
+                onFontSizeChange={handleFontSizeChange}
+                onAlign={handleAlign}/>
+                {/* <ZoomToolBar 
+                    onZoomIn={handleZoomIn} 
+                    onZoomOut={handleZoomOut} 
+                    zoomLevel={zoomLevel}
+                /> */}
+            </div>
+            <Excalidraw excalidrawAPI={(api)=> setExcalidrawAPI(api)} gridModeEnabled={gridMode} renderTopRightUI={() => (
+                    <div className="controlsUniqueContainer">
+                        {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
+                            <FaUndo />
+                        </button>
+                        <button onClick={handleRedo} style={{ padding: "8px", margin: "0 4px" }}>
+                            <FaRedo />
+                        </button> */}
+                        <div className="controlsUniqueContainer--right">
+                        <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
+                            Video & Chat
+                        </button>
+                        <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
+                            Full Board
+                        </button>
+                        <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
+                            Full Video
+                        </button>
+                        </div>
+                        <button className="shareButton" onClick={isSharingScreen ? stopScreenShare : startScreenShare}>
+                            Share Screen
+                        </button>
+                    </div>
+                    )} isCollaborating={false}>
+                        <WelcomeScreen>
+                            <WelcomeScreen.Center>
+                                <WelcomeScreen.Center.Heading>
+                                    <div style={{color: '#000', position: 'absolute', bottom: '0px'}}>{speechToText}</div>
+                                </WelcomeScreen.Center.Heading>
+                            </WelcomeScreen.Center>
+                            </WelcomeScreen>
+            </Excalidraw>
+            <AudioTranscriber onTranscription={handleTranscription}/>
         </div>
     </>
 };
