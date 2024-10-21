@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Excalidraw,excalidrawAPI } from "@excalidraw/excalidraw";
+import { Excalidraw,excalidrawAPI, MainMenu, WelcomeScreen } from "@excalidraw/excalidraw";
 import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
@@ -13,6 +13,7 @@ const WhiteBoard = () => {
     const [isSharingScreen, setIsSharingScreen] = useState(false);
     const [excalidrawAPI, setExcalidrawAPI] = useState(null);
     const [zoomLevel, setZoomLevel] = useState(100);
+    const [speechToText, setSpeechToText] = useState('');
 
     const [backgroundColor, setBackgroundColor] = useState("#ffffff");
 
@@ -224,7 +225,8 @@ const WhiteBoard = () => {
 
       const handleTranscription = (transcript) => {
         console.log('Transcription:', transcript);
-        updateScene(transcript);
+        setSpeechToText(transcript);
+        // updateScene(transcript);
       };
 
     return <>
@@ -264,6 +266,13 @@ const WhiteBoard = () => {
                     </button>
                 </div>
                 )} isCollaborating={false}>
+                    <WelcomeScreen>
+                        <WelcomeScreen.Center>
+                            <WelcomeScreen.Center.Heading>
+                                <div style={{color: '#000', position: 'absolute', bottom: '0px'}}>{speechToText}</div>
+                            </WelcomeScreen.Center.Heading>
+                        </WelcomeScreen.Center>
+                        </WelcomeScreen>
         </Excalidraw>
         <AudioTranscriber onTranscription={handleTranscription}/>
         </div>
