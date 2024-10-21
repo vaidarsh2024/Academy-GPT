@@ -91,24 +91,22 @@ const JoinMeetingModal = ({ modalIsOpen, handleModal, size }) => {
   return (
     <div
       style={{
-        height: "max-content",
+        // height: "max-content",
         width: "100wh",
+        // overflow: "hidden",
+        // transform: " translate(50, -50)",
         zIndex: 99,
         position: "absolute",
       }}
     >
       <ReactModal
+        disableResize={true}
         isOpen={modalIsOpen}
         onRequestClose={() => handleModal("close")}
         minWidth={200}
         minHeight={150}
         className="flexible-modal"
       >
-        {/* <div id="join-flow">
-          <h1>Zoom Video SDK Sample React</h1>
-          <p>User interface offered by the Video SDK UI Toolkit</p>
-          <button onClick={getVideoSDKJWT}>Join Session</button>
-        </div> */}
         <div className="header h-[80px] items-center w-full flex">
           <div className="icon h-[58px] w-[58px]">
             <img src={videoIcon} alt="video-icon" />
@@ -124,7 +122,6 @@ const JoinMeetingModal = ({ modalIsOpen, handleModal, size }) => {
           style={{ width: "746px", height: "471px" }}
           id="sessionContainer"
         ></div>
-        <button onClick={() => handleModal("close")}>Close Modal</button>
       </ReactModal>
     </div>
   );

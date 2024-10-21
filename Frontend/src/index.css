@@ -11,6 +11,8 @@
   width: 773px !important;
   height: 688px !important;
   padding: 15px !important;
+
+  top: -70px !important;
 }
 .flexible-modal-drag-area {
   width: inherit !important;
@@ -18,11 +20,17 @@
   background: transparent !important;
 }
 .self-view {
-  width: 746px !important;
-  height: 471px;
+  width: 100% !important;
+  height: 451px;
   max-width: max-content !important;
 }
 .user-view {
+  display: none !important;
+}
+.flexible-modal-drag-area-right {
+  display: none;
+}
+.flexible-modal-drag-area-left {
   display: none !important;
 }
 /**
