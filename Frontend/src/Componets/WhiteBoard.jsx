@@ -250,12 +250,7 @@ const WhiteBoard = () => {
                 zoomLevel={zoomLevel}
             /> */}
         </div>
-        {modalIsOpenMini && (
-          <MiniMeetingModal
-            modalIsOpen={modalIsOpenMini}
-            handleModal={handleModalMini}
-          />
-        )}
+
         {modalIsOpenLarge && (
           <JoinMeetingModal
             modalIsOpen={modalIsOpenLarge}
