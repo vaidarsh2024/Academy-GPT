@@ -15,6 +15,9 @@ Excalidraw styling overrides
 .excalidraw .ToolIcon .ToolIcon_type_radio:checked + .ToolIcon__icon, .excalidraw .ToolIcon .ToolIcon_type_checkbox:checked + .ToolIcon__icon {
     background-color: #ff8000 !important;
 }
+.excalidraw .layer-ui__wrapper .layer-ui__wrapper__footer-right {
+    display: none !important;
+}
 .ToolIcon__icon:hover {
     background-color: #ff8000 !important;
 }

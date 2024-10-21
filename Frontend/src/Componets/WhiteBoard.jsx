@@ -3,6 +3,7 @@ import { Excalidraw,excalidrawAPI } from "@excalidraw/excalidraw";
 import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
+import AudioTranscriber from "./audioTranscriber";
 
 const WhiteBoard = () => {
     const containerRef = useRef(null);
@@ -188,6 +189,34 @@ const WhiteBoard = () => {
         }
       };
 
+      const updateScene = (text) => {
+        if (excalidrawAPI) {
+            const newElement = {
+                type: "text",
+                version: 1,
+                versionNonce: Math.random(),
+                isDeleted: false,
+                id: `text-${Date.now()}`, // Unique ID for the text element
+                text: text,
+                x: 100,
+                y: 100,
+                fontSize: 20,
+                textAlign: "center",
+                verticalAlign: "center",
+                strokeColor: "#000000"
+            };
+
+            excalidrawAPI.updateScene({
+                elements: [newElement],
+            });
+        }
+      };
+
+      const handleTranscription = (transcript) => {
+        console.log('Transcription:', transcript);
+        updateScene(transcript);
+      };
+
     return <>
         <div ref={containerRef} style={{ height: "80vh", width: "100%", display: 'flex', flexDirection: 'row' }}>
         <div style={{display: 'flex', flexDirection: 'column', width: '4rem', alignItems: 'baseline'}}>
@@ -226,6 +255,7 @@ const WhiteBoard = () => {
                 </div>
                 )} isCollaborating={false}>
         </Excalidraw>
+        <AudioTranscriber onTranscription={handleTranscription}/>
         </div>
     </>
 };
