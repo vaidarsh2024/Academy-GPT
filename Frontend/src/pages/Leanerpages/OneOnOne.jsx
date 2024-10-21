@@ -1,6 +1,6 @@
 
  // Import useNavigate for navigation
-import oneimg from "../../assets/image/oneon.png";
+import oneimg from "../../assets/Image/oneon.png";
 import { IoMdStar } from "react-icons/io";
 import { LuClock3 } from "react-icons/lu";
 import { FaRegHeart } from "react-icons/fa6";
