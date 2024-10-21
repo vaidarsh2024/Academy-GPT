@@ -1,22 +1,24 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Excalidraw, excalidrawAPI } from "@excalidraw/excalidraw";
+import { Excalidraw,excalidrawAPI, MainMenu, WelcomeScreen } from "@excalidraw/excalidraw";
 import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
+import AudioTranscriber from "./audioTranscriber";
+import './WhiteBoard.css';
 import JoinMeetingModal from "./JoinMeetingModal";
 import MiniMeetingModal from "./MiniMeetingModal";
 
 const WhiteBoard = () => {
-  const containerRef = useRef(null);
-  const [gridMode, setGridMode] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [peer, setPeer] = useState(null);
-  const [isSharingScreen, setIsSharingScreen] = useState(false);
-  const [excalidrawAPI, setExcalidrawAPI] = useState(null);
-  const [zoomLevel, setZoomLevel] = useState(100);
-  const [modalIsOpenLarge, setModalIsOpenLarge] = useState(false);
+    const containerRef = useRef(null);
+    const [gridMode, setGridMode] = useState(false);
+    const [isFullscreen, setIsFullscreen] = useState(false);
+    const [peer, setPeer] = useState(null);
+    const [isSharingScreen, setIsSharingScreen] = useState(false);
+    const [excalidrawAPI, setExcalidrawAPI] = useState(null);
+    const [zoomLevel, setZoomLevel] = useState(100);
+    const [speechToText, setSpeechToText] = useState('');
+    const [modalIsOpenLarge, setModalIsOpenLarge] = useState(false);
   const [modalIsOpenMini, setModalIsOpenMini] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
 
   useEffect(() => {
     if (!excalidrawAPI) {
@@ -147,182 +149,154 @@ const WhiteBoard = () => {
     }
   };
 
-  const handleZoomIn = () => {
-    setZoomLevel((prevZoom) => Math.min(prevZoom + 10, 200)); // Maximum 200%
-    excalidrawAPI.updateScene({
-      appState: {
-        zoom: zoomLevel,
-      },
-    });
-  };
+    const handleBold = () => {
+        if (excalidrawAPI) {
+          excalidrawAPI.updateScene({
+            appState: {
+                ...excalidrawAPI.getAppState(),
+                elements: excalidrawAPI.getSceneElements().map(el => {
+                    if (el.type === 'text') {
+                      el.fontStyle = el.fontStyle === 'bold' ? 'normal' : 'bold';
+                    }
+                    return el;
+                  }),
+            }
+          });
+        }
+      };
+    
+      const handleItalic = () => {
+        if (excalidrawAPI) {
+          excalidrawAPI.updateScene({
+            appState: {
+                ...excalidrawAPI.getAppState(),
+                elements: excalidrawAPI.getSceneElements().map(el => {
+                    if (el.type === 'text') {
+                      el.fontStyle = el.fontStyle === 'italic' ? 'normal' : 'italic';
+                    }
+                    return el;
+                  }),
+            }
+          });
+        }
+      };
+    
+      const handleFontSizeChange = (size) => {
+        if (excalidrawAPI) {
+          const newFontSize = size === 'small' ? 14 : size === 'medium' ? 18 : 22;
+          excalidrawAPI.updateScene({
+            ...excalidrawAPI.getAppState(),
+            elements: excalidrawAPI.getSceneElements().map(el => {
+              if (el.type === 'text') {
+                el.fontSize = newFontSize;
+              }
+              return el;
+            }),
+          });
+        }
+      };
+    
+      const handleAlign = (alignment) => {
+        if (excalidrawAPI) {
+          excalidrawAPI.updateScene({
+            appState: {
+                ...excalidrawAPI.getAppState(),
+                elements: excalidrawAPI.getSceneElements().map(el => {
+                    if (el.type === 'text') {
+                      el.textAlign = alignment;
+                    }
+                    return el;
+                  }),
+            }
+          });
+        }
+      };
 
-  const handleZoomOut = () => {
-    setZoomLevel((prevZoom) => Math.max(prevZoom - 10, 10)); // Minimum 10%
-    excalidrawAPI.updateScene({
-      appState: {
-        zoom: zoomLevel,
-      },
-    });
-  };
+      const updateScene = (text) => {
+        if (excalidrawAPI) {
+            const newElement = {
+                type: "text",
+                version: 1,
+                versionNonce: Math.random(),
+                isDeleted: false,
+                id: `text-${Date.now()}`, // Unique ID for the text element
+                text: text,
+                x: 100,
+                y: 100,
+                fontSize: 20,
+                textAlign: "center",
+                verticalAlign: "center",
+                strokeColor: "#000000"
+            };
 
-  const handleBold = () => {
-    if (excalidrawAPI) {
-      excalidrawAPI.updateScene({
-        elements: excalidrawAPI.getSceneElements().map((el) => {
-          if (el.type === "text") {
-            el.fontStyle = el.fontStyle === "bold" ? "normal" : "bold";
-          }
-          return el;
-        }),
-      });
-    }
-  };
+            excalidrawAPI.updateScene({
+                elements: [newElement],
+            });
+        }
+      };
 
-  const handleItalic = () => {
-    if (excalidrawAPI) {
-      excalidrawAPI.updateScene({
-        elements: excalidrawAPI.getSceneElements().map((el) => {
-          if (el.type === "text") {
-            el.fontStyle = el.fontStyle === "italic" ? "normal" : "italic";
-          }
-          return el;
-        }),
-      });
-    }
-  };
+      const handleTranscription = (transcript) => {
+        console.log('Transcription:', transcript);
+        setSpeechToText(transcript);
+        // updateScene(transcript);
+      };
 
-  const handleFontSizeChange = (size) => {
-    if (excalidrawAPI) {
-      const newFontSize = size === "small" ? 14 : size === "medium" ? 18 : 22;
-      excalidrawAPI.updateScene({
-        elements: excalidrawAPI.getSceneElements().map((el) => {
-          if (el.type === "text") {
-            el.fontSize = newFontSize;
-          }
-          return el;
-        }),
-      });
-    }
-  };
-
-  const handleAlign = (alignment) => {
-    if (excalidrawAPI) {
-      excalidrawAPI.updateScene({
-        elements: excalidrawAPI.getSceneElements().map((el) => {
-          if (el.type === "text") {
-            el.textAlign = alignment;
-          }
-          return el;
-        }),
-      });
-    }
-  };
-
-  return (
-    <>
-      <div
-        ref={containerRef}
-        style={{
-          height: "80vh",
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "4rem",
-            alignItems: "baseline",
-          }}
-        >
-          <ColorToolBar onChangeBackground={handleBackgroundColor} />
-          <TextFormatToolBar
-            onBold={handleBold}
-            onItalic={handleItalic}
-            onFontSizeChange={handleFontSizeChange}
-            onAlign={handleAlign}
-          />
-          {/* <ZoomToolBar 
-                onZoomIn={handleZoomIn} 
-                onZoomOut={handleZoomOut} 
-                zoomLevel={zoomLevel}
-            /> */}
-        </div>
-
-        {modalIsOpenLarge && (
+    return <>
+        <div className="whiteboard" ref={containerRef} style={{ height: "80vh", width: "100%"}}>
+            <div style={{display: 'flex', flexDirection: 'column', width: '4rem', alignItems: 'baseline'}}>
+                <ColorToolBar onChangeBackground={handleBackgroundColor}/>
+                <TextFormatToolBar 
+                onBold={handleBold}
+                onItalic={handleItalic}
+                onFontSizeChange={handleFontSizeChange}
+                onAlign={handleAlign}/>
+                {/* <ZoomToolBar 
+                    onZoomIn={handleZoomIn} 
+                    onZoomOut={handleZoomOut} 
+                    zoomLevel={zoomLevel}
+                /> */}
+            </div>
+            {modalIsOpenLarge && (
           <JoinMeetingModal
             modalIsOpen={modalIsOpenLarge}
             handleModal={handleModalLarge}
           />
         )}
-        <Excalidraw
-          excalidrawAPI={(api) => setExcalidrawAPI(api)}
-          gridModeEnabled={gridMode}
-          renderTopRightUI={() => (
-            <div>
-              {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
-                        <FaUndo />
-                    </button>
-                    <button onClick={handleRedo} style={{ padding: "8px", margin: "0 4px" }}>
-                        <FaRedo />
-                    </button> */}
-              <button
-                onClick={() => handleModalMini("open")}
-                style={{
-                  padding: "10px",
-                  backgroundColor: "#D2D0D0",
-                  borderRadius: "3px",
-                  marginLeft: "20px",
-                }}
-              >
-                Video & Chat
-              </button>
-              <button
-                onClick={toggleFullscreen}
-                style={{
-                  padding: "10px",
-                  backgroundColor: "#D2D0D0",
-                  borderRadius: "3px",
-                  marginLeft: "20px",
-                }}
-              >
-                Full Board
-              </button>
-              <button
-                onClick={() => handleModalLarge("open")}
-                style={{
-                  padding: "10px",
-                  backgroundColor: "#D2D0D0",
-                  borderRadius: "3px",
-                  marginLeft: "20px",
-                }}
-              >
-                Full Video
-              </button>
-              <button
-                onClick={isSharingScreen ? stopScreenShare : startScreenShare}
-                style={{
-                  backgroundColor: "#ff8000",
-                  color: "white",
-                  fontWeight: "bolder",
-                  position: "absolute",
-                  left: "0px",
-                  padding: "15px 25px",
-                  top: "0px",
-                  bottom: "0px",
-                }}
-              >
-                Share Screen
-              </button>
-            </div>
-          )}
-          isCollaborating={false}
-        ></Excalidraw>
-      </div>
-    </>
-  );
+            <Excalidraw excalidrawAPI={(api)=> setExcalidrawAPI(api)} gridModeEnabled={gridMode} renderTopRightUI={() => (
+                    <div className="controlsUniqueContainer">
+                        {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
+                            <FaUndo />
+                        </button>
+                        <button onClick={handleRedo} style={{ padding: "8px", margin: "0 4px" }}>
+                            <FaRedo />
+                        </button> */}
+                        <div className="controlsUniqueContainer--right">
+                        <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
+                            Video & Chat
+                        </button>
+                        <button onClick={toggleFullscreen} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
+                            Full Board
+                        </button>
+                        <button onClick={() => handleModalLarge("open")} style={{ padding: '10px', backgroundColor: '#D2D0D0', borderRadius: '3px', marginLeft: '20px' }}>
+                            Full Video
+                        </button>
+                        </div>
+                        <button className="shareButton" onClick={isSharingScreen ? stopScreenShare : startScreenShare}>
+                            Share Screen
+                        </button>
+                    </div>
+                    )} isCollaborating={false}>
+                        <WelcomeScreen>
+                            <WelcomeScreen.Center>
+                                <WelcomeScreen.Center.Heading>
+                                    <div style={{color: '#000', position: 'absolute', bottom: '0px'}}>{speechToText}</div>
+                                </WelcomeScreen.Center.Heading>
+                            </WelcomeScreen.Center>
+                            </WelcomeScreen>
+            </Excalidraw>
+            <AudioTranscriber onTranscription={handleTranscription}/>
+        </div>
+    </>;
 };
 
 export default WhiteBoard;

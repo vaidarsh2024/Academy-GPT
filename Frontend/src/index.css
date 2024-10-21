@@ -41,6 +41,9 @@ Excalidraw styling overrides
 .excalidraw .ToolIcon .ToolIcon_type_checkbox:checked + .ToolIcon__icon {
   background-color: #ff8000 !important;
 }
+.excalidraw .layer-ui__wrapper .layer-ui__wrapper__footer-right {
+    display: none !important;
+}
 .ToolIcon__icon:hover {
   background-color: #ff8000 !important;
 }
@@ -88,12 +91,16 @@ Excalidraw styling overrides
   margin-left: 2rem;
 }
 
+.App-toolbar--mobile {
+    margin-left: 8rem !important;
+}
+
 .excalidraw canvas {
   margin-top: 5rem;
 }
 
-.undo-redo-buttons {
-  display: none !important;
+.undo-redo-buttons .ToolIcon__icon svg {
+    stroke: white;
 }
 
 /** zoom button **/
@@ -117,5 +124,39 @@ Excalidraw styling overrides
 /* Optional: Apply a hover effect to change color on hover */
 .zoom-out-button:hover .ToolIcon__icon svg,
 .zoom-in-button:hover .ToolIcon__icon svg {
-  stroke: #f0f0f0; /* A lighter white color */
+    stroke: #f0f0f0; /* A lighter white color */
 }
+
+
+@media screen and (max-width: 956px) and (min-height: 440px) and (orientation: landscape) {
+    .excalidraw .ToolIcon .ToolIcon_type_radio:checked + .ToolIcon__icon, .excalidraw .ToolIcon .ToolIcon_type_checkbox:checked + .ToolIcon__icon {
+        background-color: #ff8000 !important;
+    }
+    .excalidraw .layer-ui__wrapper .layer-ui__wrapper__footer-right {
+        display: none !important;
+    }
+    .ToolIcon__icon:hover {
+        background-color: #ff8000 !important;
+    }
+    .ToolIcon__icon:focus {
+        background-color: #ff8000 !important;
+    }
+    
+    .excalidraw .App-menu_top {
+        background-color: #E9E7E8;
+        padding: 10px;
+    }
+    
+    .excalidraw .Island {
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+    
+    .excalidraw .ToolIcon {
+        border-left: 1px solid #D2D0D0 !important;
+        border-radius: unset !important;
+    }
+    .excalidraw .App-toolbar {
+        margin-left: 8rem;
+    }
+  }

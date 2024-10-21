@@ -1,0 +1,38 @@
+.whiteboard {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    margin-top: -40px;
+}
+
+.whiteboard .shareButton {
+    padding: 15px 25px; /* Overwrites the initial padding */
+    background-color: #ff8000;
+    color: white;
+    font-weight: bolder;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+}
+
+@media screen and (max-width: 956px) and (min-height: 440px) and (orientation: landscape) {
+    .whiteboard {
+        margin-top: -25px;
+
+    }
+    .whiteboard  .shareButton {
+        position: absolute;
+        bottom: auto;
+    }
+
+    .controlsUniqueContainer {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .controlsUniqueContainer--right {
+        display: none;
+    }
+  }
+  
