@@ -16,19 +16,6 @@ export const ColorToolBar = ({onChangeBackground}) => {
                 title="Black Background"
             />
 
-            {/* Red Color Icon */}
-            <FaSquareFull 
-                onClick={() => onChangeBackground("#ff0000")} 
-                style={{ color: "#ff0000", background: '#ff0000', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", marginTop: "10px", padding: '15px', borderRadius: '5px' }} 
-                title="Black Background"
-            />
-
-            {/* Yellow Color Icon */}
-            <FaSquareFull 
-                onClick={() => onChangeBackground("#FFFF00")} 
-                style={{ color: "#FFFF00", background: '#FFFF00', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", marginTop: "10px", padding: '15px', borderRadius: '5px' }} 
-                title="Black Background"
-            />
 
             {/* Grid Icon */}
             <FaSquareFull 
