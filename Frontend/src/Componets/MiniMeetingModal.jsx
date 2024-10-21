@@ -11,7 +11,7 @@ const MiniMeetingModal = ({ modalIsOpen, handleModal, size }) => {
   useEffect(() => {
     getVideoSDKJWT();
     return () => {};
-  }, [modalIsOpen]);
+  }, []);
 
   function generateSignature() {
     const sessionName = "test";
@@ -19,8 +19,8 @@ const MiniMeetingModal = ({ modalIsOpen, handleModal, size }) => {
     const iat = Math.round(new Date().getTime() / 1000) - 30;
     const exp = iat + 60 * 60 * 2;
     const oHeader = { alg: "HS256", typ: "JWT" };
-    const sdkKey = "QoBIkPDyIP1LjScKDPKRX0uF3ivURvzdt8Fx";
-    const sdkSecret = "Fgv4XY3fCWPdAoXGqvXj0zOLEGQ2wFRcIorM";
+    const sdkKey = import.meta.env.VITE_ZOOM_SDK_KEY;
+    const sdkSecret = import.meta.env.VITE_ZOOM_SDK_SECRET;
     const oPayload = {
       app_key: sdkKey,
       tpc: sessionName,
@@ -40,10 +40,18 @@ const MiniMeetingModal = ({ modalIsOpen, handleModal, size }) => {
   const config = {
     videoSDKJWT: "",
     sessionName: "test",
-    userName: "React",
+    userName: "testifadsoi",
+
     // sessionPasscode: "123",
     // features: ["video", "audio", "settings", "users", "chat", "share"],
-    options: { init: {}, audio: {}, video: {}, share: {} },
+    options: {
+      init: {
+        leaveUrl: "http://www.zoom.us",
+      },
+      audio: {},
+      video: {},
+      share: {},
+    },
     virtualBackground: {
       allowVirtualBackground: true,
       allowVirtualBackgroundUpload: true,
@@ -67,8 +75,8 @@ const MiniMeetingModal = ({ modalIsOpen, handleModal, size }) => {
     joinSession(token);
   }
   function joinSession(token) {
-    console.log("called joinSession");
     config.videoSDKJWT = token;
+    console.log(token);
     if (sessionContainer) {
       uitoolkit.joinSession(sessionContainer, config);
       sessionContainer && uitoolkit.onSessionClosed(sessionClosed);

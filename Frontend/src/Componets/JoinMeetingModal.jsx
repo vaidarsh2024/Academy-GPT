@@ -24,8 +24,8 @@ const JoinMeetingModal = ({ modalIsOpen, handleModal, size }) => {
     const iat = Math.round(new Date().getTime() / 1000) - 30;
     const exp = iat + 60 * 60 * 2;
     const oHeader = { alg: "HS256", typ: "JWT" };
-    const sdkKey = "QoBIkPDyIP1LjScKDPKRX0uF3ivURvzdt8Fx";
-    const sdkSecret = "Fgv4XY3fCWPdAoXGqvXj0zOLEGQ2wFRcIorM";
+    const sdkKey = import.meta.env.VITE_ZOOM_SDK_KEY;
+    const sdkSecret = import.meta.env.VITE_ZOOM_SDK_SECRET;
     const oPayload = {
       app_key: sdkKey,
       tpc: sessionName,
