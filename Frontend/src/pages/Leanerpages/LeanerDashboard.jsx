@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 const LeanerDashboard = () => {
   return (
     <>
-      <div className="font-urbanist lg:flex gap-x-8  z-20">
+      <div className="font-urbanist lg:flex gap-x-8 px-2 lg:px-5  z-20">
         <div className="lg:w-2/6">
           <div className="grid grid-cols-4 lg:grid-cols-4  space-y-4 ">
             <div className="border-2 flex lg:block lg:space-y-4   justify-around shadow-md drop-shadow-lg  p-4 w-full col-span-4 lg:col-span-4 lg:row-span-2 rounded-lg">
@@ -71,7 +71,7 @@ const LeanerDashboard = () => {
         </div>
         <div className="lg:w-4/6 ">
           <div className="lg:grid-rows-8 space-y-4 lg:space-y-10">
-            <div className=" relative  space-y-1 col-span-4 lg:col-span-5  shadow-md drop-shadow-lg  border-2 p-3 px-4 w-full rounded-lg">
+            <div className=" relative mt-5 lg:mt-0 space-y-1 col-span-4 lg:col-span-5  shadow-md drop-shadow-lg  border-2 p-3 px-4 w-full rounded-lg">
               <h2 className="text-base md:text-lg lg:text-[24px] font-semibold">
                 Instant Connect with Tutors
               </h2>

@@ -5,7 +5,7 @@ import { IoLocationSharp } from "react-icons/io5";
 const Footer = () => {
   return (
     <>
-      <div className="bg-black px-2 py-5 lg:px-5 lg:py-7 text-white font-poppins">
+      <div className="bg-black  px-2 py-5 lg:px-5 lg:py-7 text-white font-poppins">
         <div className="pt-1 lg:pt-3 ">
           <hr className="w-full border-t-[1px]  border-white" />
         </div>
