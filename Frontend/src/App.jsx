@@ -20,6 +20,7 @@ import Writereview from "./Componets/Writereview";
 import Leanerprofileadd from "./pages/Leanerpages/Leanerprofileadd";
 import LeanerProfile from "./pages/Leanerpages/LeanerProfile";
 import Aboutpage from "./pages/Aboutpage";
+import Paymentmethod from "./Componets/Paymentmethod";
 
 function App() {
   return (
@@ -39,6 +40,8 @@ function App() {
         <Route path="/leanernavbar" element={<LeanerNavbar />}>
           <Route index element={<LeanerDashboard />} />
           <Route path="dashboard" element={<LeanerDashboard />} />
+          <Route path="dashboard/paymentmethod" element={<Paymentmethod />} />
+
           <Route path="oneonone" element={<OneOnOne />} />
           <Route path="oneonone/tutordetails/:id" element={<TutorDetails />} />
           <Route path="group4" element={<Group4 />} />

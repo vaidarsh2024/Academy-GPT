@@ -10,7 +10,6 @@ import whatapp from "../../assets/Image/whatsapp.png";
 import { IoMdCheckmarkCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
 
-
 const LeanerDashboard = () => {
   return (
     <>
@@ -36,9 +35,9 @@ const LeanerDashboard = () => {
                   </h4>
                   <div className="lg:flex lg:justify-center">
                     <Link to={"/leanernavbar/whiteboard"}>
-                    <button className="bg-primary text-sm lg:text-[20px] font-bold text-white p-2 rounded-md my-auto whitespace-nowrap">
-                      Try Our Whiteboard
-                    </button>
+                      <button className="bg-primary text-sm lg:text-[20px] font-bold text-white p-2 rounded-md my-auto whitespace-nowrap">
+                        Try Our Whiteboard
+                      </button>
                     </Link>
                   </div>
                 </div>
@@ -121,8 +120,8 @@ const LeanerDashboard = () => {
                     One on One
                   </p>
                   <div className="flex  justify-end space-x-4">
-                    <button className=" text-[9.9px] md:text-xs font-medium text-white bg-primary p-1 rounded-sm">
-                      Pay Now
+                    <button className=" text-[9.9px] md:text-xs font-medium text-white bg-primary p-1 px-2 rounded-md">
+                      <Link to={"paymentmethod"}>Pay Now</Link>
                     </button>
                     <IoMdCheckmarkCircle className="my-auto text-[#A4A4A4]  size-5 lg:size-6" />
                   </div>
@@ -160,8 +159,8 @@ const LeanerDashboard = () => {
                     Group 4
                   </p>
                   <div className="flex  justify-end space-x-4">
-                    <button className=" text-[9.9px] md:text-xs font-medium text-white bg-primary p-1 rounded-sm">
-                      Pay Now
+                    <button className=" text-[9.9px] md:text-xs font-medium text-white bg-primary p-1 px-2 rounded-md">
+                      <Link to={"paymentmethod"}>Pay Now</Link>
                     </button>
                     <IoMdCheckmarkCircle className="my-auto text-[#A4A4A4]  size-5 lg:size-6" />
                   </div>
@@ -199,8 +198,8 @@ const LeanerDashboard = () => {
                     Group 4+
                   </p>
                   <div className="flex  justify-end space-x-4">
-                    <button className=" text-[9.9px] md:text-xs font-medium text-white bg-primary p-1 rounded-sm">
-                      Pay Now
+                    <button className=" text-[9.9px] md:text-xs px-2 rounded-md font-medium text-white bg-primary p-1 ">
+                      <Link to={"paymentmethod"}>Pay Now</Link>
                     </button>
                     <IoMdCheckmarkCircle className="my-auto text-[#A4A4A4]  size-5 lg:size-6" />
                   </div>
