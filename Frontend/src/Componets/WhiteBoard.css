@@ -5,6 +5,9 @@
     margin-top: -40px;
 }
 
+.mobileHamBudger {
+    display: none;
+}
 .whiteboard .shareButton {
     padding: 15px 25px; /* Overwrites the initial padding */
     background-color: #ff8000;
@@ -36,6 +39,18 @@
     }
 
     .controlsUniqueContainer--right {
+        position: absolute;
+        top: 40px;
+        right: 25px;
+        display: flex;
+        flex-direction: column;
+    }
+    .controlsUniqueContainer--right button {
+        margin-top: 4px;
+    }
+
+    .mobileHamBudger {
+        display: block;
     }
   }
   
