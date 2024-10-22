@@ -38,8 +38,16 @@
         flex-direction: row;
     }
 
-    /* .controlsUniqueContainer--right {
-    } */
+    .controlsUniqueContainer--right {
+        position: absolute;
+        top: 40px;
+        right: 25px;
+        display: flex;
+        flex-direction: column;
+    }
+    .controlsUniqueContainer--right button {
+        margin-top: 4px;
+    }
 
     .mobileHamBudger {
         display: block;
