@@ -255,7 +255,7 @@ const WhiteBoard = () => {
   };
 
   const toggleHamBurger = () => {
-    console.log('good', isButtonControllerVisible);
+    console.log('good');
     setButtonControllerVisible(!isButtonControllerVisible);
   }
 
@@ -298,7 +298,7 @@ const WhiteBoard = () => {
           gridModeEnabled={gridMode}
           renderTopRightUI={() => (
             <div className="controlsUniqueContainer">
-              <button className="mobileHamBudger" onClick={toggleHamBurger} onTouchStart={toggleHamBurger} style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: '10px' }}>
+              <button className="mobileHamBudger" onClick={toggleHamBurger} style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: '10px' }}>
                 <FaBars style={{ fontSize: '24px' }} />
               </button>
               {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
@@ -307,8 +307,7 @@ const WhiteBoard = () => {
                         <button onClick={handleRedo} style={{ padding: "8px", margin: "0 4px" }}>
                             <FaRedo />
                         </button> */}
-              {
-                isButtonControllerVisible && <div className="controlsUniqueContainer--right">
+            <div className={`'controlsUniqueContainer--right' ${isButtonControllerVisible ? 'visible' : 'hidden'}`}>
                 <button
                   onClick={toggleFullscreen}
                   style={{
@@ -343,7 +342,7 @@ const WhiteBoard = () => {
                   Full Video
                 </button>
               </div> 
-              }
+              
               <button
                 className="shareButton"
                 onClick={isSharingScreen ? stopScreenShare : startScreenShare}
