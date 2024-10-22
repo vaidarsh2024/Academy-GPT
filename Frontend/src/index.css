@@ -126,7 +126,7 @@ Excalidraw styling overrides
   stroke: #f0f0f0; /* A lighter white color */
 }
 
-@media screen and (max-width: 956px) and (min-height: 440px) and (orientation: landscape) {
+@media screen and (max-width: 900px) and (min-height: 430px) {
   .excalidraw .ToolIcon .ToolIcon_type_radio:checked + .ToolIcon__icon,
   .excalidraw .ToolIcon .ToolIcon_type_checkbox:checked + .ToolIcon__icon {
     background-color: #ff8000 !important;
@@ -140,11 +140,6 @@ Excalidraw styling overrides
   .ToolIcon__icon:focus {
     background-color: #ff8000 !important;
   }
-
-  /* .excalidraw .App-top-bar {
-    background-color: #e9e7e8;
-    padding: 10px;
-  } */
 
   .excalidraw .Island {
     background-color: transparent !important;
@@ -161,7 +156,6 @@ Excalidraw styling overrides
   .excalidraw .App-menu_top {
     grid-template-columns: 0fr 1fr 1fr !important;
   }
-  /* .excalidraw .App-menu_top */
 
   .excalidraw--mobile {
     background-color: #e9e7e8 !important;
@@ -175,13 +169,85 @@ Excalidraw styling overrides
     display: none !important;
   }
 
-  /* Target the zoom-out button SVG */
-.zoom-out-button .ToolIcon__icon svg {
-  stroke: white;
+.excalidraw .App-toolbar-content {
+  justify-content: left ;
 }
 
-/* Target the zoom-in button SVG */
-.zoom-in-button .ToolIcon__icon svg {
+.excalidraw .App-toolbar-content svg {
   stroke: white;
 }
+}
+
+/* Target tablets in both portrait and landscape orientation */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .whiteboard {
+    margin-top: -100px;
+  }
+  .mobileNav {
+    display: none !important;
+  }
+  .whiteboard .shareButton {
+    bottom: auto;
+  }
+  .excalidraw--mobile {
+    background-color: #e9e7e8 !important;
+  }
+  .excalidraw .App-toolbar-content svg {
+    stroke: white;
+  }
+  .controlsUniqueContainer--right {
+    display: none;
+  }
+  .color-toolbar {
+    margin-top: 10px;
+  }
+  .mobileHamBudger {
+    margin-top: 10px;
+    display: block;
+  }
+  .excalidraw .App-toolbar-content {
+    justify-content: unset;
+  }
+  .excalidraw .App-toolbar {
+    margin-left: 0px;
+  }
+}
+
+/* Target mobile devices in landscape orientation */
+@media (min-width: 480px) and (max-width: 767px) and (orientation: landscape) {
+  .mobileNav {
+    display: none !important;
+  }
+  .whiteboard .shareButton {
+    bottom: auto;
+  }
+  .excalidraw--mobile {
+    background-color: #e9e7e8 !important;
+  }
+  .excalidraw .App-toolbar-content svg {
+    stroke: white;
+  }
+  .controlsUniqueContainer--right {
+    display: none;
+  }
+  .color-toolbar {
+    margin-top: 10px;
+  }
+  .mobileHamBudger {
+    display: block;
+  }
+  .excalidraw .App-toolbar-content {
+    justify-content: unset;
+  }
+  .excalidraw .App-toolbar {
+    margin-left: 0px;
+  }
+}
+
+.visible {
+  display: flex;
+}
+
+.hidden {
+  display: none;
 }
