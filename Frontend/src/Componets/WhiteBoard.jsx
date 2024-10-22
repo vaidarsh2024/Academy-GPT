@@ -34,10 +34,7 @@ const WhiteBoard = () => {
     excalidrawAPI.updateScene({ appState: { openSidebar: "library" } });
   }, [excalidrawAPI]);
 
-  const toggleDrawer = () =>{
-    console.log('goood collapse');
-    setCollapsed(!collapsed);
-  }
+  const toggleDrawer = () => setCollapsed(!collapsed);
 
   const handleUndo = () => {
     console.log(excalidrawAPI);
