@@ -126,7 +126,7 @@ Excalidraw styling overrides
   stroke: #f0f0f0; /* A lighter white color */
 }
 
-@media screen and (max-width: 956px) and (min-height: 440px) and (orientation: landscape) {
+@media screen and (max-width: 900px) and (min-height: 430px) {
   .excalidraw .ToolIcon .ToolIcon_type_radio:checked + .ToolIcon__icon,
   .excalidraw .ToolIcon .ToolIcon_type_checkbox:checked + .ToolIcon__icon {
     background-color: #ff8000 !important;
@@ -170,7 +170,7 @@ Excalidraw styling overrides
   }
 
 .excalidraw .App-toolbar-content {
-  justify-content: left !important;
+  justify-content: left ;
 }
 
 .excalidraw .App-toolbar-content svg {
@@ -208,6 +208,9 @@ Excalidraw styling overrides
   .excalidraw .App-toolbar-content {
     justify-content: unset;
   }
+  .excalidraw .App-toolbar {
+    margin-left: 0px;
+  }
 }
 
 /* Target mobile devices in landscape orientation */
@@ -235,6 +238,9 @@ Excalidraw styling overrides
   }
   .excalidraw .App-toolbar-content {
     justify-content: unset;
+  }
+  .excalidraw .App-toolbar {
+    margin-left: 0px;
   }
 }
 
