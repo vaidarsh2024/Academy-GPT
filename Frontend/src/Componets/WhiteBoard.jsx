@@ -24,7 +24,7 @@ const WhiteBoard = () => {
   const [speechToText, setSpeechToText] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
-  const [isButtonControllerVisible, setButtonControllerVisible] = useState(true);
+  const [collapsed, setCollapsed] = useState(true);
 
   useEffect(() => {
     if (!excalidrawAPI) {
@@ -33,6 +33,11 @@ const WhiteBoard = () => {
     // to open the library sidebar
     excalidrawAPI.updateScene({ appState: { openSidebar: "library" } });
   }, [excalidrawAPI]);
+
+  const toggleDrawer = () =>{
+    console.log('goood collapse');
+    setCollapsed(!collapsed);
+  }
 
   const handleUndo = () => {
     console.log(excalidrawAPI);
@@ -254,11 +259,6 @@ const WhiteBoard = () => {
     return;
   };
 
-  const toggleHamBurger = () => {
-    console.log('good');
-    setButtonControllerVisible(!isButtonControllerVisible);
-  }
-
   return (
     <>
       <div
@@ -298,7 +298,7 @@ const WhiteBoard = () => {
           gridModeEnabled={gridMode}
           renderTopRightUI={() => (
             <div className="controlsUniqueContainer">
-              <button className="mobileHamBudger" onClick={toggleHamBurger} style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: '10px' }}>
+              <button className="mobileHamBudger" onClick={toggleDrawer} style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: '10px' }}>
                 <FaBars style={{ fontSize: '24px' }} />
               </button>
               {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
@@ -307,7 +307,7 @@ const WhiteBoard = () => {
                         <button onClick={handleRedo} style={{ padding: "8px", margin: "0 4px" }}>
                             <FaRedo />
                         </button> */}
-            <div className={`'controlsUniqueContainer--right' ${isButtonControllerVisible ? 'visible' : 'hidden'}`}>
+            <div className={`controlsUniqueContainer--right ${collapsed ? 'visible' : 'hidden'}`}>
                 <button
                   onClick={toggleFullscreen}
                   style={{

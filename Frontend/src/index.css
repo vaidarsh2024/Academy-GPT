@@ -205,6 +205,9 @@ Excalidraw styling overrides
     margin-top: 10px;
     display: block;
   }
+  .excalidraw .App-toolbar-content {
+    justify-content: unset;
+  }
 }
 
 /* Target mobile devices in landscape orientation */
@@ -230,10 +233,13 @@ Excalidraw styling overrides
   .mobileHamBudger {
     display: block;
   }
+  .excalidraw .App-toolbar-content {
+    justify-content: unset;
+  }
 }
 
 .visible {
-  display: block;
+  display: flex;
 }
 
 .hidden {
