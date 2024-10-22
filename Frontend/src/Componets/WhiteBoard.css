@@ -5,6 +5,9 @@
     margin-top: -40px;
 }
 
+.mobileHamBudger {
+    display: none;
+}
 .whiteboard .shareButton {
     padding: 15px 25px; /* Overwrites the initial padding */
     background-color: #ff8000;
@@ -35,7 +38,11 @@
         flex-direction: row;
     }
 
-    .controlsUniqueContainer--right {
+    /* .controlsUniqueContainer--right {
+    } */
+
+    .mobileHamBudger {
+        display: block;
     }
   }
   
