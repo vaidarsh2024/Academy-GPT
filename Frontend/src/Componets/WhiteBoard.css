@@ -17,6 +17,10 @@
 }
 
 @media screen and (max-width: 956px) and (min-height: 440px) and (orientation: landscape) {
+    .excalidraw .App-toolbar {
+        margin-left: 0px;
+    }
+
     .whiteboard {
         margin-top: -25px;
 
@@ -32,7 +36,6 @@
     }
 
     .controlsUniqueContainer--right {
-        display: none;
     }
   }
   

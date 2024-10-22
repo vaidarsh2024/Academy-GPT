@@ -141,10 +141,10 @@ Excalidraw styling overrides
     background-color: #ff8000 !important;
   }
 
-  .excalidraw .App-menu_top {
+  /* .excalidraw .App-top-bar {
     background-color: #e9e7e8;
     padding: 10px;
-  }
+  } */
 
   .excalidraw .Island {
     background-color: transparent !important;
@@ -158,4 +158,30 @@ Excalidraw styling overrides
   .excalidraw .App-toolbar {
     margin-left: 8rem;
   }
+  .excalidraw .App-menu_top {
+    grid-template-columns: 0fr 1fr 1fr !important;
+  }
+  /* .excalidraw .App-menu_top */
+
+  .excalidraw--mobile {
+    background-color: #e9e7e8 !important;
+  }
+
+  .whiteboard {
+    margin-top: -60px;
+  }
+
+  .mobileNav {
+    display: none !important;
+  }
+
+  /* Target the zoom-out button SVG */
+.zoom-out-button .ToolIcon__icon svg {
+  stroke: white;
+}
+
+/* Target the zoom-in button SVG */
+.zoom-in-button .ToolIcon__icon svg {
+  stroke: white;
+}
 }

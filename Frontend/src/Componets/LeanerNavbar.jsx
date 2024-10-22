@@ -89,7 +89,7 @@ const LeanerNavbar = () => {
       </aside>
 
       {/* Drawer for mobile/tablet */}
-      <div className="lg:hidden fixed top-6 px-5 left-0 w-full z-50 bg-black text-white flex items-center justify-between p-2">
+      <div className="mobileNav lg:hidden fixed top-6 px-5 left-0 w-full z-50 bg-black text-white flex items-center justify-between p-2">
         <div className="items-center">
           <img src={logo} alt="Logo" className="w-24 md:w-28 h-8" />
         </div>

@@ -1,8 +1,9 @@
 import { FaSquareFull } from "react-icons/fa";
+import './ColorToolBar.css';
 
 export const ColorToolBar = ({onChangeBackground}) => {
     return <>
-        <div style={{backgroundColor: '#27292C', padding: '8px', height: 'min-content', display: 'flex', flexDirection: 'column', marginTop: '16px'}}>
+        <div className="color-toolbar">
         <FaSquareFull 
                 onClick={() => onChangeBackground("#ffffff")} 
                 style={{ color: "#ffffff", background: '#ffffff', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", padding: '15px', borderRadius: '5px' }} 
