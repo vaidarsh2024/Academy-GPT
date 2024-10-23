@@ -125,6 +125,9 @@ Excalidraw styling overrides
 .zoom-in-button:hover .ToolIcon__icon svg {
   stroke: #f0f0f0; /* A lighter white color */
 }
+.mobileNav {
+  display: none !important;
+}
 
 @media screen and (max-width: 900px) and (min-height: 430px) {
   .excalidraw .ToolIcon .ToolIcon_type_radio:checked + .ToolIcon__icon,
