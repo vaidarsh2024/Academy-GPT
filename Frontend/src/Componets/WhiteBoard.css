@@ -1,7 +1,6 @@
 .whiteboard {
     display: flex;
     flex-direction: row;
-    padding: 5px;
     margin-top: -20px;
 }
 
@@ -32,46 +31,12 @@
     margin-top: 10rem;
     margin-left: 2rem;   
 }
-@media screen and (max-width: 956px) and (min-height: 440px) and (orientation: landscape) {
-    .excalidraw .App-toolbar {
-        margin-left: 0px;
-    }
-
-    .whiteboard {
-        margin-top: -25px;
-
-    }
-    .whiteboard  .shareButton {
-        position: absolute;
-        bottom: auto;
-    }
-
-    .controlsUniqueContainer {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .controlsUniqueContainer--right {
-        position: absolute;
-        top: 40px;
-        right: 25px;
-        display: flex;
-        flex-direction: column;
-    }
-    .controlsUniqueContainer--right button {
-        margin-top: 4px;
-    }
-
-    .mobileHamBudger {
-        display: block;
-    }
-  }
 
   @media (min-width: 768px) and (max-width: 1024px) {
     .controlsUniqueContainer--right {
         position: absolute;
         top: 40px;
-        right: 25px;
+        right: 95px;
         display: flex;
         flex-direction: column;
     }

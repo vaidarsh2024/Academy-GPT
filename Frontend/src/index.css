@@ -146,61 +146,6 @@ Excalidraw styling overrides
   margin-left: 2rem;
 }
 
-@media screen and (max-width: 900px) and (min-height: 430px) {
-  .excalidraw .ToolIcon .ToolIcon_type_radio:checked + .ToolIcon__icon,
-  .excalidraw .ToolIcon .ToolIcon_type_checkbox:checked + .ToolIcon__icon {
-    background-color: #ff8000 !important;
-  }
-  .excalidraw .layer-ui__wrapper .layer-ui__wrapper__footer-right {
-    display: none !important;
-  }
-  .ToolIcon__icon:hover {
-    background-color: #ff8000 !important;
-  }
-  .ToolIcon__icon:focus {
-    background-color: #ff8000 !important;
-  }
-
-  .excalidraw .Island {
-    background-color: transparent !important;
-    box-shadow: none !important;
-  }
-
-  .excalidraw .ToolIcon {
-    border-left: 1px solid #d2d0d0 !important;
-    border-radius: unset !important;
-  }
-  .excalidraw .App-toolbar {
-    margin-left: 8rem;
-  }
-  .excalidraw .App-menu_top {
-    grid-template-columns: 0fr 1fr 1fr !important;
-  }
-
-  .excalidraw--mobile {
-    background-color: #e9e7e8 !important;
-  }
-
-  .whiteboard {
-    margin-top: -60px;
-  }
-
-  .mobileNav {
-    display: none !important;
-  }
-
-.excalidraw .App-toolbar-content {
-  justify-content: left ;
-}
-
-.excalidraw .App-toolbar-content svg {
-  stroke: white;
-}
-.undo-redo-buttons {
-  display: none !important;
-} 
-}
-
 /* Target tablets in both portrait and landscape orientation */
 @media (min-width: 768px) and (max-width: 1024px) {
   .whiteboard {
@@ -229,7 +174,7 @@ Excalidraw styling overrides
     margin-left: 0px;
   }
   .colorBarContainer {
-    margin-top: 0rem;
+    margin-top: 5px;
     margin-left: 0rem;
   }
   .excalidraw .welcome-screen-center {
@@ -238,6 +183,9 @@ Excalidraw styling overrides
   .undo-redo-buttons {
     display: none !important;
   } 
+  .App-toolbar--mobile {
+    margin-left: 0px !important;
+  }
 }
 
 /* Target mobile devices in landscape orientation */
