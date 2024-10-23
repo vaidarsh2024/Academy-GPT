@@ -9,12 +9,12 @@ import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
 import AudioTranscriber from "./audioTranscriber";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaUndo, FaRedo } from "react-icons/fa";
 import "./WhiteBoard.css";
 import JoinMeetingModal from "./JoinMeetingModal";
 import MiniMeetingModal from "./MiniMeetingModal";
 import "./WhiteBoard.css";
-import pencil from '../assets/Image/pencil.svg'; 
+import pencil from "../assets/Image/pencil.svg";
 
 const WhiteBoard = () => {
   const containerRef = useRef(null);
@@ -29,11 +29,15 @@ const WhiteBoard = () => {
   const [miniModalIsOpen, setMiniModalIsOpen] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
   const [collapsed, setCollapsed] = useState(true);
-
+  const [elements, setElements] = useState([]);
+  const [history, setHistory] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(-1);
+  const [appState, setAppState] = useState({});
   useEffect(() => {
     if (!excalidrawAPI) {
       return;
     }
+    console.log({ excalidrawAPI });
     // to open the library sidebar
     excalidrawAPI.updateScene({ appState: { openSidebar: "library" } });
   }, [excalidrawAPI]);
@@ -41,15 +45,24 @@ const WhiteBoard = () => {
   const toggleDrawer = () => setCollapsed(!collapsed);
 
   const handleUndo = () => {
-    console.log(excalidrawAPI);
-    if (excalidrawAPI.history) {
-      excalidrawAPI.history.clear();
+    if (currentIndex > 0) {
+      const prevIndex = currentIndex - 1;
+      setElements(history[prevIndex]);
+      setCurrentIndex(prevIndex);
+      excalidrawAPI.updateScene({
+        elements: [...history[prevIndex]],
+      });
     }
   };
 
   const handleRedo = () => {
-    if (excalidrawAPI.history) {
-      excalidrawAPI.history.clear();
+    if (currentIndex < history.length - 1) {
+      const nextIndex = currentIndex + 1;
+      setElements(history[nextIndex]);
+      setCurrentIndex(nextIndex);
+      excalidrawAPI.updateScene({
+        elements: [...history[nextIndex]],
+      });
     }
   };
 
@@ -268,6 +281,27 @@ const WhiteBoard = () => {
     setMiniModalIsOpen(false);
     return;
   };
+
+  const handleChange = (newElements, appState) => {
+    // Only update if the new elements are different from the current ones
+    if (JSON.stringify(newElements) !== JSON.stringify(elements)) {
+      setAppState(appState);
+      setElements(newElements);
+      updateHistory(newElements);
+    }
+  };
+
+  const updateHistory = (newElements) => {
+    // If we're not at the latest history index, remove future states
+    if (currentIndex < history.length - 1) {
+      setHistory(history.slice(0, currentIndex + 1));
+    }
+
+    // Add the new state to history
+    setHistory([...history, newElements]);
+    setCurrentIndex(currentIndex + 1); // Move to the new latest index
+  };
+
   return (
     <>
       <div
@@ -275,9 +309,7 @@ const WhiteBoard = () => {
         ref={containerRef}
         style={{ height: "100vh", width: "100%" }}
       >
-        <div
-        className="colorBarContainer"
-        >
+        <div className="colorBarContainer">
           <ColorToolBar onChangeBackground={handleBackgroundColor} />
           <TextFormatToolBar
             onBold={handleBold}
@@ -306,6 +338,8 @@ const WhiteBoard = () => {
         <Excalidraw
           excalidrawAPI={(api) => setExcalidrawAPI(api)}
           gridModeEnabled={gridMode}
+          initialData={{ Element, appState }}
+          onChange={handleChange}
           renderTopRightUI={() => (
             <div className="controlsUniqueContainer">
               <button
@@ -320,12 +354,18 @@ const WhiteBoard = () => {
               >
                 <FaBars style={{ fontSize: "24px" }} />
               </button>
-              {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
-                            <FaUndo />
-                        </button>
-                        <button onClick={handleRedo} style={{ padding: "8px", margin: "0 4px" }}>
-                            <FaRedo />
-                        </button> */}
+              <button
+                onClick={handleUndo}
+                style={{ padding: "8px", margin: "0 4px" }}
+              >
+                <FaUndo />
+              </button>
+              <button
+                onClick={handleRedo}
+                style={{ padding: "8px", margin: "0 4px" }}
+              >
+                <FaRedo />
+              </button>
               <div
                 className={`controlsUniqueContainer--right ${
                   collapsed ? "visible" : "hidden"
@@ -379,10 +419,18 @@ const WhiteBoard = () => {
           <WelcomeScreen>
             <WelcomeScreen.Center>
               <WelcomeScreen.Center.Heading>
-              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <img src={pencil} />
-                <p style={{marginTop: '1rem'}}>Click AnyWhere To Start Drawing</p>
-              </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <img src={pencil} />
+                  <p style={{ marginTop: "1rem" }}>
+                    Click AnyWhere To Start Drawing
+                  </p>
+                </div>
                 <div
                   style={{ color: "#000", position: "absolute", bottom: "0px" }}
                 >
