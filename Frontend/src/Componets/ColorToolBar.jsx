@@ -1,4 +1,5 @@
 import { FaSquareFull } from "react-icons/fa";
+import rectangleColorPatch from '../assets/Image/colorrectangle.svg';
 import './ColorToolBar.css';
 
 export const ColorToolBar = ({onChangeBackground}) => {
@@ -19,20 +20,12 @@ export const ColorToolBar = ({onChangeBackground}) => {
 
 
             {/* Grid Icon */}
-            <FaSquareFull 
-                onClick={() => onChangeBackground("grid")}
+            <img src={rectangleColorPatch} onClick={() => onChangeBackground("grid")}
                 style={{ 
-                    color: "#555",  // Set the color to gray or any other indicator for the grid mode
-                    background: "repeating-linear-gradient(45deg, #ccc, #ccc 10px, #eee 10px, #eee 20px)", // Represents a grid pattern
-                    border: "1px solid #fff", 
-                    cursor: "pointer", 
-                    fontSize: "32px", 
                     marginTop: "10px", 
-                    padding: '10px',
                     borderRadius: '5px'
                 }} 
-                title="Grid Background"
-            />
+                title="Grid Background"/>
         </div>
     </>
 }
