@@ -40,6 +40,9 @@
   height: 180px !important;
   max-width: max-content !important;
 }
+#sessionMiniContainer .controlskit {
+  display: none !important;
+}
 .user-view {
   display: none !important;
 }
