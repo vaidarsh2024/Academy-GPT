@@ -354,18 +354,20 @@ const WhiteBoard = () => {
               >
                 <FaBars style={{ fontSize: "24px" }} />
               </button>
-              <button
-                onClick={handleUndo}
-                style={{ padding: "8px", margin: "0 4px" }}
-              >
-                <FaUndo />
-              </button>
-              <button
-                onClick={handleRedo}
-                style={{ padding: "8px", margin: "0 4px" }}
-              >
-                <FaRedo />
-              </button>
+              <div className="undoRedo">
+                <button
+                  onClick={handleUndo}
+                  style={{ padding: "8px", margin: "0 4px" }}
+                >
+                  <FaUndo />
+                </button>
+                <button
+                  onClick={handleRedo}
+                  style={{ padding: "8px", margin: "0 4px" }}
+                >
+                  <FaRedo />
+                </button>
+              </div>
               <div
                 className={`controlsUniqueContainer--right ${
                   collapsed ? "visible" : "hidden"
