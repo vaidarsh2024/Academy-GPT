@@ -1,4 +1,7 @@
-import React, { useRef, useState } from 'react';
+import  { useRef, useState } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMicrophone, faStop } from "@fortawesome/free-solid-svg-icons";
+
 
 const AudioRecorder = () => {
     const [recording, setRecording] = useState(false);
@@ -7,7 +10,9 @@ const AudioRecorder = () => {
     const wsRef = useRef(null);
 
     const getWebSocketUrl = async () => {
-        const response = await fetch('http://localhost:3001/get-websocket-url');
+        const response = await fetch(
+          "https://academy-gpt-1.onrender.com/get-websocket-url"
+        );
         if (!response.ok) {
             throw new Error('Failed to fetch WebSocket URL');
         }

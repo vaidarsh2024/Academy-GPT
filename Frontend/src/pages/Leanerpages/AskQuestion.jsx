@@ -1,4 +1,4 @@
-import { useState, useRef} from "react";
+import { useState, useRef } from "react";
 import { MdAttachFile } from "react-icons/md";
 import { PiCameraLight } from "react-icons/pi";
 import { LuSendHorizonal } from "react-icons/lu";
@@ -11,10 +11,9 @@ const AskQuestion = () => {
   const [inputText, setInputText] = useState("");
   const [file, setFile] = useState(null);
   const [cameraMode, setCameraMode] = useState(false);
-  const [aiAnswer, setAiAnswer] = useState("");
-  const [userQuestion, setUserQuestion] = useState("");
   const [pastQA, setPastQA] = useState([]);
   const [preferredAnswer, setPreferredAnswer] = useState(""); // For handling different input types
+  const [capturedImage, setCapturedImage] = useState(""); // State to hold captured image
 
   const chatEndRef = useRef(null); // Reference to the end of the chat
   const webcamRef = useRef(null);
@@ -26,6 +25,7 @@ const AskQuestion = () => {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
+    setInputText(selectedFile.name); // Set the input text to the file name
   };
 
   const handleSend = async () => {
@@ -34,28 +34,27 @@ const AskQuestion = () => {
     // Determine what the full question is based on inputs
     let fullQuestion = "";
     if (subject || description) {
-      fullQuestion = `Subject: ${subject}\nDescription: ${description}`;
-    } else if (inputText) {
-      fullQuestion = `Question: ${inputText}`;
+      fullQuestion = `Subject: ${subject}\nDescription: ${description}\n`;
     }
-
-    // Set the question in UI
-    setUserQuestion(fullQuestion);
+    if (inputText) {
+      fullQuestion += `Question: ${inputText}`;
+    }
 
     // Append necessary data to formData
     formData.append("question", fullQuestion);
     if (file) {
       formData.append("file", file); // Image/Audio/Video file
     }
+    if (capturedImage) {
+      // If an image was captured, append it as well
+      formData.append("capturedImage", capturedImage);
+    }
 
     try {
       const response = await axios.post(
-        "https://your-backend-api/chat",
-        formData,
+        "https://academy-gpt.onrender.com/chat",
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          prompt: fullQuestion,
         }
       );
 
@@ -67,17 +66,17 @@ const AskQuestion = () => {
       // Clear the input
       setInputText("");
       setFile(null);
+      setCapturedImage(""); // Reset captured image state
     } catch (error) {
       console.error("Error fetching AI response:", error);
-      setAiAnswer("Error fetching AI response.");
     }
   };
 
   const handleCaptureImage = () => {
     const imageSrc = webcamRef.current.getScreenshot();
-    setCameraMode(false);
-    // Handle captured image
-    // Optionally upload or use the captured image in formData
+    setCapturedImage(imageSrc); // Set captured image to state
+    setCameraMode(false); // Close the camera mode
+    setInputText("Captured Image"); // Set input text as "Captured Image"
   };
 
   return (
@@ -106,26 +105,8 @@ const AskQuestion = () => {
             />
           </div>
 
-          {/* File Upload (Image/Audio) */}
-          <div className="flex space-x-4">
-            <label htmlFor="fileInput">
-              <MdAttachFile className="text-xl md:text-2xl lg:text-3xl cursor-pointer" />
-            </label>
-            <input
-              id="fileInput"
-              type="file"
-              onChange={handleFileChange}
-              className="hidden"
-            />
-
-            <PiCameraLight
-              className="text-xl md:text-2xl lg:text-3xl cursor-pointer"
-              onClick={() => setCameraMode(true)}
-            />
-          </div>
-
           {/* Past Questions and Answers */}
-          <div className="overflow-y-auto row-span-3 max-h-64 p-2 border-2 rounded-md">
+          <div className="overflow-y-auto row-span-4 h-full p-2 border-2 rounded-md">
             {pastQA.map((qa, index) => (
               <div key={index} className="mb-4">
                 <h3 className="font-semibold text-lg">Your Question:</h3>
@@ -137,11 +118,27 @@ const AskQuestion = () => {
             <div ref={chatEndRef} />
           </div>
 
+          {cameraMode && (
+            <div className=" justify-center mt-4">
+              <Webcam
+                audio={false}
+                ref={webcamRef}
+                screenshotFormat="image/jpeg"
+              />
+              <button
+                className="bg-black text-white p-2 rounded-lg"
+                onClick={handleCaptureImage}>
+                Capture Image
+              </button>
+            </div>
+          )}
 
-           {/* Bottom Input Section with Icons */}
+          {/* Bottom Input Section with Icons */}
           <div className="row-span-1 mt-2 w-full">
             <div className="flex items-center space-x-5 px-2 pb-2">
-              <p className="text-lg lg:text-xl xl:text-2xl font-semibold">Preferred Answer</p>
+              <p className="text-lg lg:text-xl xl:text-2xl font-semibold">
+                Preferred Answer
+              </p>
               <div className="flex space-x-5 my-auto">
                 <div className="flex items-center space-x-2">
                   <input
@@ -170,41 +167,43 @@ const AskQuestion = () => {
               </div>
             </div>
 
+            <div className="flex justify-between p-2 border-2 mx-3 rounded-full items-center">
+              <div className="flex space-x-4">
+                <label htmlFor="fileInput">
+                  <MdAttachFile className="text-xl md:text-2xl lg:text-3xl cursor-pointer" />
+                </label>
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*" // Ensures that only images are accepted
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
 
-          {/* Input and Send Button */}
-          <div className="flex justify-between p-2 border-2 mx-3 rounded-full items-center">
-            <input
-              className="w-full mx-3 py-2 rounded-3xl pl-4 focus:outline-none"
-              type="text"
-              name="text"
-              id="text"
-              placeholder="Ask your question..."
-              value={inputText}
-              onChange={handleInputChange}
-            />
-            <div className="bg-primary text-white rounded-3xl p-2 cursor-pointer">
-              <LuSendHorizonal
-                className="text-xl md:text-2xl lg:text-3xl"
-                onClick={handleSend}
-              />
-            </div>
-          </div>
+                <PiCameraLight
+                  className="text-xl md:text-2xl lg:text-3xl cursor-pointer"
+                  onClick={() => setCameraMode(true)}
+                />
+              </div>
 
-          {/* Webcam Capture */}
-          {cameraMode && (
-            <div className="flex justify-center mt-4">
-              <Webcam
-                audio={false}
-                ref={webcamRef}
-                screenshotFormat="image/jpeg"
+              <input
+                className="w-full mx-3 py-2 rounded-3xl pl-4 focus:outline-none"
+                type="text"
+                name="text"
+                id="text"
+                placeholder="Ask your question..."
+                value={inputText}
+                onChange={handleInputChange}
               />
-              <button
-                className="bg-primary text-white p-2 rounded-lg"
-                onClick={handleCaptureImage}>
-                Capture Image
-              </button>
+              <div className="bg-primary text-white rounded-3xl p-2 cursor-pointer">
+                <LuSendHorizonal
+                  className="text-xl md:text-2xl lg:text-3xl"
+                  onClick={handleSend}
+                />
+              </div>
             </div>
-          )}
+
+            {/* Webcam Capture */}
           </div>
         </div>
       </form>
