@@ -38,6 +38,7 @@ const MiniMeetingModal = ({ modalIsOpen, handleModal, size }) => {
             justifyItems: "center",
             fontSize: "26px",
           }}
+          className="rounded-t-[15px]"
         >
           <h3>Your Video is Abled</h3>
         </div>
