@@ -60,7 +60,8 @@ Excalidraw styling overrides
 
 .excalidraw .App-menu_top {
   background-color: #e9e7e8;
-  padding: 10px;
+  margin-top: 5px;
+  padding: 5px;
 }
 
 .excalidraw .Island {
@@ -152,6 +153,8 @@ Excalidraw styling overrides
     margin-top: -5px;
   }
   .whiteboard .shareButton {
+    left: -15px;
+    top: -10px;
     bottom: auto;
   }
   .excalidraw--mobile {
@@ -185,6 +188,9 @@ Excalidraw styling overrides
   } 
   .App-toolbar--mobile {
     margin-left: 0px !important;
+  }
+  .excalidraw .App-toolbar-content {
+    display: none !important;
   }
 }
 
