@@ -10,7 +10,10 @@
   width: 773px !important;
   height: 688px !important;
   padding: 15px !important;
-
+  margin: auto !important;
+  /* margin-top: 3%; */
+  z-index: 90 !important;
+  background-color: white;
   top: -70px !important;
 }
 .flexible-modal-drag-area {
@@ -31,6 +34,13 @@
 }
 .flexible-modal-drag-area-left {
   display: none !important;
+}
+
+html .mat-mdc-fab.mat-primary {
+  --mdc-fab-container-color: orange;
+  --mat-fab-foreground-color: white;
+  --mat-fab-state-layer-color: white;
+  --mat-fab-ripple-color: rgba(255, 255, 255, 0.1);
 }
 /**
 Excalidraw styling overrides
@@ -169,13 +179,13 @@ Excalidraw styling overrides
     display: none !important;
   }
 
-.excalidraw .App-toolbar-content {
-  justify-content: left ;
-}
+  .excalidraw .App-toolbar-content {
+    justify-content: left;
+  }
 
-.excalidraw .App-toolbar-content svg {
-  stroke: white;
-}
+  .excalidraw .App-toolbar-content svg {
+    stroke: white;
+  }
 }
 
 /* Target tablets in both portrait and landscape orientation */
