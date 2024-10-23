@@ -9,6 +9,7 @@ import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
 import AudioTranscriber from "./audioTranscriber";
+import { FaBars } from 'react-icons/fa';
 import "./WhiteBoard.css";
 import JoinMeetingModal from "./JoinMeetingModal";
 
@@ -23,6 +24,7 @@ const WhiteBoard = () => {
   const [speechToText, setSpeechToText] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+  const [collapsed, setCollapsed] = useState(true);
 
   useEffect(() => {
     if (!excalidrawAPI) {
@@ -31,6 +33,8 @@ const WhiteBoard = () => {
     // to open the library sidebar
     excalidrawAPI.updateScene({ appState: { openSidebar: "library" } });
   }, [excalidrawAPI]);
+
+  const toggleDrawer = () => setCollapsed(!collapsed);
 
   const handleUndo = () => {
     console.log(excalidrawAPI);
@@ -291,13 +295,16 @@ const WhiteBoard = () => {
           gridModeEnabled={gridMode}
           renderTopRightUI={() => (
             <div className="controlsUniqueContainer">
+              <button className="mobileHamBudger" onClick={toggleDrawer} style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: '10px' }}>
+                <FaBars style={{ fontSize: '24px' }} />
+              </button>
               {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
                             <FaUndo />
                         </button>
                         <button onClick={handleRedo} style={{ padding: "8px", margin: "0 4px" }}>
                             <FaRedo />
                         </button> */}
-              <div className="controlsUniqueContainer--right">
+            <div className={`controlsUniqueContainer--right ${collapsed ? 'visible' : 'hidden'}`}>
                 <button
                   onClick={toggleFullscreen}
                   style={{
@@ -331,7 +338,8 @@ const WhiteBoard = () => {
                 >
                   Full Video
                 </button>
-              </div>
+              </div> 
+              
               <button
                 className="shareButton"
                 onClick={isSharingScreen ? stopScreenShare : startScreenShare}

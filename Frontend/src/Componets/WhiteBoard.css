@@ -5,6 +5,9 @@
     margin-top: -40px;
 }
 
+.mobileHamBudger {
+    display: none;
+}
 .whiteboard .shareButton {
     padding: 15px 25px; /* Overwrites the initial padding */
     background-color: #ff8000;
@@ -17,6 +20,10 @@
 }
 
 @media screen and (max-width: 956px) and (min-height: 440px) and (orientation: landscape) {
+    .excalidraw .App-toolbar {
+        margin-left: 0px;
+    }
+
     .whiteboard {
         margin-top: -25px;
 
@@ -32,7 +39,44 @@
     }
 
     .controlsUniqueContainer--right {
-        display: none;
+        position: absolute;
+        top: 40px;
+        right: 25px;
+        display: flex;
+        flex-direction: column;
+    }
+    .controlsUniqueContainer--right button {
+        margin-top: 4px;
+    }
+
+    .mobileHamBudger {
+        display: block;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .controlsUniqueContainer--right {
+        position: absolute;
+        top: 40px;
+        right: 25px;
+        display: flex;
+        flex-direction: column;
+    }
+    .controlsUniqueContainer--right button {
+        margin-top: 4px;
+    }
+  }
+
+  @media (min-width: 480px) and (max-width: 767px) and (orientation: landscape) { 
+    .controlsUniqueContainer--right {
+        position: absolute;
+        top: 40px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    .controlsUniqueContainer--right button {
+        margin-top: 4px;
     }
   }
   

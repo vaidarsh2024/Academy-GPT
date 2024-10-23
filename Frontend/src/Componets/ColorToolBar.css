@@ -1,0 +1,19 @@
+.color-toolbar {
+    background-color: #27292c;
+    padding: 8px;
+    height: min-content;
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+}
+
+@media screen and (max-width: 956px) and (min-height: 440px) and (orientation: landscape) {
+    .color-toolbar {
+        background-color: #27292c;
+        padding: 8px;
+        height: min-content;
+        display: flex;
+        flex-direction: column;
+        margin-top: 0px;
+    }
+  }
