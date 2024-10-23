@@ -283,6 +283,7 @@ const WhiteBoard = () => {
   };
 
   const handleChange = (newElements, appState) => {
+    console.log(appState, "good");
     // Only update if the new elements are different from the current ones
     if (JSON.stringify(newElements) !== JSON.stringify(elements)) {
       setAppState(appState);
