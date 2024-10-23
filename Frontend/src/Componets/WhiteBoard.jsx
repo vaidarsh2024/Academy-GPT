@@ -12,6 +12,7 @@ import AudioTranscriber from "./audioTranscriber";
 import { FaBars, FaUndo, FaRedo } from 'react-icons/fa';
 import "./WhiteBoard.css";
 import JoinMeetingModal from "./JoinMeetingModal";
+import pencil from '../assets/Image/pencil.svg'; 
 
 const WhiteBoard = () => {
   const containerRef = useRef(null);
@@ -355,6 +356,10 @@ const WhiteBoard = () => {
           <WelcomeScreen>
             <WelcomeScreen.Center>
               <WelcomeScreen.Center.Heading>
+              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <img src={pencil} />
+                <p style={{marginTop: '1rem'}}>Click AnyWhere To Start Drawing</p>
+              </div>
                 <div
                   style={{ color: "#000", position: "absolute", bottom: "0px" }}
                 >
