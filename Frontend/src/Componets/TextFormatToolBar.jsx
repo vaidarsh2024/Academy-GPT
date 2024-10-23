@@ -5,7 +5,7 @@ import './TextFormatToolBar.css'; // Add your custom CSS
 
 export const TextFormatToolBar = ({ onBold, onItalic, onFontSizeChange, onAlign }) => {
   return (
-    <div className="toolbar" style={{backgroundColor: '#27292C', padding: '14px', height: 'min-content', display: 'flex', flexDirection: 'column', marginTop: '16px', color: '#fff', border: '1px solid #ccc'}}>
+    <div className="toolbar" style={{backgroundColor: '#27292C', padding: '8px', height: 'min-content', display: 'flex', flexDirection: 'column', marginTop: '16px', color: '#fff', border: '1px solid #ccc'}}>
       <button onClick={onBold} title="Bold">
         <FaBold />
       </button>

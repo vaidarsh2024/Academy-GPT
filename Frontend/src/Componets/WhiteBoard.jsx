@@ -9,9 +9,10 @@ import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
 import AudioTranscriber from "./audioTranscriber";
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaUndo, FaRedo } from 'react-icons/fa';
 import "./WhiteBoard.css";
 import JoinMeetingModal from "./JoinMeetingModal";
+import pencil from '../assets/Image/pencil.svg'; 
 
 const WhiteBoard = () => {
   const containerRef = useRef(null);
@@ -261,15 +262,10 @@ const WhiteBoard = () => {
       <div
         className="whiteboard"
         ref={containerRef}
-        style={{ height: "80vh", width: "100%" }}
+        style={{ height: "100vh", width: "100%" }}
       >
         <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "4rem",
-            alignItems: "baseline",
-          }}
+        className="colorBarContainer"
         >
           <ColorToolBar onChangeBackground={handleBackgroundColor} />
           <TextFormatToolBar
@@ -353,6 +349,10 @@ const WhiteBoard = () => {
           <WelcomeScreen>
             <WelcomeScreen.Center>
               <WelcomeScreen.Center.Heading>
+              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <img src={pencil} />
+                <p style={{marginTop: '1rem'}}>Click AnyWhere To Start Drawing</p>
+              </div>
                 <div
                   style={{ color: "#000", position: "absolute", bottom: "0px" }}
                 >
