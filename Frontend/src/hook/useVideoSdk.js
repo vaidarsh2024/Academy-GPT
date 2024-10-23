@@ -2,22 +2,30 @@ import { useEffect, useState } from "react";
 import { KJUR } from "jsrsasign";
 import uitoolkit from "@zoom/videosdk-ui-toolkit";
 
-const useVideoSDK = (modalIsOpen, handleModal) => {
+const useVideoSDK = (modalIsOpen, handleModal, isMiniModal) => {
   const [sessionContainer, setSessionContainer] = useState(null);
+  const [controlContainer, setControlContainer] = useState(null);
   const [videoSDKJWT, setVideoSDKJWT] = useState("");
 
   useEffect(() => {
+    console.log({ isMiniModal });
+    if (isMiniModal) {
+      if (modalIsOpen && sessionContainer && controlContainer) {
+        getVideoSDKJWT();
+      }
+    }
     if (modalIsOpen && sessionContainer) {
       getVideoSDKJWT();
     }
 
     return () => {
+      //   if (isMiniModal) observer.disconnect();
       if (sessionContainer) {
         uitoolkit.closeSession(sessionContainer);
         handleModal("close");
       }
     };
-  }, [modalIsOpen, sessionContainer]); // Added sessionContainer to dependencies
+  }, [modalIsOpen, sessionContainer, controlContainer]); // Added sessionContainer to dependencies
 
   const generateSignature = () => {
     const sessionName = "test";
@@ -52,7 +60,10 @@ const useVideoSDK = (modalIsOpen, handleModal) => {
         videoSDKJWT: token,
         sessionName: "test",
         userName: "React",
-        features: ["video", "audio", "chat"],
+
+        features: isMiniModal
+          ? ["video"]
+          : ["video", "audio", "settings", "users", "chat", "share"],
         options: { init: {}, audio: {}, video: {} },
         virtualBackground: {
           allowVirtualBackground: true,
@@ -63,9 +74,16 @@ const useVideoSDK = (modalIsOpen, handleModal) => {
         },
       };
 
+      //   uitoolkit.showControlsComponent(controlContainer);
       uitoolkit.joinSession(sessionContainer, config);
+
+      uitoolkit.onSessionJoined(sessionJoined);
       uitoolkit.onSessionClosed(sessionClosed);
     }
+  };
+  const sessionJoined = () => {
+    console.log("session jodfadjklajf lk");
+    uitoolkit.hideControlsComponent();
   };
 
   const sessionClosed = () => {
@@ -75,7 +93,7 @@ const useVideoSDK = (modalIsOpen, handleModal) => {
     }
   };
 
-  return { setSessionContainer, videoSDKJWT };
+  return { setSessionContainer, setControlContainer, videoSDKJWT };
 };
 
 export default useVideoSDK;

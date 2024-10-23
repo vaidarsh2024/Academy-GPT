@@ -26,9 +26,19 @@
   height: 451px;
   max-width: max-content !important;
 }
+
+#self-view-video {
+  border-radius: 4px !important;
+}
+#sessionMiniContainer .self-view {
+  width: 100% !important;
+  height: 180px !important;
+  max-width: max-content !important;
+}
 .user-view {
   display: none !important;
 }
+
 .flexible-modal-drag-area-right {
   display: none;
 }

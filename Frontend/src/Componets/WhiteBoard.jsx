@@ -9,9 +9,10 @@ import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
 import AudioTranscriber from "./audioTranscriber";
-import { FaBars } from 'react-icons/fa';
+import { FaBars } from "react-icons/fa";
 import "./WhiteBoard.css";
 import JoinMeetingModal from "./JoinMeetingModal";
+import MiniMeetingModal from "./MiniMeetingModal";
 
 const WhiteBoard = () => {
   const containerRef = useRef(null);
@@ -23,6 +24,7 @@ const WhiteBoard = () => {
   const [zoomLevel, setZoomLevel] = useState(100);
   const [speechToText, setSpeechToText] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [miniModalIsOpen, setMiniModalIsOpen] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
   const [collapsed, setCollapsed] = useState(true);
 
@@ -256,6 +258,14 @@ const WhiteBoard = () => {
     return;
   };
 
+  const handleMiniModal = (action) => {
+    if (action == "open") {
+      setMiniModalIsOpen(true);
+      return;
+    }
+    setMiniModalIsOpen(false);
+    return;
+  };
   return (
     <>
       <div
@@ -289,14 +299,29 @@ const WhiteBoard = () => {
               modalIsOpen={modalIsOpen}
             />
           )}
+          {miniModalIsOpen && (
+            <MiniMeetingModal
+              handleModal={handleMiniModal}
+              modalIsOpen={miniModalIsOpen}
+            />
+          )}
         </div>
         <Excalidraw
           excalidrawAPI={(api) => setExcalidrawAPI(api)}
           gridModeEnabled={gridMode}
           renderTopRightUI={() => (
             <div className="controlsUniqueContainer">
-              <button className="mobileHamBudger" onClick={toggleDrawer} style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: '10px' }}>
-                <FaBars style={{ fontSize: '24px' }} />
+              <button
+                className="mobileHamBudger"
+                onClick={toggleDrawer}
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  marginLeft: "10px",
+                }}
+              >
+                <FaBars style={{ fontSize: "24px" }} />
               </button>
               {/* <button onClick={handleUndo} style={{ padding: "8px", margin: "0 4px" }}>
                             <FaUndo />
@@ -304,9 +329,13 @@ const WhiteBoard = () => {
                         <button onClick={handleRedo} style={{ padding: "8px", margin: "0 4px" }}>
                             <FaRedo />
                         </button> */}
-            <div className={`controlsUniqueContainer--right ${collapsed ? 'visible' : 'hidden'}`}>
+              <div
+                className={`controlsUniqueContainer--right ${
+                  collapsed ? "visible" : "hidden"
+                }`}
+              >
                 <button
-                  onClick={toggleFullscreen}
+                  onClick={() => handleMiniModal("open")}
                   style={{
                     padding: "10px",
                     backgroundColor: "#D2D0D0",
@@ -338,8 +367,8 @@ const WhiteBoard = () => {
                 >
                   Full Video
                 </button>
-              </div> 
-              
+              </div>
+
               <button
                 className="shareButton"
                 onClick={isSharingScreen ? stopScreenShare : startScreenShare}
