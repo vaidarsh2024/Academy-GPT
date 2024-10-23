@@ -46,7 +46,7 @@ const MiniMeetingModal = ({ modalIsOpen, handleModal, size }) => {
           id="sessionMiniContainer"
           style={{ display: "flex", flexDirection: "row-reverse" }}
         >
-          <div id="controlComponent"></div>
+         
         </div>
       </div>
     </Draggable>
