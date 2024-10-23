@@ -6,14 +6,14 @@ export const ColorToolBar = ({onChangeBackground}) => {
         <div className="color-toolbar">
         <FaSquareFull 
                 onClick={() => onChangeBackground("#ffffff")} 
-                style={{ color: "#ffffff", background: '#ffffff', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", padding: '15px', borderRadius: '5px' }} 
+                style={{ color: "#ffffff", background: '#ffffff', border: "1px solid #fff", cursor: "pointer", fontSize: "32px", padding: '10px', borderRadius: '5px' }} 
                 title="White Background"
             />
             
             {/* Black Color Icon */}
             <FaSquareFull 
                 onClick={() => onChangeBackground("#000000")} 
-                style={{ color: "#000000", background: '#000000', border: "1px solid #fff", cursor: "pointer", fontSize: "42px", marginTop: "10px", padding: '15px', borderRadius: '5px' }} 
+                style={{ color: "#000000", background: '#000000', border: "1px solid #fff", cursor: "pointer", fontSize: "32px", marginTop: "10px", padding: '10px', borderRadius: '5px' }} 
                 title="Black Background"
             />
 
@@ -26,9 +26,9 @@ export const ColorToolBar = ({onChangeBackground}) => {
                     background: "repeating-linear-gradient(45deg, #ccc, #ccc 10px, #eee 10px, #eee 20px)", // Represents a grid pattern
                     border: "1px solid #fff", 
                     cursor: "pointer", 
-                    fontSize: "42px", 
+                    fontSize: "32px", 
                     marginTop: "10px", 
-                    padding: '15px',
+                    padding: '10px',
                     borderRadius: '5px'
                 }} 
                 title="Grid Background"

@@ -9,7 +9,7 @@ import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
 import AudioTranscriber from "./audioTranscriber";
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaUndo, FaRedo } from 'react-icons/fa';
 import "./WhiteBoard.css";
 import JoinMeetingModal from "./JoinMeetingModal";
 
@@ -261,7 +261,7 @@ const WhiteBoard = () => {
       <div
         className="whiteboard"
         ref={containerRef}
-        style={{ height: "80vh", width: "100%" }}
+        style={{ height: "100vh", width: "100%" }}
       >
         <div
           style={{
@@ -269,6 +269,8 @@ const WhiteBoard = () => {
             flexDirection: "column",
             width: "4rem",
             alignItems: "baseline",
+            marginTop: '10rem',
+            marginLeft: '2rem'
           }}
         >
           <ColorToolBar onChangeBackground={handleBackgroundColor} />

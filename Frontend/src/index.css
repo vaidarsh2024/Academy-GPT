@@ -32,6 +32,9 @@
 .flexible-modal-drag-area-left {
   display: none !important;
 }
+.undo-redo-buttons {
+  display: none !important;
+} 
 /**
 Excalidraw styling overrides
 **/
@@ -87,7 +90,7 @@ Excalidraw styling overrides
 }
 
 .excalidraw .App-toolbar {
-  margin-left: 2rem;
+  margin-left: -100px;
 }
 
 .App-toolbar--mobile {
