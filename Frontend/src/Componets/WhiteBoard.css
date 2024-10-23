@@ -24,6 +24,14 @@
     background-color: #716F6F !important;
     color: #fff;
 }
+.colorBarContainer {
+    display: flex;
+    flex-direction: column;
+    width: 4rem;
+    align-items: baseline;
+    margin-top: 10rem;
+    margin-left: 2rem;   
+}
 @media screen and (max-width: 956px) and (min-height: 440px) and (orientation: landscape) {
     .excalidraw .App-toolbar {
         margin-left: 0px;
@@ -70,6 +78,12 @@
     .controlsUniqueContainer--right button {
         margin-top: 4px;
     }
+
+    .colorBarContainer {
+        margin-top: 0rem;
+        margin-left: 0rem;
+    }
+    
   }
 
   @media (min-width: 480px) and (max-width: 767px) and (orientation: landscape) { 

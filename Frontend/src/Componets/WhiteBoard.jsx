@@ -265,14 +265,7 @@ const WhiteBoard = () => {
         style={{ height: "100vh", width: "100%" }}
       >
         <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "4rem",
-            alignItems: "baseline",
-            marginTop: '10rem',
-            marginLeft: '2rem'
-          }}
+        className="colorBarContainer"
         >
           <ColorToolBar onChangeBackground={handleBackgroundColor} />
           <TextFormatToolBar

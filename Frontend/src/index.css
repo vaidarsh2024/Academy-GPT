@@ -6,6 +6,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.mobile-misc-tools-container {
+  display: none !important;  
+}
+
 .flexible-modal {
   width: 773px !important;
   height: 688px !important;
@@ -132,6 +137,15 @@ Excalidraw styling overrides
   display: none !important;
 }
 
+.colorBarContainer {
+  display: flex;
+  flex-direction: column;
+  width: 4rem;
+  align-items: baseline;
+  margin-top: 10rem;
+  margin-left: 2rem;
+}
+
 @media screen and (max-width: 900px) and (min-height: 430px) {
   .excalidraw .ToolIcon .ToolIcon_type_radio:checked + .ToolIcon__icon,
   .excalidraw .ToolIcon .ToolIcon_type_checkbox:checked + .ToolIcon__icon {
@@ -182,15 +196,15 @@ Excalidraw styling overrides
 .excalidraw .App-toolbar-content svg {
   stroke: white;
 }
+.undo-redo-buttons {
+  display: none !important;
+} 
 }
 
 /* Target tablets in both portrait and landscape orientation */
 @media (min-width: 768px) and (max-width: 1024px) {
   .whiteboard {
-    margin-top: -100px;
-  }
-  .mobileNav {
-    display: none !important;
+    margin-top: -5px;
   }
   .whiteboard .shareButton {
     bottom: auto;
@@ -204,9 +218,6 @@ Excalidraw styling overrides
   .controlsUniqueContainer--right {
     display: none;
   }
-  .color-toolbar {
-    margin-top: 10px;
-  }
   .mobileHamBudger {
     margin-top: 10px;
     display: block;
@@ -217,6 +228,16 @@ Excalidraw styling overrides
   .excalidraw .App-toolbar {
     margin-left: 0px;
   }
+  .colorBarContainer {
+    margin-top: 0rem;
+    margin-left: 0rem;
+  }
+  .excalidraw .welcome-screen-center {
+    display: flex !important;
+  }
+  .undo-redo-buttons {
+    display: none !important;
+  } 
 }
 
 /* Target mobile devices in landscape orientation */
@@ -248,6 +269,12 @@ Excalidraw styling overrides
   .excalidraw .App-toolbar {
     margin-left: 0px;
   }
+  .excalidraw .welcome-screen-center {
+    display: flex !important;
+  }
+  .undo-redo-buttons {
+    display: none !important;
+  } 
 }
 
 .visible {
