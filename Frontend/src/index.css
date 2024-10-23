@@ -116,7 +116,7 @@ Excalidraw styling overrides
 }
 
 .excalidraw .App-toolbar {
-  margin-left: -100px;
+  /* margin-left: -100px; */
 }
 
 .App-toolbar--mobile {
