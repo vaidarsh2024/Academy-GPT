@@ -19,7 +19,7 @@ export const TextFormatToolBar = ({ onBold, onItalic, onFontSizeChange, onAlign 
       <button onClick={onItalic} title="Italic" style={{marginTop: '20px'}}>
         <img src={italic} />
       </button>
-      <button onClick={onBold} title="Bold" style={{marginTop: '20px'}}>
+      <button onClick={onBold} title="Bold" style={{marginTop: '20px', marginBottom: '20px'}}>
         <img src={bold} />
       </button>
       {/* <button onClick={() => onFontSizeChange('large')} title="Large Font">

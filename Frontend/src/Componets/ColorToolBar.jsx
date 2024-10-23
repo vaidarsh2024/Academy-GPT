@@ -10,6 +10,7 @@ export const ColorToolBar = ({onChangeBackground}) => {
                 style={{ color: "#ffffff", background: '#ffffff', border: "1px solid #fff", cursor: "pointer", fontSize: "32px", padding: '10px', borderRadius: '5px' }} 
                 title="White Background"
             />
+            <hr style={{marginTop: '10px', color: '#6C6C6C'}}/>
             
             {/* Black Color Icon */}
             <FaSquareFull 
