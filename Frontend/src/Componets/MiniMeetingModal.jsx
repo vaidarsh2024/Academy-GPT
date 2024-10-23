@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
-import ReactModal from "react-modal-resizable-draggable";
-import uitoolkit from "@zoom/videosdk-ui-toolkit";
 import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
-import { KJUR } from "jsrsasign";
-import videoIcon from "../assets/Image/video-icon.png";
 import Draggable from "react-draggable";
 import useVideoSDK from "../hook/useVideoSdk";
 
 const MiniMeetingModal = ({ modalIsOpen, handleModal, size }) => {
-  const { setSessionContainer } = useVideoSDK(modalIsOpen, handleModal);
+  let isMiniModal = true;
+  const { setSessionContainer, setControlContainer } = useVideoSDK(
+    modalIsOpen,
+    handleModal,
+    (isMiniModal = true)
+  );
 
   useEffect(() => {
-    const container = document.getElementById("sessionContainer");
+    const container = document.getElementById("sessionMiniContainer");
+    const controlContainer = document.getElementById("controlComponent");
     setSessionContainer(container);
-  }, [setSessionContainer]);
+
+    setControlContainer(controlContainer);
+  }, [setSessionContainer, setControlContainer]);
 
   return (
     <Draggable>
@@ -23,8 +27,9 @@ const MiniMeetingModal = ({ modalIsOpen, handleModal, size }) => {
           position: "absolute",
           left: "75%",
           top: "30%",
+          backgroundColor: "#FAFAFA",
           border: "1px solid gray",
-          borderRadius: "5px",
+          borderRadius: "15px",
         }}
       >
         <div
@@ -33,13 +38,16 @@ const MiniMeetingModal = ({ modalIsOpen, handleModal, size }) => {
             justifyItems: "center",
             fontSize: "26px",
           }}
+          className="rounded-t-[15px]"
         >
           <h3>Your Video is Abled</h3>
         </div>
         <div
-          style={{ width: "301px", height: "188px" }}
-          id="sessionContainer"
-        ></div>
+          id="sessionMiniContainer"
+          style={{ display: "flex", flexDirection: "row-reverse" }}
+        >
+         
+        </div>
       </div>
     </Draggable>
   );

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import ReactModal from "react-modal-resizable-draggable";
+import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
 // Adjust the path as necessary
 import videoIcon from "../assets/Image/video-icon.png";
 import useVideoSDK from "../hook/useVideoSdk";
@@ -19,16 +20,14 @@ const JoinMeetingModal = ({ modalIsOpen, handleModal }) => {
   return (
     <div
       style={{
-        zIndex: 99,
-        position: "absolute",
+        zIndex: 10,
+        // position: "absolute",
       }}
     >
       <ReactModal
         disableResize={true}
         isOpen={modalIsOpen}
         onRequestClose={() => handleClose()}
-        minWidth={200}
-        minHeight={150}
         className="flexible-modal"
       >
         <div className="header h-[80px] items-center w-full flex">
