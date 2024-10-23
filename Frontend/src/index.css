@@ -19,7 +19,7 @@
   /* margin-top: 3%; */
   z-index: 90 !important;
   background-color: white;
-  top: -70px !important;
+  top: 15% !important;
 }
 .flexible-modal-drag-area {
   width: inherit !important;
