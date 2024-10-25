@@ -26,6 +26,11 @@
 
 /** island bar css overrides end**/
 
+/** hide floating toolbar **/
+.excalidraw .App-menu__left {
+  display: none !important;
+}
+
 .mobile-misc-tools-container {
   display: none !important;  
 }

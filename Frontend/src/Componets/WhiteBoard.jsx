@@ -283,6 +283,7 @@ const WhiteBoard = () => {
   };
 
   const handleChange = (newElements, appState) => {
+    console.log(appState, "good");
     // Only update if the new elements are different from the current ones
     if (JSON.stringify(newElements) !== JSON.stringify(elements)) {
       setAppState(appState);
@@ -354,18 +355,20 @@ const WhiteBoard = () => {
               >
                 <FaBars style={{ fontSize: "24px" }} />
               </button>
-              <button
-                onClick={handleUndo}
-                style={{ padding: "8px", margin: "0 4px" }}
-              >
-                <FaUndo />
-              </button>
-              <button
-                onClick={handleRedo}
-                style={{ padding: "8px", margin: "0 4px" }}
-              >
-                <FaRedo />
-              </button>
+              <div className="undoRedo">
+                <button
+                  onClick={handleUndo}
+                  style={{ padding: "8px", margin: "0 4px" }}
+                >
+                  <FaUndo />
+                </button>
+                <button
+                  onClick={handleRedo}
+                  style={{ padding: "8px", margin: "0 4px" }}
+                >
+                  <FaRedo />
+                </button>
+              </div>
               <div
                 className={`controlsUniqueContainer--right ${
                   collapsed ? "visible" : "hidden"
