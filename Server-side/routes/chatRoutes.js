@@ -15,6 +15,7 @@ router.post("/chat", async (req, res) => {
 
   try {
     const response = await openai.chat.completions.create({
+      
       model: "gpt-4o-mini",
       messages: [{ role: "user", content: prompt }],
       temperature: 1,
