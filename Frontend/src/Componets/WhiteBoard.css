@@ -41,7 +41,7 @@
     .controlsUniqueContainer--right {
         position: absolute;
         top: 40px;
-        right: 95px;
+        right: 15px;
         display: flex;
         flex-direction: column;
     }
