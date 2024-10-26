@@ -365,7 +365,7 @@ const WhiteBoard = () => {
                 </button>
                 <button
                   onClick={handleRedo}
-                  style={{ padding: "8px", margin: "0 4px" }}
+                  style={{ padding: "8px", margin: "0 4px", borderLeft: '2px solid #d2d0d0' }}
                 >
                   <img src={redo} />
                 </button>

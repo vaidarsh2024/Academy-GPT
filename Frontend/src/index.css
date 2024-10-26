@@ -130,7 +130,7 @@ Excalidraw styling overrides
 }
 
 .excalidraw .ToolIcon {
-  border-left: 1px solid #d2d0d0 !important;
+  border-left: 2px solid #d2d0d0 !important;
   border-radius: unset !important;
 }
 
@@ -156,7 +156,7 @@ Excalidraw styling overrides
 }
 
 .excalidraw .App-toolbar {
-  /* margin-left: -100px; */
+  margin-left: -100px;
 }
 
 .App-toolbar--mobile {
