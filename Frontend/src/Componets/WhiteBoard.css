@@ -54,6 +54,11 @@
         margin-top: 0rem;
         margin-left: 0rem;
     }
+
+    .undoRedo {
+        left: 8rem;
+        margin-top: -25px;
+    }
     
   }
 
