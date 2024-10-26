@@ -25,6 +25,13 @@
   display: none !important;
 }
 
+label[title="Arrow — A or 5"],
+label[title="Ellipse — O or 4"],
+label[title="Diamond — D or 3"],
+label[title="Rectangle — R or 2"] {
+  display: none !important; /* Hides the label element */
+}
+
 /** island bar css overrides end**/
 
 /** hide floating toolbar **/
