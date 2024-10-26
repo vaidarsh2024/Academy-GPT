@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
   Excalidraw,
-  excalidrawAPI,
   MainMenu,
   WelcomeScreen,
-} from "@excalidraw/excalidraw";
+} from "excalidraw";
 import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
@@ -15,6 +14,8 @@ import JoinMeetingModal from "./JoinMeetingModal";
 import MiniMeetingModal from "./MiniMeetingModal";
 import "./WhiteBoard.css";
 import pencil from "../assets/Image/pencil.svg";
+import undo from '../assets/Image/undo.svg';
+import redo from '../assets/Image/redo.svg';
 
 const WhiteBoard = () => {
   const containerRef = useRef(null);
@@ -37,7 +38,7 @@ const WhiteBoard = () => {
     if (!excalidrawAPI) {
       return;
     }
-    console.log({ excalidrawAPI });
+    // console.log({ excalidrawAPI });
     // to open the library sidebar
     excalidrawAPI.updateScene({ appState: { openSidebar: "library" } });
   }, [excalidrawAPI]);
@@ -283,7 +284,7 @@ const WhiteBoard = () => {
   };
 
   const handleChange = (newElements, appState) => {
-    console.log(appState, "good");
+    // console.log(appState, "good");
     // Only update if the new elements are different from the current ones
     if (JSON.stringify(newElements) !== JSON.stringify(elements)) {
       setAppState(appState);
@@ -360,13 +361,13 @@ const WhiteBoard = () => {
                   onClick={handleUndo}
                   style={{ padding: "8px", margin: "0 4px" }}
                 >
-                  <FaUndo />
+                  <img src={undo} />
                 </button>
                 <button
                   onClick={handleRedo}
-                  style={{ padding: "8px", margin: "0 4px" }}
+                  style={{ padding: "8px", margin: "0 4px", borderLeft: '2px solid #d2d0d0' }}
                 >
-                  <FaRedo />
+                  <img src={redo} />
                 </button>
               </div>
               <div
