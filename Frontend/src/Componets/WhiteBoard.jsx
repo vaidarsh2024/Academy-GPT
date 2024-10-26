@@ -14,6 +14,8 @@ import JoinMeetingModal from "./JoinMeetingModal";
 import MiniMeetingModal from "./MiniMeetingModal";
 import "./WhiteBoard.css";
 import pencil from "../assets/Image/pencil.svg";
+import undo from '../assets/Image/undo.svg';
+import redo from '../assets/Image/redo.svg';
 
 const WhiteBoard = () => {
   const containerRef = useRef(null);
@@ -359,13 +361,13 @@ const WhiteBoard = () => {
                   onClick={handleUndo}
                   style={{ padding: "8px", margin: "0 4px" }}
                 >
-                  <FaUndo />
+                  <img src={undo} />
                 </button>
                 <button
                   onClick={handleRedo}
                   style={{ padding: "8px", margin: "0 4px" }}
                 >
-                  <FaRedo />
+                  <img src={redo} />
                 </button>
               </div>
               <div
