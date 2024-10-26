@@ -1,70 +1,82 @@
-const express = require('express');
-const cors = require('cors');
-const multer = require('multer');
-const OpenAI = require('openai');
-const dotenv = require('dotenv');
-const fs = require('fs');
+const express = require("express");
+const cors = require("cors");
+const multer = require("multer");
+const OpenAI = require("openai");
+const dotenv = require("dotenv");
+const fs = require("fs");
 
 dotenv.config();
 
 const app = express();
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ dest: "uploads/" });
 
-// Initialize OpenAI
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 app.use(cors());
 app.use(express.json());
 
-// Endpoint for text-only queries
-app.post('/api/chat', async (req, res) => {
+const cleanResponse = (text) => {
+  return text.replace(/[\\]/g, "");
+};
+
+// Modified text-only endpoint with language support
+app.post("/api/chat", async (req, res) => {
   try {
-    const { question, chatHistory } = req.body;
+    const { question, chatHistory, language = "en" } = req.body;
+
+    const systemMessage = `You are a helpful assistant. Please respond in ${language}. Keep your responses natural and conversational.`;
 
     const messages = [
-      { role: "system", content: "You are a helpful assistant." },
-      ...chatHistory.map(msg => ({
+      { role: "system", content: systemMessage },
+      ...chatHistory.map((msg) => ({
         role: msg.role,
-        content: msg.content
+        content: msg.content,
       })),
-      { role: "user", content: question }
+      { role: "user", content: question },
     ];
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: messages,
-      
     });
 
-    res.json({ 
-      response: completion.choices[0].message.content,
-      role: "user"
+    const cleanedResponse = cleanResponse(
+      completion.choices[0].message.content
+    );
+
+    res.json({
+      response: cleanedResponse,
+      role: "user",
     });
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'An error occurred while processing your request' });
+    console.error("Error:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while processing your request" });
   }
 });
 
-
-app.post('/api/chat-with-image', upload.single('image'), async (req, res) => {
+// Modified image chat endpoint with language support
+app.post("/api/chat-with-image", upload.single("image"), async (req, res) => {
   try {
-    const { question } = req.body;
+    const { question, language = "en" } = req.body;
     const imageFile = req.file;
 
     if (!imageFile) {
-      return res.status(400).json({ error: 'No image file provided' });
+      return res.status(400).json({ error: "No image file provided" });
     }
 
-    // Read the image file and convert to base64
     const imageBuffer = fs.readFileSync(imageFile.path);
-    const base64Image = imageBuffer.toString('base64');
+    const base64Image = imageBuffer.toString("base64");
+
+    const systemMessage = `You are a helpful assistant. Please respond in ${language}. Keep your responses natural and conversational.`;
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
+        { role: "system", content: systemMessage },
         {
           role: "user",
           content: [
@@ -72,25 +84,27 @@ app.post('/api/chat-with-image', upload.single('image'), async (req, res) => {
             {
               type: "image_url",
               image_url: {
-                url: `data:image/jpeg;base64,${base64Image}`
-              }
-            }
-          ]
-        }
+                url: `data:image/jpeg;base64,${base64Image}`,
+              },
+            },
+          ],
+        },
       ],
-      
     });
 
-    // Clean up: remove uploaded file
     fs.unlinkSync(imageFile.path);
 
-    res.json({ 
-      response: response.choices[0].message.content,
-      role: "user"
+    const cleanedResponse = cleanResponse(response.choices[0].message.content);
+
+    res.json({
+      response: cleanedResponse,
+      role: "user",
     });
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'An error occurred while processing your request' });
+    console.error("Error:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while processing your request" });
   }
 });
 
