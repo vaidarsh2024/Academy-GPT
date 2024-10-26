@@ -38,7 +38,7 @@ const WhiteBoard = () => {
     if (!excalidrawAPI) {
       return;
     }
-    console.log({ excalidrawAPI });
+    // console.log({ excalidrawAPI });
     // to open the library sidebar
     excalidrawAPI.updateScene({ appState: { openSidebar: "library" } });
   }, [excalidrawAPI]);
@@ -284,7 +284,7 @@ const WhiteBoard = () => {
   };
 
   const handleChange = (newElements, appState) => {
-    console.log(appState, "good");
+    // console.log(appState, "good");
     // Only update if the new elements are different from the current ones
     if (JSON.stringify(newElements) !== JSON.stringify(elements)) {
       setAppState(appState);
