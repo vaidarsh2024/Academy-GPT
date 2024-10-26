@@ -56,7 +56,14 @@
 
     .undoRedo {
         left: 8rem;
-        margin-top: -25px;
+        margin-top: -34px;
+    }
+
+    .whiteboard .shareButton {
+        position: absolute;
+        left: 0px;
+        top: -2px;
+        bottom: 0px;
     }
     
   }
