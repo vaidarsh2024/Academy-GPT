@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { PiCameraLight } from "react-icons/pi";
 import { LuSendHorizonal } from "react-icons/lu";
@@ -15,11 +15,27 @@ function AskQuestion() {
   const [preferredAnswer, setPreferredAnswer] = useState("aiAnswer");
   const [capturedImage, setCapturedImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [conversationId, setConversationId] = useState(null); // Added for conversation tracking
+  const [conversationId, setConversationId] = useState(null);
+  const [userLanguage, setUserLanguage] = useState("en");
 
   const chatEndRef = useRef(null);
   const webcamRef = useRef(null);
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    // Detect user's browser language
+    const detectLanguage = () => {
+      const browserLang = navigator.language || navigator.userLanguage;
+      setUserLanguage(browserLang.split("-")[0]); // Get primary language code (e.g., 'en' from 'en-US')
+    };
+
+    detectLanguage();
+  }, []);
+
+  const cleanResponse = (text) => {
+    // Remove backslashes and carets from the response
+    return text.replace(/[\\^]/g, "");
+  };
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
@@ -46,7 +62,6 @@ function AskQuestion() {
     setIsLoading(true);
     const formData = new FormData();
 
-    // Construct the full question
     let fullQuestion = "";
     if (subject || description) {
       fullQuestion = `${subject ? `Subject: ${subject}\n` : ""}${
@@ -61,57 +76,55 @@ function AskQuestion() {
       let response;
 
       if (file || capturedImage) {
-        // Handle image + text query (keep existing implementation)
         if (file) formData.append("image", file);
         if (capturedImage) {
           const blob = await fetch(capturedImage).then((r) => r.blob());
           formData.append("image", blob, "captured-image.jpg");
         }
         formData.append("question", fullQuestion);
+        formData.append("language", userLanguage);
 
         response = await axios.post(
-          "http://localhost:5000/api/chat-with-image",
+          "https://academy-gpt.onrender.com/api/chat-with-image",
           formData,
           {
             headers: { "Content-Type": "multipart/form-data" },
           }
         );
 
-        // Reset conversation ID when switching to image
         setConversationId(null);
       } else {
-        // Handle text-only query with enhanced conversation support
         const textOnlyHistory = formatTextOnlyHistory(pastQA);
-
-        // Only include recent history if it's part of the same conversation
         const relevantHistory = conversationId ? textOnlyHistory : [];
 
-        response = await axios.post("http://localhost:5000/api/chat", {
-          question: fullQuestion,
-          preferredAnswer: preferredAnswer,
-          chatHistory: relevantHistory,
-          conversationId: conversationId,
-        });
+        response = await axios.post(
+          "https://academy-gpt.onrender.com/api/chat",
+          {
+            question: fullQuestion,
+            preferredAnswer: preferredAnswer,
+            chatHistory: relevantHistory,
+            conversationId: conversationId,
+            language: userLanguage,
+          }
+        );
 
         setConversationId(null);
-
-  
       }
 
-      // Add new QA to chat history with additional metadata
+      const cleanedResponse = cleanResponse(response.data.response);
+
       const newQA = {
         question: fullQuestion,
-        answer: response.data.response,
+        answer: cleanedResponse,
         image: file || capturedImage || null,
         timestamp: new Date().toISOString(),
-        conversationId: conversationId, // Track which conversation this belongs to
+        conversationId: conversationId,
         subject,
         description,
       };
 
       setPastQA((prev) => [...prev, newQA]);
 
-      // Clear inputs
       setInputText("");
       setFile(null);
       setCapturedImage("");
@@ -119,7 +132,6 @@ function AskQuestion() {
         fileInputRef.current.value = "";
       }
 
-      // Scroll to bottom of chat
       chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
     } catch (error) {
       console.error("Error details:", error.response?.data || error.message);
@@ -130,7 +142,6 @@ function AskQuestion() {
       setIsLoading(false);
     }
   };
-
   const handleCaptureImage = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setCapturedImage(imageSrc);
@@ -153,12 +164,12 @@ function AskQuestion() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className=" max-h-screen">
       <div className="mx-auto bg-white rounded-lg shadow-md">
         <form className="" onSubmit={(e) => e.preventDefault()}>
-          <div className="grid grid-rows-6 gap-4">
+          <div className="grid grid-rows-4 gap-4">
             {/* Subject and Description */}
-            <div className="row-span-2 space-y-3">
+            <div className="row-span-3 space-y-3">
               <div className="flex justify-between items-center">
                 <input
                   className="w-full h-10 border-b-2 pl-2 border-black/70 focus:outline-none"
@@ -183,43 +194,44 @@ function AskQuestion() {
                 placeholder="Description (optional)"
                 className="w-full border-2 drop-shadow-md focus:outline-none pl-2 py-2"
               />
+
+              <div className="overflow-y-auto h-full  p-2 border-2 rounded-md">
+                {pastQA.map((qa, index) => (
+                  <div key={index} className="">
+                    <div className="flex items-start space-x-2">
+                      <div className="bg-primary/40 p-3 rounded-lg max-w-[90%]">
+                        <p className="font-semibold text-sm text-gray-600">
+                          Your Question:
+                        </p>
+                        <p>{qa.question}</p>
+                        {qa.image && (
+                          <img
+                            src={
+                              typeof qa.image === "string"
+                                ? qa.image
+                                : URL.createObjectURL(qa.image)
+                            }
+                            alt="Attached"
+                            className="mt-2 w-40 h-40 rounded"
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-2 mb-2">
+                      <div className="bg-gray-100 p-3 rounded-lg max-w-[100%]">
+                        <p className="font-semibold text-sm text-gray-600">
+                          AI Answer:
+                        </p>
+                        <p>{qa.answer}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <div ref={chatEndRef} />
+              </div>
             </div>
 
             {/* Chat History */}
-            <div className="overflow-y-auto h-80 row-span-4 p-2 border-2 rounded-md">
-              {pastQA.map((qa, index) => (
-                <div key={index} className="mb-4">
-                  <div className="flex items-start space-x-2 mb-2">
-                    <div className="bg-primary/40 p-3 rounded-lg max-w-[80%]">
-                      <p className="font-semibold text-sm text-gray-600">
-                        Your Question:
-                      </p>
-                      <p>{qa.question}</p>
-                      {qa.image && (
-                        <img
-                          src={
-                            typeof qa.image === "string"
-                              ? qa.image
-                              : URL.createObjectURL(qa.image)
-                          }
-                          alt="Attached"
-                          className="mt-2 max-w-xs rounded"
-                        />
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-2 mb-2">
-                    <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
-                      <p className="font-semibold text-sm text-gray-600">
-                        AI Answer:
-                      </p>
-                      <p>{qa.answer}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              <div ref={chatEndRef} />
-            </div>
 
             {/* Camera Mode */}
             {cameraMode && (
@@ -250,7 +262,7 @@ function AskQuestion() {
             )}
 
             {/* Bottom Input Section */}
-            <div className="row-span-1 mt-2 w-full">
+            <div className="row-span-1 mt-32 w-full">
               <div className="flex items-center space-x-5 px-2 pb-2">
                 <p className="text-lg lg:text-xl xl:text-2xl font-semibold">
                   Preferred Answer
