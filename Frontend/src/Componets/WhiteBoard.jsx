@@ -1,21 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-  Excalidraw,
-  MainMenu,
-  WelcomeScreen,
-} from "excalidraw";
+import { Excalidraw, MainMenu, WelcomeScreen } from "excalidraw";
 import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
-import AudioTranscriber from "./audioTranscriber";
+import AudioTranscriber from "./AudioTranscriber";
 import { FaBars, FaUndo, FaRedo } from "react-icons/fa";
 import "./WhiteBoard.css";
 import JoinMeetingModal from "./JoinMeetingModal";
 import MiniMeetingModal from "./MiniMeetingModal";
-import "./WhiteBoard.css";
 import pencil from "../assets/Image/pencil.svg";
-import undo from '../assets/Image/undo.svg';
-import redo from '../assets/Image/redo.svg';
+import undo from "../assets/Image/undo.svg";
+import redo from "../assets/Image/redo.svg";
 
 const WhiteBoard = () => {
   const containerRef = useRef(null);
@@ -34,12 +29,11 @@ const WhiteBoard = () => {
   const [history, setHistory] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [appState, setAppState] = useState({});
+
   useEffect(() => {
     if (!excalidrawAPI) {
       return;
     }
-    // console.log({ excalidrawAPI });
-    // to open the library sidebar
     excalidrawAPI.updateScene({ appState: { openSidebar: "library" } });
   }, [excalidrawAPI]);
 
@@ -75,7 +69,6 @@ const WhiteBoard = () => {
       const newPeer = new Peer({ initiator: true, stream });
 
       newPeer.on("signal", (data) => {
-        // Send signal data to the other peer via signaling server
         console.log("Signal data", data);
       });
 
@@ -84,11 +77,10 @@ const WhiteBoard = () => {
       });
 
       newPeer.on("stream", (remoteStream) => {
-        // Handle receiving the remote stream
         const video = document.createElement("video");
         video.srcObject = remoteStream;
         video.play();
-        document.body.appendChild(video); // Display remote video
+        document.body.appendChild(video);
       });
 
       setPeer(newPeer);
@@ -111,26 +103,20 @@ const WhiteBoard = () => {
       if (containerRef.current.requestFullscreen) {
         containerRef.current.requestFullscreen();
       } else if (containerRef.current.mozRequestFullScreen) {
-        // Firefox
         containerRef.current.mozRequestFullScreen();
       } else if (containerRef.current.webkitRequestFullscreen) {
-        // Chrome, Safari, Opera
         containerRef.current.webkitRequestFullscreen();
       } else if (containerRef.current.msRequestFullscreen) {
-        // IE/Edge
         containerRef.current.msRequestFullscreen();
       }
     } else {
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if (document.mozCancelFullScreen) {
-        // Firefox
         document.mozCancelFullScreen();
       } else if (document.webkitExitFullscreen) {
-        // Chrome, Safari, Opera
         document.webkitExitFullscreen();
       } else if (document.msExitFullscreen) {
-        // IE/Edge
         document.msExitFullscreen();
       }
     }
@@ -156,7 +142,7 @@ const WhiteBoard = () => {
   };
 
   const handleZoomIn = () => {
-    setZoomLevel((prevZoom) => Math.min(prevZoom + 10, 200)); // Maximum 200%
+    setZoomLevel((prevZoom) => Math.min(prevZoom + 10, 200)); // Max 200%
     excalidrawAPI.updateScene({
       appState: {
         zoom: zoomLevel,
@@ -165,7 +151,7 @@ const WhiteBoard = () => {
   };
 
   const handleZoomOut = () => {
-    setZoomLevel((prevZoom) => Math.max(prevZoom - 10, 10)); // Minimum 10%
+    setZoomLevel((prevZoom) => Math.max(prevZoom - 10, 10)); // Min 10%
     excalidrawAPI.updateScene({
       appState: {
         zoom: zoomLevel,
@@ -243,7 +229,7 @@ const WhiteBoard = () => {
         version: 1,
         versionNonce: Math.random(),
         isDeleted: false,
-        id: `text-${Date.now()}`, // Unique ID for the text element
+        id: `text-${Date.now()}`,
         text: text,
         x: 100,
         y: 100,
@@ -260,32 +246,26 @@ const WhiteBoard = () => {
   };
 
   const handleTranscription = (transcript) => {
-    console.log("Transcription:", transcript);
     setSpeechToText(transcript);
-    // updateScene(transcript);
   };
 
   const handleModal = (action) => {
-    if (action == "open") {
+    if (action === "open") {
       setModalIsOpen(true);
       return;
     }
     setModalIsOpen(false);
-    return;
   };
 
   const handleMiniModal = (action) => {
-    if (action == "open") {
+    if (action === "open") {
       setMiniModalIsOpen(true);
       return;
     }
     setMiniModalIsOpen(false);
-    return;
   };
 
   const handleChange = (newElements, appState) => {
-    // console.log(appState, "good");
-    // Only update if the new elements are different from the current ones
     if (JSON.stringify(newElements) !== JSON.stringify(elements)) {
       setAppState(appState);
       setElements(newElements);
@@ -294,14 +274,11 @@ const WhiteBoard = () => {
   };
 
   const updateHistory = (newElements) => {
-    // If we're not at the latest history index, remove future states
     if (currentIndex < history.length - 1) {
       setHistory(history.slice(0, currentIndex + 1));
     }
-
-    // Add the new state to history
     setHistory([...history, newElements]);
-    setCurrentIndex(currentIndex + 1); // Move to the new latest index
+    setCurrentIndex(currentIndex + 1);
   };
 
   return (
@@ -309,8 +286,7 @@ const WhiteBoard = () => {
       <div
         className="whiteboard"
         ref={containerRef}
-        style={{ height: "100vh", width: "100%" }}
-      >
+        style={{ height: "100vh", width: "100%" }}>
         <div className="colorBarContainer">
           <ColorToolBar onChangeBackground={handleBackgroundColor} />
           <TextFormatToolBar
@@ -319,11 +295,6 @@ const WhiteBoard = () => {
             onFontSizeChange={handleFontSizeChange}
             onAlign={handleAlign}
           />
-          {/* <ZoomToolBar 
-                    onZoomIn={handleZoomIn} 
-                    onZoomOut={handleZoomOut} 
-                    zoomLevel={zoomLevel}
-                /> */}
           {modalIsOpen && (
             <JoinMeetingModal
               handleModal={handleModal}
@@ -352,29 +323,29 @@ const WhiteBoard = () => {
                   border: "none",
                   cursor: "pointer",
                   marginLeft: "10px",
-                }}
-              >
+                }}>
                 <FaBars style={{ fontSize: "24px" }} />
               </button>
               <div className="undoRedo">
                 <button
                   onClick={handleUndo}
-                  style={{ padding: "8px", margin: "0 4px" }}
-                >
+                  style={{ padding: "8px", margin: "0 4px" }}>
                   <img src={undo} />
                 </button>
                 <button
                   onClick={handleRedo}
-                  style={{ padding: "8px", margin: "0 4px", borderLeft: '2px solid #d2d0d0' }}
-                >
+                  style={{
+                    padding: "8px",
+                    margin: "0 4px",
+                    borderLeft: "2px solid #d2d0d0",
+                  }}>
                   <img src={redo} />
                 </button>
               </div>
               <div
                 className={`controlsUniqueContainer--right ${
                   collapsed ? "visible" : "hidden"
-                }`}
-              >
+                }`}>
                 <button
                   onClick={() => handleMiniModal("open")}
                   style={{
@@ -382,8 +353,7 @@ const WhiteBoard = () => {
                     backgroundColor: "#D2D0D0",
                     borderRadius: "3px",
                     marginLeft: "20px",
-                  }}
-                >
+                  }}>
                   Video & Chat
                 </button>
                 <button
@@ -393,8 +363,7 @@ const WhiteBoard = () => {
                     backgroundColor: "#D2D0D0",
                     borderRadius: "3px",
                     marginLeft: "20px",
-                  }}
-                >
+                  }}>
                   Full Board
                 </button>
                 <button
@@ -404,22 +373,19 @@ const WhiteBoard = () => {
                     backgroundColor: "#D2D0D0",
                     borderRadius: "3px",
                     marginLeft: "20px",
-                  }}
-                >
+                  }}>
                   Full Video
                 </button>
               </div>
 
               <button
                 className="shareButton"
-                onClick={isSharingScreen ? stopScreenShare : startScreenShare}
-              >
+                onClick={isSharingScreen ? stopScreenShare : startScreenShare}>
                 Share Screen
               </button>
             </div>
           )}
-          isCollaborating={false}
-        >
+          isCollaborating={false}>
           <WelcomeScreen>
             <WelcomeScreen.Center>
               <WelcomeScreen.Center.Heading>
@@ -428,16 +394,18 @@ const WhiteBoard = () => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                  }}
-                >
+                  }}>
                   <img src={pencil} />
                   <p style={{ marginTop: "1rem" }}>
                     Click AnyWhere To Start Drawing
                   </p>
                 </div>
                 <div
-                  style={{ color: "#000", position: "absolute", bottom: "0px" }}
-                >
+                  style={{
+                    color: "#000",
+                    position: "absolute",
+                    bottom: "0px",
+                  }}>
                   {speechToText}
                 </div>
               </WelcomeScreen.Center.Heading>
