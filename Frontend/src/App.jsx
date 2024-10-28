@@ -21,6 +21,7 @@ import Leanerprofileadd from "./pages/Leanerpages/Leanerprofileadd";
 import LeanerProfile from "./pages/Leanerpages/LeanerProfile";
 import Aboutpage from "./pages/Aboutpage";
 import Paymentmethod from "./Componets/Paymentmethod";
+import TutorNavbar from "./Componets/TutorNavbar";
 
 function App() {
   return (
@@ -41,7 +42,35 @@ function App() {
           <Route index element={<LeanerDashboard />} />
           <Route path="dashboard" element={<LeanerDashboard />} />
           <Route path="dashboard/paymentmethod" element={<Paymentmethod />} />
+          <Route path="oneonone" element={<OneOnOne />} />
+          <Route path="oneonone/tutordetails/:id" element={<TutorDetails />} />
+          <Route path="group4" element={<Group4 />} />
+          <Route path="group4/tutordetails/:id" element={<TutorDetails />} />
+          <Route path="group4plus" element={<Group4plus />} />
+          <Route
+            path="group4plus/tutordetails/:id"
+            element={<TutorDetails />}
+          />
+          <Route path="leanerquestions" element={<LearnerQuestions />} />
+          <Route path="askquestion" element={<AskQuestion />} />
+          <Route path="contact" element={<Contact />} />
 
+          <Route path="review" element={<Review />} />
+          <Route path="review/writereview" element={<Writereview />} />
+
+          <Route path="leanerprofile" element={<LeanerProfile />} />
+          <Route
+            path="leanerprofile/leanerprofileadd"
+            element={<Leanerprofileadd />}
+          />
+          <Route path="whiteboard" element={<WhiteBoard />} />
+        </Route>
+
+        {/* Nested routes under TutorNavbar */}
+        <Route path="/tutornavbar" element={<TutorNavbar />}>
+          <Route index element={<LeanerDashboard />} />
+          <Route path="dashboard" element={<LeanerDashboard />} />
+          <Route path="dashboard/paymentmethod" element={<Paymentmethod />} />
           <Route path="oneonone" element={<OneOnOne />} />
           <Route path="oneonone/tutordetails/:id" element={<TutorDetails />} />
           <Route path="group4" element={<Group4 />} />

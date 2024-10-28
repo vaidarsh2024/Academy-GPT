@@ -92,7 +92,7 @@ const LeanerNavbar = () => {
     </aside>
 
       {/* Drawer for mobile/tablet */}
-      <div className="mobileNav lg:hidden fixed top-6 px-5 left-0 w-full z-50 bg-black text-white flex items-center justify-between p-2">
+      <div className=" lg:hidden fixed top-0 px-5 left-0 w-full z-50 bg-black text-white flex items-center justify-between p-2">
         <div className="items-center">
           <img src={logo} alt="Logo" className="w-24 md:w-28 h-8" />
         </div>
@@ -161,7 +161,7 @@ const LeanerNavbar = () => {
     {/* Search Bar and Profile for large screens */}
 
     {/* Main content area with fixed user info and search bar */}
-    <div className="ml-0 lg:ml-64 py-5 lg:py-6 w-full relative">
+    <div className="ml-0 lg:ml-64 pt-5 lg:pt-6 w-full relative">
     <div className="hidden lg:flex lg:absolute  shadow-md drop-shadow-md top-0 left-0 lg:w-full bg-gray-100 p-4 items-center lg:justify-between">
         <div className="flex-1 relative mx-4">
           <input
@@ -194,7 +194,7 @@ const LeanerNavbar = () => {
           </div>
         </div>
       </div>
-      <div className="mt-16 w-full lg:py-5 lg:w-full relative">
+      <div className="mt-10 w-full lg:py-5 lg:w-full relative">
         <Outlet />
       </div>
     </div>

@@ -64,13 +64,13 @@ const LoginPages = () => {
             </p>
           </div>
           <button className="p-2 w-full text-2xl font-bold rounded-md text-white bg-primary">
-            Login
+            <Link to={"/tutornavbar"}> Login</Link>
           </button>
           <p className="hidden lg:block text-center text-sm py-2 font-medium">
             Don’t have an account?{" "}
             <span className=" text-primary">
               {" "}
-              <Link>Sign up</Link>
+              <Link to={"/signuppages"}>Sign up</Link>
             </span>
           </p>
 
