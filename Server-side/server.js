@@ -18,7 +18,18 @@ app.use(cors());
 app.use(express.json());
 
 const cleanResponse = (text) => {
-  return text.replace(/[\\]/g, "");
+  return (
+    text
+      // Remove backslashes and carets
+      .replace(/[\\^]/g, "")
+      // Replace LaTeX fractions with division
+      .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, "$1/$2")
+      // Replace arrows
+      .replace(/\\Rightarrow/g, "=>")
+      .replace(/\\rightarrow/g, "->")
+      .replace(/\\Leftarrow/g, "<=")
+      .replace(/\\leftarrow/g, "<-")
+  );
 };
 
 // Modified text-only endpoint with language support
