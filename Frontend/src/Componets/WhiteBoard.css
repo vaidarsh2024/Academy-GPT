@@ -41,7 +41,7 @@
     .controlsUniqueContainer--right {
         position: absolute;
         top: 40px;
-        right: 95px;
+        right: 15px;
         display: flex;
         flex-direction: column;
     }
@@ -56,7 +56,14 @@
 
     .undoRedo {
         left: 8rem;
-        margin-top: -25px;
+        margin-top: -34px;
+    }
+
+    .whiteboard .shareButton {
+        position: absolute;
+        left: 0px;
+        top: -2px;
+        bottom: 0px;
     }
     
   }
