@@ -25,8 +25,12 @@
   display: none !important;
 }
 
+label[title="Ellipse — O or 4"] {
+  position: absolute;
+  top: 2px;
+}
+
 label[title="Arrow — A or 5"],
-label[title="Ellipse — O or 4"],
 label[title="Diamond — D or 3"],
 label[title="Rectangle — R or 2"] {
   display: none !important; /* Hides the label element */
@@ -156,7 +160,7 @@ Excalidraw styling overrides
 }
 
 .excalidraw .App-toolbar {
-  margin-left: -100px;
+  margin-left: -70px;
 }
 
 .App-toolbar--mobile {
