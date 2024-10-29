@@ -17,7 +17,7 @@ const TutorNavbar = () => {
 
   const handleProfileClick = () => {
     setActiveComponent("profile");
-    navigate("/tutornavbar/leanerprofile");
+    navigate("/tutornavbar/tutorprofile");
   };
 
   const isWhiteBoardPage = () => window.location.href.includes("whiteboard");

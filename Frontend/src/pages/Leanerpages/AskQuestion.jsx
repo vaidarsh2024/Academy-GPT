@@ -4,6 +4,8 @@ import { PiCameraLight } from "react-icons/pi";
 import { LuSendHorizonal } from "react-icons/lu";
 import Webcam from "react-webcam";
 import { IoMdAttach } from "react-icons/io";
+import ReactMarkdown from "react-markdown";
+import "./AskQuestion.css";
 
 function AskQuestion() {
   const [subject, setSubject] = useState("");
@@ -23,19 +25,13 @@ function AskQuestion() {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
-    // Detect user's browser language
     const detectLanguage = () => {
       const browserLang = navigator.language || navigator.userLanguage;
-      setUserLanguage(browserLang.split("-")[0]); // Get primary language code (e.g., 'en' from 'en-US')
+      setUserLanguage(browserLang.split("-")[0]);
     };
 
     detectLanguage();
   }, []);
-
-  const cleanResponse = (text) => {
-    // Remove backslashes and carets from the response
-    return text.replace(/[\\^]/g, "");
-  };
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
@@ -108,14 +104,12 @@ function AskQuestion() {
           }
         );
 
-        setConversationId(null);
+        
       }
-
-      const cleanedResponse = cleanResponse(response.data.response);
 
       const newQA = {
         question: fullQuestion,
-        answer: cleanedResponse,
+        answer: response.data.response,
         image: file || capturedImage || null,
         timestamp: new Date().toISOString(),
         conversationId: conversationId,
@@ -142,6 +136,7 @@ function AskQuestion() {
       setIsLoading(false);
     }
   };
+
   const handleCaptureImage = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setCapturedImage(imageSrc);
@@ -156,19 +151,35 @@ function AskQuestion() {
     }
   };
 
-  // Function to start a new conversation
   const startNewConversation = () => {
     setConversationId(null);
     setSubject("");
     setDescription("");
   };
 
+  const renderAnswer = (answer) => {
+    return (
+      <div className="bg-gray-100 p-3 rounded-lg max-w-[100%]">
+        <p className="font-semibold text-sm text-gray-600">AI Answer:</p>
+        <ReactMarkdown
+          className="markdown-content"
+          components={{
+            p: ({ children }) => <p className="mb-4">{children}</p>,
+            strong: ({ children }) => (
+              <span className="font-bold">{children}</span>
+            ),
+          }}>
+          {answer}
+        </ReactMarkdown>
+      </div>
+    );
+  };
+
   return (
-    <div className=" max-h-screen">
+    <div className="max-h-screen">
       <div className="mx-auto bg-white rounded-lg shadow-md">
         <form className="" onSubmit={(e) => e.preventDefault()}>
           <div className="grid grid-rows-4 gap-4">
-            {/* Subject and Description */}
             <div className="row-span-3 space-y-3">
               <div className="flex justify-between items-center">
                 <input
@@ -195,7 +206,7 @@ function AskQuestion() {
                 className="w-full border-2 drop-shadow-md focus:outline-none pl-2 py-2"
               />
 
-              <div className="overflow-y-auto h-full  p-2 border-2 rounded-md">
+              <div className="overflow-y-auto h-full p-2 border-2 rounded-md">
                 {pastQA.map((qa, index) => (
                   <div key={index} className="">
                     <div className="flex items-start space-x-2">
@@ -217,13 +228,8 @@ function AskQuestion() {
                         )}
                       </div>
                     </div>
-                    <div className="flex items-start space-x-2 mb-2">
-                      <div className="bg-gray-100 p-3 rounded-lg max-w-[100%]">
-                        <p className="font-semibold text-sm text-gray-600">
-                          AI Answer:
-                        </p>
-                        <p>{qa.answer}</p>
-                      </div>
+                    <div className="flex items-start space-x-2 mb-4">
+                      {renderAnswer(qa.answer)}
                     </div>
                   </div>
                 ))}
@@ -231,9 +237,6 @@ function AskQuestion() {
               </div>
             </div>
 
-            {/* Chat History */}
-
-            {/* Camera Mode */}
             {cameraMode && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                 <div className="bg-white p-4 rounded-lg">
@@ -261,7 +264,6 @@ function AskQuestion() {
               </div>
             )}
 
-            {/* Bottom Input Section */}
             <div className="row-span-1 mt-32 w-full">
               <div className="flex items-center space-x-5 px-2 pb-2">
                 <p className="text-lg lg:text-xl xl:text-2xl font-semibold">
