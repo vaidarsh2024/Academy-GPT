@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
-import AudioTranscriber from "./AudioTranscriber";
+import AudioTranscriber from "./audioTranscriber";
 import { FaBars, FaUndo, FaRedo } from "react-icons/fa";
 import "./WhiteBoard.css";
 import JoinMeetingModal from "./JoinMeetingModal";
