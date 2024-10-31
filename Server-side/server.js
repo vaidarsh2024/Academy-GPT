@@ -28,7 +28,7 @@ const cleanResponse = (text) => {
     .replace(/[\\^{}]/g, "")
 
     .replace(/\\frac{([^}]+)}{([^}]+)}/g, "($1/($2))")
-
+    .replace(/frac/g, "")  
     .replace(/\\Rightarrow/g, "=>")
     .replace(/\\rightarrow/g, "->")
     .replace(/\\Leftarrow/g, "<=")
