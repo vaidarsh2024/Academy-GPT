@@ -28,7 +28,7 @@ const cleanResponse = (text) => {
     .replace(/[\\^{}]/g, "")
 
     .replace(/\\frac{([^}]+)}{([^}]+)}/g, "($1/($2))")
-    .replace(/frac/g, "")  
+    
     .replace(/\\Rightarrow/g, "=>")
     .replace(/\\rightarrow/g, "->")
     .replace(/\\Leftarrow/g, "<=")
@@ -137,9 +137,11 @@ app.post("/api/chat-with-image", upload.single("image"), async (req, res) => {
     const base64Image = imageBuffer.toString("base64");
 
     const systemMessage = {
-      role: "system",
+      role: "user",
       content: `You are a helpful assistant. Please respond in ${language}. Keep your responses natural and conversational.`,
     };
+
+    const defaultmessage = ` Don't use frac{}{} in your response.`;
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
@@ -149,7 +151,7 @@ app.post("/api/chat-with-image", upload.single("image"), async (req, res) => {
         {
           role: "user",
           content: [
-            { type: "text", text: question },
+            { type: "text", text: question + defaultmessage },
             {
               type: "image_url",
               image_url: {
