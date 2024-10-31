@@ -23,21 +23,19 @@ app.use(cors());
 app.use(express.json());
 
 const cleanResponse = (text) => {
-  return (
-    text
-      // Remove backslashes and carets
-      .replace(/[\\^]/g, "")
-      // Replace LaTeX fractions with division
-      .replace(/\\frac{([^}]+)}{([^}]+)}/g, "($1/($2))")
-      // Replace arrows
-      .replace(/\\Rightarrow/g, "=>")
-      .replace(/\\rightarrow/g, "->")
-      .replace(/\\Leftarrow/g, "<=")
-      .replace(/\\leftarrow/g, "<-")
-  );
+  return text
+
+    .replace(/[\\^{}]/g, "")
+
+    .replace(/\\frac{([^}]+)}{([^}]+)}/g, "($1/($2))")
+
+    .replace(/\\Rightarrow/g, "=>")
+    .replace(/\\rightarrow/g, "->")
+    .replace(/\\Leftarrow/g, "<=")
+    .replace(/\\leftarrow/g, "<-");
 };
 
-// Modified text-only endpoint with conversation management
+
 app.post("/api/chat", async (req, res) => {
   try {
     const {
@@ -48,53 +46,53 @@ app.post("/api/chat", async (req, res) => {
       resetConversation = false,
     } = req.body;
 
-    // Generate or retrieve conversation ID
+   
     const currentConversationId = conversationId || Date.now().toString();
 
-    // Retrieve or initialize conversation context
+ 
     let conversationContext =
       conversationCache.get(currentConversationId) || [];
 
-    // Reset conversation if requested
+   
     if (resetConversation) {
       conversationContext = [];
     }
 
-    // Prepare system message
+ 
     const systemMessage = {
       role: "system",
       content: `You are a helpful assistant. Please respond in ${language}. Keep your responses natural and conversational.`,
     };
 
-    // Prepare messages, including system message, previous context, and new question
+    
     const messages = [
       systemMessage,
       ...conversationContext,
       { role: "user", content: question },
     ];
 
-    // Generate AI response
+  
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: messages,
     });
 
-    // Clean and extract response
+    
     const cleanedResponse = cleanResponse(
       completion.choices[0].message.content
     );
 
-    // Update conversation context
+    
     const newMessages = [
       ...conversationContext,
       { role: "user", content: question },
       { role: "assistant", content: cleanedResponse },
     ];
 
-    // Store updated context in cache
+    
     conversationCache.set(currentConversationId, newMessages);
 
-    // Respond with result and conversation ID
+    
     res.json({
       response: cleanedResponse,
       conversationId: currentConversationId,
@@ -109,7 +107,6 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// Modified image chat endpoint with conversation management
 app.post("/api/chat-with-image", upload.single("image"), async (req, res) => {
   try {
     const {
@@ -124,14 +121,14 @@ app.post("/api/chat-with-image", upload.single("image"), async (req, res) => {
       return res.status(400).json({ error: "No image file provided" });
     }
 
-    // Generate or retrieve conversation ID
+    
     const currentConversationId = conversationId || Date.now().toString();
 
-    // Retrieve or initialize conversation context
+ 
     let conversationContext =
       conversationCache.get(currentConversationId) || [];
 
-    // Reset conversation if requested
+  
     if (resetConversation) {
       conversationContext = [];
     }
@@ -164,12 +161,12 @@ app.post("/api/chat-with-image", upload.single("image"), async (req, res) => {
       ],
     });
 
-    // Clean up uploaded file
+  
     fs.unlinkSync(imageFile.path);
 
     const cleanedResponse = cleanResponse(response.choices[0].message.content);
 
-    // Update conversation context
+
     const newMessages = [
       ...conversationContext,
       {
@@ -187,10 +184,10 @@ app.post("/api/chat-with-image", upload.single("image"), async (req, res) => {
       { role: "assistant", content: cleanedResponse },
     ];
 
-    // Store updated context in cache
+    
     conversationCache.set(currentConversationId, newMessages);
 
-    // Respond with result and conversation ID
+   
     res.json({
       response: cleanedResponse,
       conversationId: currentConversationId,
