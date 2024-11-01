@@ -22,7 +22,7 @@ const Navbar = () => {
 
             <div className="text-white text-xs lg:text-base my-2 flex space-x-2 lg:space-x-7">
               <button className=" p-1 lg:p-2 px-1 border-primary whitespace-nowrap border-[1px] rounded-md">
-                <Link to={"aboutpage"}> Ask Question</Link>
+                <Link to={"/leanernavbar/askquestion"}> Ask Question</Link>
               </button>
               <button className=" lg:p-2 p-1 whitespace-nowrap bg-primary rounded-md">
                 <Link to={"/applynow"}>Apply Now</Link>

@@ -22,6 +22,7 @@ import LeanerProfile from "./pages/Leanerpages/LeanerProfile";
 import Aboutpage from "./pages/Aboutpage";
 import Paymentmethod from "./Componets/Paymentmethod";
 import TutorNavbar from "./Componets/TutorNavbar";
+import TutorProfile from "./pages/Tutorpages/TutorProfile";
 
 function App() {
   return (
@@ -87,7 +88,7 @@ function App() {
           <Route path="review" element={<Review />} />
           <Route path="review/writereview" element={<Writereview />} />
 
-          <Route path="leanerprofile" element={<LeanerProfile />} />
+          <Route path="tutorprofile" element={<TutorProfile />} />
           <Route
             path="leanerprofile/leanerprofileadd"
             element={<Leanerprofileadd />}
