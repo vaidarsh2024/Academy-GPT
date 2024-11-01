@@ -1,23 +1,32 @@
 import  { useRef, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone, faStop } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from 'react';``
 
 
-const AudioRecorder = () => {
+const AudioRecorder = ({ onTranscription }) => {
     const [recording, setRecording] = useState(false);
     const [transcription, setTranscription] = useState('');
     const mediaRecorderRef = useRef(null);
     const wsRef = useRef(null);
 
+    useEffect(() => {
+        return () => {
+            if (wsRef.current) {
+                wsRef.current.close();
+            }
+        };
+    }, []);
+
     const getWebSocketUrl = async () => {
         const response = await fetch(
-          "https://academy-gpt-1.onrender.com/get-websocket-url"
+          "http://13.229.233.201/api/transcribe/"
         );
         if (!response.ok) {
             throw new Error('Failed to fetch WebSocket URL');
         }
         const data = await response.json();
-        return data.url;
+        return data.presigned_url;
     };
 
     const startRecording = async () => {
@@ -56,11 +65,25 @@ const AudioRecorder = () => {
                     console.log('WebSocket connection opened');
                 };
 
-                wsRef.current.onmessage = (event) => {
-                    const transcriptionResult = JSON.parse(event.data);
-                    console.log('Transcription:', transcriptionResult);
+                wsRef.current.onmessage = async (event) => {
+                    console.log("event", event)
+                    if (event.data instanceof Blob) {
+                        const text = await event.data.text();
+                        console.log("text", text)
+                        const transcriptionResult = JSON.parse(text);
+                        handleTranscription(transcriptionResult);
+                    } else {
+                        const transcriptionResult = JSON.parse(event.data);
+                        handleTranscription(transcriptionResult);
+                    }
+                };
+
+                const handleTranscription = (transcriptionResult) => {
+                    console.log("transcription result", transcriptionResult);
                     if (transcriptionResult.Transcript.Results.length > 0) {
-                        setTranscription(transcriptionResult.Transcript.Results[0].Alternatives[0].Transcript);
+                        const transcription = transcriptionResult.Transcript.Results[0].Alternatives[0].Transcript;
+                        setTranscription(transcription);
+                        onTranscription(transcription);
                     }
                 };
 

@@ -4,6 +4,7 @@ import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
 import AudioTranscriber from "./audioTranscriber";
+import AudioRecorder from "./audioRecorder";
 import { FaBars, FaUndo, FaRedo } from "react-icons/fa";
 import "./WhiteBoard.css";
 import JoinMeetingModal from "./JoinMeetingModal";
@@ -412,7 +413,7 @@ const WhiteBoard = () => {
             </WelcomeScreen.Center>
           </WelcomeScreen>
         </Excalidraw>
-        <AudioTranscriber onTranscription={handleTranscription} />
+        <AudioRecorder onTranscription={handleTranscription} />
       </div>
     </>
   );
