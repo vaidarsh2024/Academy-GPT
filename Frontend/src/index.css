@@ -256,6 +256,10 @@ Excalidraw styling overrides
   .excalidraw .App-toolbar-content {
     display: none !important;
   }
+
+  .excalidraw .App-menu_top {
+    margin-top: -10px;
+  }
 }
 
 /* Target mobile devices in landscape orientation */
