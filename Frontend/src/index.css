@@ -218,7 +218,7 @@ Excalidraw styling overrides
   }
   .whiteboard .shareButton {
     left: -15px;
-    top: -10px;
+    top: 0;
     bottom: auto;
   }
   .excalidraw--mobile {
@@ -241,7 +241,7 @@ Excalidraw styling overrides
     margin-left: 14rem;
   }
   .colorBarContainer {
-    margin-top: 5px;
+    margin-top: 40%;
     margin-left: 0rem;
   }
   .excalidraw .welcome-screen-center {
