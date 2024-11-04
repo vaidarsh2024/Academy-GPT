@@ -10,16 +10,16 @@ import link from '../assets/Image/link.svg';
 export const TextFormatToolBar = ({ onBold, onItalic, onFontSizeChange, onAlign }) => {
   return (
     <div className="toolbar" style={{backgroundColor: '#27292C', padding: '4px', height: 'min-content', display: 'flex', flexDirection: 'column', marginTop: '16px', color: '#fff', border: '1px solid #ccc', alignItems: 'center'}}>
-      <button onClick={() => onFontSizeChange('medium')} title="Medium Font" style={{marginTop: '20px'}}>
+      <button onClick={() => onFontSizeChange('medium')} style={{marginTop: '20px'}}>
         <img src={link} />
       </button>
-      <button onClick={() => onFontSizeChange('small')} title="Small Font" style={{marginTop: '20px'}}>
+      <button onClick={onAlign} style={{marginTop: '20px'}}>
         <img src={frame} />
       </button>
-      <button onClick={onItalic} title="Italic" style={{marginTop: '20px'}}>
+      <button onClick={onItalic} style={{marginTop: '20px'}}>
         <img src={italic} />
       </button>
-      <button onClick={onBold} title="Bold" style={{marginTop: '20px', marginBottom: '20px'}}>
+      <button onClick={onBold} style={{marginTop: '20px', marginBottom: '20px'}}>
         <img src={bold} />
       </button>
       {/* <button onClick={() => onFontSizeChange('large')} title="Large Font">
