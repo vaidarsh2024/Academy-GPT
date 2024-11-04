@@ -219,18 +219,23 @@ const WhiteBoard = () => {
     }
   };
 
-  const handleFontSizeChange = (size) => {
+  const handleFontSizeChange = () => {
     if (excalidrawAPI) {
-      const newFontSize = size === "small" ? 14 : size === "medium" ? 18 : 22;
-      excalidrawAPI.updateScene({
-        ...excalidrawAPI.getAppState(),
-        elements: excalidrawAPI.getSceneElements().map((el) => {
-          if (el.type === "text") {
-            el.fontSize = newFontSize;
-          }
-          return el;
-        }),
+      const selectedElements = excalidrawAPI
+        .getSceneElements()
+        .filter((el) => el.type === "text");
+
+      const updatedElements = excalidrawAPI.getSceneElements().map((el) => {
+        if (selectedElements.includes(el)) {
+          return {
+            ...el,
+            fontSize: 40,
+          };
+        }
+        return el;
       });
+
+      excalidrawAPI.updateScene({ elements: updatedElements });
     }
   };
 
