@@ -359,7 +359,6 @@ const WhiteBoard = () => {
                   background: "none",
                   border: "none",
                   cursor: "pointer",
-                  marginLeft: "10px",
                 }}>
                 <FaBars style={{ fontSize: "24px" }} />
               </button>

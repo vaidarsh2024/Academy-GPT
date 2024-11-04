@@ -218,8 +218,8 @@ Excalidraw styling overrides
   }
   .whiteboard .shareButton {
     left: -15px;
-    top: 0;
-    bottom: auto;
+    top: -10px;
+    bottom: 21rem;
   }
   .excalidraw--mobile {
     background-color: #e9e7e8 !important;
@@ -233,6 +233,8 @@ Excalidraw styling overrides
   .mobileHamBudger {
     margin-top: 10px;
     display: block;
+    position: relative;
+    left: 15rem;
   }
   .excalidraw .App-toolbar-content {
     justify-content: unset;
