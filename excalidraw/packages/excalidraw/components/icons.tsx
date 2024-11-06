@@ -266,7 +266,7 @@ export const ExcalLogo = createIcon(
 
 // custom
 export const SelectionIcon = createIcon(
-  "/src/assets/Image/cursor.svg",
+  "/src/assets/cursor.svg",
   { fill: "none", width: 22, height: 22, strokeWidth: 1.25 },
   true
 );
@@ -292,7 +292,7 @@ export const DiamondIcon = createIcon(
 
 // tabler-icons: circle
 export const EllipseIcon = createIcon(
-  "/src/assets/Image/circle-arrow.svg",
+  "/src/assets/circle-arrow.svg",
   tablerIconProps,
   true
 );
@@ -310,7 +310,7 @@ export const ArrowIcon = createIcon(
 
 // custom?
 export const LineIcon = createIcon(
-  "/src/assets/Image/vectorslide.svg",
+  "/src/assets/vectorslide.svg",
   modifiedTablerIconProps,
   true
 );
@@ -327,28 +327,28 @@ export const PenModeIcon = createIcon(
 
 // modified tabler-icons: pencil
 export const FreedrawIcon = createIcon(
-  "/src/assets/Image/edit-text.svg",
+  "/src/assets/edit-text.svg",
   modifiedTablerIconProps,
   true
 );
 
 // tabler-icons: typography
 export const TextIcon = createIcon(
-  "/src/assets/Image/format.svg",
+  "/src/assets/format.svg",
   tablerIconProps,
   true
 );
 
 // modified tabler-icons: photo
 export const ImageIcon = createIcon(
-  "/src/assets/Image/image-upload.svg",
+  "/src/assets/image-upload.svg",
   modifiedTablerIconProps,
   true
 );
 
 // tabler-icons: eraser
 export const EraserIcon = createIcon(
-  "/src/assets/Image/eraser.svg",
+  "/src/assets/eraser.svg",
   tablerIconProps,
   true
 );
@@ -1219,7 +1219,7 @@ export const ArrowheadArrowIcon = React.memo(
 export const ArrowheadCircleIcon = React.memo(
   ({ flip = false }: { flip?: boolean }) =>
     createIcon(
-      "/src/assets/Image/circle-arrow.svg",
+      "/src/assets/circle-arrow.svg",
       { width: 40, height: 20 },
       true
     ),
@@ -1228,7 +1228,7 @@ export const ArrowheadCircleIcon = React.memo(
 export const ArrowheadCircleOutlineIcon = React.memo(
   ({ flip = false }: { flip?: boolean }) =>
     createIcon(
-      "/src/assets/Image/circle-arrow.svg",
+      "/src/assets/circle-arrow.svg",
       { width: 40, height: 20 },
       true
     ),
