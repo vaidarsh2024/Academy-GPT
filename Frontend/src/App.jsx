@@ -23,13 +23,13 @@ import Aboutpage from "./pages/Aboutpage";
 import Paymentmethod from "./Componets/Paymentmethod";
 import TutorNavbar from "./Componets/TutorNavbar";
 import TutorProfile from "./pages/Tutorpages/TutorProfile";
-import './assets/Image/cursor.svg';
-import './assets/Image/circle-arrow.svg';
-import './assets/Image/vectorslide.svg';
-import './assets/Image/edit-text.svg';
-import './assets/Image/format.svg';
-import './assets/Image/image-upload.svg';
-import './assets/Image/eraser.svg';
+import './assets/cursor.svg';
+import './assets/circle-arrow.svg';
+import './assets/vectorslide.svg';
+import './assets/edit-text.svg';
+import './assets/format.svg';
+import './assets/image-upload.svg';
+import './assets/eraser.svg';
 
 function App() {
   return (
