@@ -24,12 +24,14 @@ import Paymentmethod from "./Componets/Paymentmethod";
 import TutorNavbar from "./Componets/TutorNavbar";
 import TutorProfile from "./pages/Tutorpages/TutorProfile";
 import './assets/cursor.svg';
-import './assets/circle-arrow.svg';
-import './assets/vectorslide.svg';
 import './assets/edit-text.svg';
-import './assets/format.svg';
 import './assets/image-upload.svg';
 import './assets/eraser.svg';
+
+// not working
+import '/assets/vectorslides.svg';
+import './assets/formats.svg';
+import './assets/circles-arrows.svg';
 
 function App() {
   return (
