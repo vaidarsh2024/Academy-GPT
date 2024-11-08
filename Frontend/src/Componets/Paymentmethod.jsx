@@ -5,6 +5,7 @@ import skrill from "../assets/Image/skrill.png";
 import gpay from "../assets/Image/google.png";
 import apay from "../assets/Image/apple.png";
 import paypal from "../assets/Image/paypal.png";
+import { useNavigate } from "react-router-dom";
 
 const Paymentmethod = () => {
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -16,6 +17,8 @@ const Paymentmethod = () => {
   });
   const [primaryCard, setPrimaryCard] = useState(false);
   const [saveCard, setSaveCard] = useState(false);
+  const navigate = useNavigate();
+  
 
   const handleCardInputChange = (e) => {
     const { name, value } = e.target;
@@ -61,6 +64,11 @@ const Paymentmethod = () => {
       saveCard,
     });
     alert("Payment successful!");
+  };
+
+  const handelpayment = () => {
+    
+navigate("/tutornavbar/calandertimeselect");
   };
 
   return (
@@ -275,6 +283,7 @@ const Paymentmethod = () => {
               <div>
                 <button
                   type="submit"
+                  onClick={handelpayment}
                   className="text-white bg-primary p-1 px-2 font-bold xl:text-xl rounded-md">
                   Confirm
                 </button>

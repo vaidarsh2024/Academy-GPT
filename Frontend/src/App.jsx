@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// src/App.js
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; 
 import HomePage from "./pages/HomePage";
 import Aboutus from "./Componets/Aboutus";
 import Faq from "./Componets/Faq";
@@ -6,6 +7,12 @@ import LoginPages from "./pages/LoginPages";
 import SignupPages from "./pages/SignupPages";
 import ApplyNowpage from "./pages/ApplyNowpage";
 import LeanerNavbar from "./Componets/LeanerNavbar";
+import TutorNavbar from "./Componets/TutorNavbar";
+import Paymentmethod from "./Componets/Paymentmethod";
+import WhiteBoard from "./Componets/WhiteBoard";
+import CalanderTimeSelect from "./Componets/CalanderTimeSelect";
+
+// Importing Leaner pages
 import LeanerDashboard from "./pages/Leanerpages/LeanerDashboard";
 import OneOnOne from "./pages/Leanerpages/OneOnOne";
 import TutorDetails from "./Componets/TutorDetails";
@@ -15,14 +22,14 @@ import LearnerQuestions from "./pages/Leanerpages/LearnerQuestions";
 import AskQuestion from "./pages/Leanerpages/AskQuestion";
 import Contact from "./pages/Leanerpages/Contact";
 import Review from "./pages/Leanerpages/Review";
-import WhiteBoard from "./Componets/WhiteBoard";
 import Writereview from "./Componets/Writereview";
-import Leanerprofileadd from "./pages/Leanerpages/Leanerprofileadd";
 import LeanerProfile from "./pages/Leanerpages/LeanerProfile";
+import Leanerprofileadd from "./pages/Leanerpages/Leanerprofileadd";
 import Aboutpage from "./pages/Aboutpage";
-import Paymentmethod from "./Componets/Paymentmethod";
-import TutorNavbar from "./Componets/TutorNavbar";
+
+// Importing Tutor pages
 import TutorProfile from "./pages/Tutorpages/TutorProfile";
+import TutorAddProfile from "./pages/Tutorpages/TutorAddProfile";
 
 function App() {
   return (
@@ -30,7 +37,6 @@ function App() {
       <Routes>
         {/* Main routes */}
         <Route path="/" element={<HomePage />} />
-
         <Route path="/aboutpage" element={<Aboutpage />} />
         <Route path="/aboutus" element={<Aboutus />} />
         <Route path="/faq" element={<Faq />} />
@@ -55,10 +61,8 @@ function App() {
           <Route path="leanerquestions" element={<LearnerQuestions />} />
           <Route path="askquestion" element={<AskQuestion />} />
           <Route path="contact" element={<Contact />} />
-
           <Route path="review" element={<Review />} />
           <Route path="review/writereview" element={<Writereview />} />
-
           <Route path="leanerprofile" element={<LeanerProfile />} />
           <Route
             path="leanerprofile/leanerprofileadd"
@@ -84,16 +88,16 @@ function App() {
           <Route path="leanerquestions" element={<LearnerQuestions />} />
           <Route path="askquestion" element={<AskQuestion />} />
           <Route path="contact" element={<Contact />} />
-
           <Route path="review" element={<Review />} />
           <Route path="review/writereview" element={<Writereview />} />
-
           <Route path="tutorprofile" element={<TutorProfile />} />
           <Route
-            path="leanerprofile/leanerprofileadd"
-            element={<Leanerprofileadd />}
+            path="tutorprofile/tutoraddprofile"
+            element={<TutorAddProfile />}
           />
+          <Route path="paymentmethod" element={<Paymentmethod />} />
           <Route path="whiteboard" element={<WhiteBoard />} />
+          <Route path="calandertimeselect" element={<CalanderTimeSelect />} />
         </Route>
       </Routes>
     </Router>

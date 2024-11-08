@@ -1,6 +1,7 @@
 import { LuPhoneCall } from "react-icons/lu";
 import { MdEmail } from "react-icons/md";
 import { IoLocationSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -29,13 +30,26 @@ const Footer = () => {
               States
             </li>
           </div>
-          <div className="list-none  space-y-1">
+          <div className="list-none  space-y-1 ">
             <h3 className="text-[5.5px] md:text-[12px] lg:text-base font-semibold">
               Company
             </h3>
-            <li className="text-[4.89px] md:text-[9px] lg:text-sm">About us</li>
-            <li className="text-[4.89px] md:text-[9px] lg:text-sm">Contact</li>
-            <li className="text-[4.89px] md:text-[9px] lg:text-sm">Blogs</li>
+            <Link to={"/aboutpage"}>
+              <li className="text-[4.89px] py-1 md:text-[9px] lg:text-sm">
+                About us
+              </li>
+            </Link>
+
+            <Link to={"/aboutpage"}>
+              <li className="text-[4.89px]  py-1 md:text-[9px] lg:text-sm">
+                Contact
+              </li>
+            </Link>
+            <Link to={"/aboutpage"}>
+              <li className="text-[4.89px] py-1 md:text-[9px] lg:text-sm">
+                Blogs
+              </li>
+            </Link>
           </div>
           <div className="list-none  space-y-1">
             <h3 className="text-[5.5px] md:text-[12px] font-semibold lg:text-base">

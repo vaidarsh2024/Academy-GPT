@@ -4,20 +4,58 @@ import { useState } from "react";
 import facebook from "../assets/Image/facebook.png";
 import google from "../assets/Image/google.png";
 import apple from "../assets/Image/apple.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import login from "../assets/Image/Login.png";
+import axios from "axios";
 
 const LoginPages = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(
+        "https://api.academygpt.net/api/auth/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
+      console.log(response.data )
+
+      // Check if login is successful and response contains a token and user info
+      if (response.status === 200 && response.data.key) {
+        const { key, is_student, is_teacher } = response.data;
+
+        // Save token in localStorage or any secure place
+        localStorage.setItem("token", key);
+
+        // Navigate based on user role
+        if (is_student) {
+          navigate("/leanernavbar");
+        } else if (is_teacher) {
+          navigate("/tutornavbar");
+        } else {
+          setError("Unknown role. Please contact support.");
+        }
+      }
+    } catch (error) {
+      setError("Invalid email or password. Please try again.");
+      console.error("Login error:", error);
+    }
+  };
+
   return (
     <>
       <LoginNavbar />
-      <div className=" lg:flex mt-8 px-8 h-screen lg:h-full  relative font-urbanist">
+      <div className="lg:flex mt-8 px-8 h-screen lg:h-full relative font-urbanist">
         <div className="lg:w-1/2 md:px-16 lg:px-20 md:my-auto">
           <h2 className="text-center text-4xl font-bold">LOGIN</h2>
           <p className="text-center text-black/70 text-lg">
@@ -28,7 +66,9 @@ const LoginPages = () => {
             <input
               type="email"
               placeholder="Email"
-              className="w-full p-2 pl-5 border-[1px] border-black rounded-lg "
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-2 pl-5 border-[1px] border-black rounded-lg"
             />
             <div className="relative mt-1">
               {passwordVisible ? (
@@ -46,49 +86,59 @@ const LoginPages = () => {
               )}
               <input
                 type={passwordVisible ? "text" : "password"}
-                name="password"
-                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full p-2 pl-5 border-[1px] border-black rounded-lg"
                 placeholder="Password"
               />
             </div>
-            <p className="text-sm font-medium">
-              {" "}
-              <input
-                type="checkbox"
-                name="checkbox"
-                id="checkbox"
-                className="mr-2"
-              />{" "}
-              Remember me
-            </p>
+            <div className="flex justify-between">
+              <div>
+                <p className="text-sm font-medium">
+                  <input type="checkbox" className="mr-2" /> Remember me
+                </p>
+                {error && <p className="text-red-500 text-sm">{error}</p>}
+              </div>
+              <div>
+                <Link>
+                  <p className="text-sm text-primary font-medium">
+                    Forgot Password
+                  </p>
+                </Link>
+              </div>
+            </div>
           </div>
-          <button className="p-2 w-full text-2xl font-bold rounded-md text-white bg-primary">
-            <Link to={"/tutornavbar"}> Login</Link>
+          <button
+            className="p-2 w-full text-2xl font-bold rounded-md text-white bg-primary"
+            onClick={handleLogin}>
+            Login
           </button>
           <p className="hidden lg:block text-center text-sm py-2 font-medium">
             Don’t have an account?{" "}
-            <span className=" text-primary">
-              {" "}
-              <Link to={"/signuppages"}>Sign up</Link>
+            <span className="text-primary">
+              <Link to="/signuppages">Sign up</Link>
             </span>
           </p>
 
           <div className="flex py-5">
-            <hr className="w-1/2 border-t-[0.5px] h-1 border-[#313131] my-auto " />
-            <p className=" whitespace-nowrap text-sm px-2">Or login with</p>
-            <hr className="w-1/2 border-t-[0.5px] h-1 border-[#313131] my-auto " />
+            <hr className="w-1/2 border-t-[0.5px] h-1 border-[#313131] my-auto" />
+            <p className="whitespace-nowrap text-sm px-2">Or login with</p>
+            <hr className="w-1/2 border-t-[0.5px] h-1 border-[#313131] my-auto" />
           </div>
 
           <div className="flex space-x-3">
             <button className="p-3 w-full justify-center flex border-[1px] rounded-md border-black">
-              <img className="w-6 my-auto" src={facebook} alt="img" />
+              <img
+                className="w-6 my-auto"
+                src={facebook}
+                alt="Facebook login"
+              />
             </button>
             <button className="p-3 w-full justify-center flex border-[1px] rounded-md border-black">
-              <img className="w-6 my-auto" src={google} alt="img" />
+              <img className="w-6 my-auto" src={google} alt="Google login" />
             </button>
             <button className="p-2 w-full justify-center flex border-[1px] rounded-md border-black">
-              <img className="w-6 my-auto " src={apple} alt="img" />
+              <img className="w-6 my-auto" src={apple} alt="Apple login" />
             </button>
           </div>
         </div>
@@ -97,16 +147,15 @@ const LoginPages = () => {
             <img
               className="lg:max-h-[540px] xl:min-h-full justify-center"
               src={login}
-              alt=""
+              alt="Login"
             />
           </div>
         </div>
-        <div className=" lg:hidden absolute place-content-center left-24 md:left-1/2 md:-translate-x-28 bottom-0">
+        <div className="lg:hidden absolute place-content-center left-24 md:left-1/2 md:-translate-x-28 bottom-0">
           <p className="text-center text-sm font-medium">
             Don’t have an account?{" "}
-            <span className=" text-primary">
-              {" "}
-              <Link>Sign up</Link>
+            <span className="text-primary">
+              <Link to="/signuppages">Sign up</Link>
             </span>
           </p>
         </div>

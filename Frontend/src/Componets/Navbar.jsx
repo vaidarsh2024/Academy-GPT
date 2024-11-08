@@ -1,8 +1,9 @@
 import logo from "../assets/Image/Logo.png";
 import { Link,  } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
-
+const { t } = useTranslation();
    
   return (
     <>
@@ -22,16 +23,18 @@ const Navbar = () => {
 
             <div className="text-white text-xs lg:text-base my-2 flex space-x-2 lg:space-x-7">
               <button className=" p-1 lg:p-2 px-1 border-primary whitespace-nowrap border-[1px] rounded-md">
-                <Link to={"/leanernavbar/askquestion"}> Ask Question</Link>
+                <Link to={"/leanernavbar/askquestion"}>
+                  {t("Ask Question")}
+                </Link>
               </button>
               <button className=" lg:p-2 p-1 whitespace-nowrap bg-primary rounded-md">
-                <Link to={"/applynow"}>Apply Now</Link>
+                <Link to={"/applynow"}>{t("Apply Now")}</Link>
               </button>
               <button className="lg:p-2 py-1 px-1 border-primary whitespace-nowrap border-[1px] rounded-md">
-                <Link to={"/loginpage"}>Login</Link>
+                <Link to={"/loginpage"}>{t("Login")}</Link>
               </button>
               <button className="lg:p-2 px-1  bg-primary whitespace-nowrap rounded-md">
-                <Link to={"/signuppages"}>Sign Up</Link>
+                <Link to={"/signuppages"}>{t("Sign Up")}</Link>
               </button>
             </div>
           </div>
