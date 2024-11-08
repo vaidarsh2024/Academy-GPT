@@ -12,6 +12,12 @@ build: {
 
   // Customize the filename pattern for assets
   rollupOptions: {
+    input: {
+        main: 'Frontend/index.html',
+        vectorSlide: 'Frontend/src/assets/vectorslides.svg',
+        format: 'Frontend/src/assets/formats.svg',
+        circle: 'Frontend/src/assets/circles-arrows.svg'
+      },
     output: {
       assetFileNames: (assetInfo) => {
         if (/\.(png|jpe?g|gif|svg|webp)$/.test(assetInfo.name)) {
