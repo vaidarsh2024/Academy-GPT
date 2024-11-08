@@ -29,7 +29,6 @@ import Aboutpage from "./pages/Aboutpage";
 
 // Importing Tutor pages
 import TutorProfile from "./pages/Tutorpages/TutorProfile";
-import TutorAddProfile from "./pages/Tutorpages/TutorAddProfile";
 
 function App() {
   return (

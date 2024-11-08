@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-// import { Excalidraw, MainMenu, WelcomeScreen } from "excalidraw";
+import { Excalidraw, MainMenu, WelcomeScreen } from "excalidraw";
 import { ZoomToolBar } from "./ZoomToolBar";
 import { ColorToolBar } from "./ColorToolBar";
 import { TextFormatToolBar } from "./TextFormatToolBar";
 import AudioTranscriber from "./audioTranscriber";
+import AudioRecorder from "./audioRecorder";
 import { FaBars, FaUndo, FaRedo } from "react-icons/fa";
 import "./WhiteBoard.css";
 import JoinMeetingModal from "./JoinMeetingModal";
@@ -29,6 +30,7 @@ const WhiteBoard = () => {
   const [history, setHistory] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [appState, setAppState] = useState({});
+  const [alignment, setAlignment] = useState("left");
 
   useEffect(() => {
     if (!excalidrawAPI) {
@@ -59,6 +61,15 @@ const WhiteBoard = () => {
         elements: [...history[nextIndex]],
       });
     }
+  };
+
+  const toggleAlignment = () => {
+    const alignments = ["left", "center", "right"];
+    const currentIndex = alignments.indexOf(alignment);
+    const nextIndex = (currentIndex + 1) % alignments.length;
+    setAlignment(alignments[nextIndex]);
+    handleAlign(alignments[nextIndex]);
+    console.log(alignment, "alignment is happening");
   };
 
   const startScreenShare = async () => {
@@ -160,65 +171,91 @@ const WhiteBoard = () => {
   };
 
   const handleBold = () => {
+    console.log(excalidrawAPI, "bold");
     if (excalidrawAPI) {
-      excalidrawAPI.updateScene({
-        appState: {
-          ...excalidrawAPI.getAppState(),
-          elements: excalidrawAPI.getSceneElements().map((el) => {
-            if (el.type === "text") {
-              el.fontStyle = el.fontStyle === "bold" ? "normal" : "bold";
-            }
-            return el;
-          }),
-        },
+      // Get the selected elements from the Excalidraw scene
+      const selectedElements = excalidrawAPI.getSceneElements().filter((el) => {
+        console.log(el);
+        return el.type === 'text';
       });
+
+      // Map through elements and update fontFamily for selected elements
+      const updatedElements = excalidrawAPI.getSceneElements().map((el) => {
+        if (selectedElements.includes(el)) {
+          return {
+            ...el,
+            fontFamily: 3, // Cascadia (Bold)
+          };
+        }
+        return el;
+      });
+
+      // Update the scene with modified elements
+      excalidrawAPI.updateScene({ elements: updatedElements });
     }
   };
 
   const handleItalic = () => {
     if (excalidrawAPI) {
-      excalidrawAPI.updateScene({
-        appState: {
-          ...excalidrawAPI.getAppState(),
-          elements: excalidrawAPI.getSceneElements().map((el) => {
-            if (el.type === "text") {
-              el.fontStyle = el.fontStyle === "italic" ? "normal" : "italic";
-            }
-            return el;
-          }),
-        },
+      // Get the selected elements from the Excalidraw scene
+      const selectedElements = excalidrawAPI.getSceneElements().filter((el) => {
+        console.log(el);
+        return el.type === 'text';
       });
+
+      // Map through elements and update fontFamily for selected elements
+      const updatedElements = excalidrawAPI.getSceneElements().map((el) => {
+        if (selectedElements.includes(el)) {
+          return {
+            ...el,
+            fontFamily: 5, // Cascadia (Bold)
+          };
+        }
+        return el;
+      });
+
+      // Update the scene with modified elements
+      excalidrawAPI.updateScene({ elements: updatedElements });
     }
   };
 
-  const handleFontSizeChange = (size) => {
+  const handleFontSizeChange = () => {
     if (excalidrawAPI) {
-      const newFontSize = size === "small" ? 14 : size === "medium" ? 18 : 22;
-      excalidrawAPI.updateScene({
-        ...excalidrawAPI.getAppState(),
-        elements: excalidrawAPI.getSceneElements().map((el) => {
-          if (el.type === "text") {
-            el.fontSize = newFontSize;
-          }
-          return el;
-        }),
+      const selectedElements = excalidrawAPI
+        .getSceneElements()
+        .filter((el) => el.type === "text");
+
+      const updatedElements = excalidrawAPI.getSceneElements().map((el) => {
+        if (selectedElements.includes(el)) {
+          return {
+            ...el,
+            fontSize: 40,
+          };
+        }
+        return el;
       });
+
+      excalidrawAPI.updateScene({ elements: updatedElements });
     }
   };
 
-  const handleAlign = (alignment) => {
+  const handleAlign = () => {
     if (excalidrawAPI) {
-      excalidrawAPI.updateScene({
-        appState: {
-          ...excalidrawAPI.getAppState(),
-          elements: excalidrawAPI.getSceneElements().map((el) => {
-            if (el.type === "text") {
-              el.textAlign = alignment;
-            }
-            return el;
-          }),
-        },
+      const selectedElements = excalidrawAPI
+        .getSceneElements()
+        .filter((el) => el.type === "text");
+
+      const updatedElements = excalidrawAPI.getSceneElements().map((el) => {
+        if (selectedElements.includes(el)) {
+          return {
+            ...el,
+            textAlign: alignment,
+          };
+        }
+        return el;
       });
+
+      excalidrawAPI.updateScene({ elements: updatedElements });
     }
   };
 
@@ -293,7 +330,7 @@ const WhiteBoard = () => {
             onBold={handleBold}
             onItalic={handleItalic}
             onFontSizeChange={handleFontSizeChange}
-            onAlign={handleAlign}
+            onAlign={toggleAlignment}
           />
           {modalIsOpen && (
             <JoinMeetingModal
@@ -322,7 +359,6 @@ const WhiteBoard = () => {
                   background: "none",
                   border: "none",
                   cursor: "pointer",
-                  marginLeft: "10px",
                 }}>
                 <FaBars style={{ fontSize: "24px" }} />
               </button>
@@ -412,7 +448,7 @@ const WhiteBoard = () => {
             </WelcomeScreen.Center>
           </WelcomeScreen>
         </Excalidraw>
-        <AudioTranscriber onTranscription={handleTranscription} />
+        <AudioRecorder onTranscription={handleTranscription} />
       </div>
     </>
   );
