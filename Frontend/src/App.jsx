@@ -29,7 +29,7 @@ import './assets/image-upload.svg';
 import './assets/eraser.svg';
 
 // not working
-import '/assets/vectorslides.svg';
+import './assets/vectorslides.svg';
 import './assets/formats.svg';
 import './assets/circles-arrows.svg';
 
