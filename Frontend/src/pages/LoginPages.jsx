@@ -22,7 +22,7 @@ const LoginPages = () => {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "https://api.academygpt.net/api/auth/login",
+        "https://api.academygpt.net/api/auth/login/",
         {
           email: email,
           password: password,
