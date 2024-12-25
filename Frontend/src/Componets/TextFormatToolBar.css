@@ -1,4 +1,15 @@
-  
+  .toolbar {
+    background-color: #27292C;
+  padding: 4px;
+  height: min-content;
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  color: #fff;
+  border: 1px solid #ccc;
+  align-items: center;
+  }
+
   .toolbar button {
     background: none;
     border: none;
@@ -16,5 +27,11 @@
   .toolbar button span {
     margin-left: 5px;
     font-size: 12px;
+  }
+
+  @media (min-width: 480px) and (max-width: 767px) and (orientation: landscape) {
+    .toolbar {
+      display: none;
+    } 
   }
   

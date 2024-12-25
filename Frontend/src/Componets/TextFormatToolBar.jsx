@@ -9,7 +9,7 @@ import link from '../assets/Image/link.svg';
 
 export const TextFormatToolBar = ({ onBold, onItalic, onFontSizeChange, onAlign }) => {
   return (
-    <div className="toolbar" style={{backgroundColor: '#27292C', padding: '4px', height: 'min-content', display: 'flex', flexDirection: 'column', marginTop: '16px', color: '#fff', border: '1px solid #ccc', alignItems: 'center'}}>
+    <div className="toolbar">
       <button onClick={onFontSizeChange} style={{marginTop: '20px'}}>
         <img src={link} />
       </button>
