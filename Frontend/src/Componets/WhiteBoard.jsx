@@ -31,12 +31,27 @@ const WhiteBoard = () => {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [appState, setAppState] = useState({});
   const [alignment, setAlignment] = useState("left");
+  const [isPortrait, setIsPortrait] = useState(false);
 
   useEffect(() => {
     if (!excalidrawAPI) {
       return;
     }
     excalidrawAPI.updateScene({ appState: { openSidebar: "library" } });
+
+    const checkOrientation = () => {
+      setIsPortrait(window.innerHeight > window.innerWidth);
+    };
+
+    // Listen for orientation change
+    window.addEventListener('resize', checkOrientation);
+
+    // Check on mount
+    checkOrientation();
+
+    return () => {
+      window.removeEventListener('resize', checkOrientation);
+    };
   }, [excalidrawAPI]);
 
   const toggleDrawer = () => setCollapsed(!collapsed);
@@ -319,6 +334,11 @@ const WhiteBoard = () => {
   };
 
   return (
+    isPortrait ? (
+      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, backgroundColor: 'red', color: 'white', padding: '10px', textAlign: 'center' }}>
+        This app does not support portrait mode on mobile. Please switch to landscape mode.
+      </div>
+    ) :
     <>
       <div
         className="whiteboard"
