@@ -9,6 +9,11 @@ const useVideoSDK = (modalIsOpen, handleModal, isMiniModal) => {
 
   useEffect(() => {
     console.log({ isMiniModal });
+
+    const API_KEY = import.meta.env.VITE_ZOOM_SDK_KEY
+  const signatureApiEndpoint = import.meta.env.VITE_ZOOM_SIGNATURE_END_POINT; // Replace with your signature API endpoint
+  const meetingUrlApiEndpoint = import.meta.env.VITE_ZOOM_MEETING_URL_END_POINT; // Replace with your URL API endpoint
+
     if (isMiniModal) {
       if (modalIsOpen && sessionContainer && controlContainer) {
         getVideoSDKJWT();
@@ -27,40 +32,66 @@ const useVideoSDK = (modalIsOpen, handleModal, isMiniModal) => {
     };
   }, [modalIsOpen, sessionContainer, controlContainer]); // Added sessionContainer to dependencies
 
-  const generateSignature = () => {
-    const sessionName = "test";
-    const role = 1;
-    const iat = Math.round(new Date().getTime() / 1000) - 30;
-    const exp = iat + 60 * 60 * 2;
-    const oHeader = { alg: "HS256", typ: "JWT" };
-    const sdkKey = import.meta.env.VITE_ZOOM_SDK_KEY;
-    const sdkSecret = import.meta.env.VITE_ZOOM_SDK_SECRET;
-    const oPayload = {
-      app_key: sdkKey,
-      tpc: sessionName,
-      role_type: role,
-      version: 1,
-      iat: iat,
-      exp: exp,
-    };
-    const sHeader = JSON.stringify(oHeader);
-    const sPayload = JSON.stringify(oPayload);
-    return KJUR.jws.JWS.sign("HS256", sHeader, sPayload, sdkSecret);
-  };
 
-  const getVideoSDKJWT = () => {
-    const token = generateSignature();
+
+
+  
+
+  const generateSignature = async () => {
+    return await fetch(signatureApiEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+     
+    })
+    
+  }
+
+  const meetingUrlResponse = async () => {
+    return await fetch(meetingUrlApiEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ meetingNumber }),
+    });
+  }
+
+  async function parseZoomUrl() {
+    const zoomUrl = await meetingUrlResponse()
+    const url = new URL(zoomUrl);
+    const params = url.searchParams;
+  
+    const meetingNumber = url.pathname.split("/").pop(); // Extract the meeting number from the URL path
+    const passWord = params.get("pwd"); // Get the password from the query string
+    const userName = params.get("uname"); // Get the user name from the query string (if available)
+  
+    return {
+      meetingNumber,
+      passWord,
+      userName: userName || "Guest", // Default to "Guest" if userName is not provided
+    };
+  }
+  
+
+
+  const getVideoSDKJWT = async () => {
+    const token = await generateSignature();
     setVideoSDKJWT(token);
     joinSession(token);
   };
 
   const joinSession = (token) => {
     if (sessionContainer) {
+      console.log(
+        "dkaf",token
+      )
+
+      const {meetingNumber, passWord, userName} = parseZoomUrl() 
       const config = {
+        
         videoSDKJWT: token,
         sessionName: "test",
-        userName: "React",
-
+        userName: userName,
+        meetingNumber: meetingNumber,
+        passWord: passWord,
         features: isMiniModal
           ? ["video"]
           : ["video", "audio", "settings", "users", "chat", "share"],
@@ -79,6 +110,8 @@ const useVideoSDK = (modalIsOpen, handleModal, isMiniModal) => {
 
       uitoolkit.onSessionJoined(sessionJoined);
       uitoolkit.onSessionClosed(sessionClosed);
+    }else {
+      console.log("container not found")
     }
   };
   const sessionJoined = () => {
@@ -93,6 +126,7 @@ const useVideoSDK = (modalIsOpen, handleModal, isMiniModal) => {
     }
   };
 
+  console.log({ videoSDKJWT })
   return { setSessionContainer, setControlContainer, videoSDKJWT };
 };
 
