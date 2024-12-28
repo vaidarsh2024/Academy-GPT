@@ -266,7 +266,7 @@ export const ExcalLogo = createIcon(
 
 // custom
 export const SelectionIcon = createIcon(
-  "/assets/cursor.svg",
+  "https://ratnesh-aws-1.s3.eu-north-1.amazonaws.com/cursor.svg",
   { fill: "none", width: 22, height: 22, strokeWidth: 1.25 },
   true
 );
@@ -292,7 +292,7 @@ export const DiamondIcon = createIcon(
 
 // tabler-icons: circle
 export const EllipseIcon = createIcon(
-  "/assets/circle-arrow.svg",
+  "https://ratnesh-aws-1.s3.eu-north-1.amazonaws.com/circles-arrows.svg",
   tablerIconProps,
   true
 );
@@ -310,7 +310,7 @@ export const ArrowIcon = createIcon(
 
 // custom?
 export const LineIcon = createIcon(
-  "/assets/vectorslide.svg",
+  "https://ratnesh-aws-1.s3.eu-north-1.amazonaws.com/vectorslides.svg",
   modifiedTablerIconProps,
   true
 );
@@ -327,28 +327,28 @@ export const PenModeIcon = createIcon(
 
 // modified tabler-icons: pencil
 export const FreedrawIcon = createIcon(
-  "/assets/edit-text.svg",
+  "https://ratnesh-aws-1.s3.eu-north-1.amazonaws.com/edit-text.svg",
   modifiedTablerIconProps,
   true
 );
 
 // tabler-icons: typography
 export const TextIcon = createIcon(
-  "/assets/format.svg",
+  "https://ratnesh-aws-1.s3.eu-north-1.amazonaws.com/formats.svg",
   tablerIconProps,
   true
 );
 
 // modified tabler-icons: photo
 export const ImageIcon = createIcon(
-  "/assets/image-upload.svg",
+  "https://ratnesh-aws-1.s3.eu-north-1.amazonaws.com/image-upload.svg",
   modifiedTablerIconProps,
   true
 );
 
 // tabler-icons: eraser
 export const EraserIcon = createIcon(
-  "/assets/eraser.svg",
+  "https://ratnesh-aws-1.s3.eu-north-1.amazonaws.com/eraser.svg",
   tablerIconProps,
   true
 );
@@ -1219,7 +1219,7 @@ export const ArrowheadArrowIcon = React.memo(
 export const ArrowheadCircleIcon = React.memo(
   ({ flip = false }: { flip?: boolean }) =>
     createIcon(
-      "/assets/circle-arrow.svg",
+      "https://ratnesh-aws-1.s3.eu-north-1.amazonaws.com/circles-arrows.svg",
       { width: 40, height: 20 },
       true
     ),
@@ -1228,7 +1228,7 @@ export const ArrowheadCircleIcon = React.memo(
 export const ArrowheadCircleOutlineIcon = React.memo(
   ({ flip = false }: { flip?: boolean }) =>
     createIcon(
-      "/assets/circle-arrow.svg",
+      "https://ratnesh-aws-1.s3.eu-north-1.amazonaws.com/circles-arrows.svg",
       { width: 40, height: 20 },
       true
     ),
