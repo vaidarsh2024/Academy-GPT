@@ -273,7 +273,8 @@ Excalidraw styling overrides
     bottom: auto;
   }
   .excalidraw--mobile {
-    background-color: #e9e7e8 !important;
+    display: none !important;
+    /* background-color: #e9e7e8 !important; */
   }
   .excalidraw .App-toolbar-content svg {
     stroke: white;
@@ -307,6 +308,25 @@ Excalidraw styling overrides
   }
 }
 
+@media only screen and (max-width: 768px), 
+       only screen and (max-device-width: 768px) and (orientation: landscape), 
+       only screen and (max-device-height: 768px) {
+        .mobileNav {
+          display: none !important;
+        }
+        .excalidraw .App-top-bar {
+          display: none !important;
+        }
+        /* .excalidraw--mobile {
+          display: none !important;
+        } */
+        .toolbar {
+          display: none !important;
+        }
+        .excalidraw--mobile {
+          margin-top: -100px;
+        }
+}
 .visible {
   display: flex;
 }
