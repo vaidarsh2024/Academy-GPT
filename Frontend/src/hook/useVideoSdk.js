@@ -12,7 +12,7 @@ const useVideoSDK = (modalIsOpen, handleModal, isMiniModal) => {
 
   
     
-    const authToken = ''
+    const authToken = localStorage.getItem("token") || sessionStorage.getItem("token");
   
 
     if (isMiniModal) {
