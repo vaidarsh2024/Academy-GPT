@@ -12,7 +12,7 @@ const useVideoSDK = (modalIsOpen, handleModal, isMiniModal) => {
 
   
     
-    const authToken = localStorage.getItem("token") || sessionStorage.getItem("token");
+    // const authToken = localStorage.getItem("token") || sessionStorage.getItem("token");
   
 
     if (isMiniModal) {
@@ -43,7 +43,7 @@ const useVideoSDK = (modalIsOpen, handleModal, isMiniModal) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authToken}` // Replace `authToken` with your token variable
+        "Authorization": `Bearer ${localStorage.getItem("token") || sessionStorage.getItem("token")}` // Replace `authToken` with your token variable
       },
       
     });
