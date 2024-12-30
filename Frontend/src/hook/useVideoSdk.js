@@ -8,11 +8,12 @@ const useVideoSDK = (modalIsOpen, handleModal, isMiniModal) => {
   const [videoSDKJWT, setVideoSDKJWT] = useState("");
 
   useEffect(() => {
-    console.log({ isMiniModal });
+    // console.log({ isMiniModal });
 
-    const API_KEY = import.meta.env.VITE_ZOOM_SDK_KEY
-  const signatureApiEndpoint = import.meta.env.VITE_ZOOM_SIGNATURE_END_POINT; // Replace with your signature API endpoint
-  const meetingUrlApiEndpoint = import.meta.env.VITE_ZOOM_MEETING_URL_END_POINT; // Replace with your URL API endpoint
+  
+    
+    const authToken = ''
+  
 
     if (isMiniModal) {
       if (modalIsOpen && sessionContainer && controlContainer) {
@@ -38,37 +39,34 @@ const useVideoSDK = (modalIsOpen, handleModal, isMiniModal) => {
   
 
   const generateSignature = async () => {
-    return await fetch(signatureApiEndpoint, {
+    return await fetch(import.meta.env.VITE_ZOOM_SIGNATURE_END_POINT, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-     
-    })
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}` // Replace `authToken` with your token variable
+      },
+      
+    });
+    
     
   }
 
-  const meetingUrlResponse = async () => {
-    return await fetch(meetingUrlApiEndpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ meetingNumber }),
-    });
-  }
 
-  async function parseZoomUrl() {
-    const zoomUrl = await meetingUrlResponse()
-    const url = new URL(zoomUrl);
-    const params = url.searchParams;
+  // async function parseZoomUrl() {
+  //   const zoomUrl = await meetingUrlResponse()
+  //   const url = new URL(zoomUrl);
+  //   const params = url.searchParams;
   
-    const meetingNumber = url.pathname.split("/").pop(); // Extract the meeting number from the URL path
-    const passWord = params.get("pwd"); // Get the password from the query string
-    const userName = params.get("uname"); // Get the user name from the query string (if available)
+  //   const meetingNumber = url.pathname.split("/").pop(); // Extract the meeting number from the URL path
+  //   const passWord = params.get("pwd"); // Get the password from the query string
+  //   const userName = params.get("uname"); // Get the user name from the query string (if available)
   
-    return {
-      meetingNumber,
-      passWord,
-      userName: userName || "Guest", // Default to "Guest" if userName is not provided
-    };
-  }
+  //   return {
+  //     meetingNumber,
+  //     passWord,
+  //     userName: userName || "Guest", // Default to "Guest" if userName is not provided
+  //   };
+  // }
   
 
 
@@ -84,14 +82,12 @@ const useVideoSDK = (modalIsOpen, handleModal, isMiniModal) => {
         "dkaf",token
       )
 
-      const {meetingNumber, passWord, userName} = parseZoomUrl() 
+      
       const config = {
         
         videoSDKJWT: token,
         sessionName: "test",
-        userName: userName,
-        meetingNumber: meetingNumber,
-        passWord: passWord,
+       
         features: isMiniModal
           ? ["video"]
           : ["video", "audio", "settings", "users", "chat", "share"],
