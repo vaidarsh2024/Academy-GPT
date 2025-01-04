@@ -266,9 +266,6 @@ Excalidraw styling overrides
 
 /* Target mobile devices in landscape orientation */
 @media (min-width: 480px) and (max-width: 767px) and (orientation: landscape) {
-  .mobileNav {
-    display: none !important;
-  }
   .whiteboard .shareButton {
     bottom: auto;
   }
@@ -300,33 +297,11 @@ Excalidraw styling overrides
   .undo-redo-buttons {
     display: none !important;
   } 
-  .excalidraw .App-top-bar {
-    display: none;
-  }
   .excalidraw canvas {
     margin-top: 0px;
   }
 }
 
-@media only screen and (max-width: 768px), 
-       only screen and (max-device-width: 768px) and (orientation: landscape), 
-       only screen and (max-device-height: 768px) {
-        .mobileNav {
-          display: none !important;
-        }
-        .excalidraw .App-top-bar {
-          display: none !important;
-        }
-        /* .excalidraw--mobile {
-          display: none !important;
-        } */
-        .toolbar {
-          display: none !important;
-        }
-        .excalidraw--mobile {
-          margin-top: -100px;
-        }
-}
 .visible {
   display: flex;
 }
