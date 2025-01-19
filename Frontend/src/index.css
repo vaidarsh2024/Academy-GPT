@@ -218,8 +218,8 @@ Excalidraw styling overrides
   }
   .whiteboard .shareButton {
     left: -15px;
-    top: -10px;
-    bottom: 21rem;
+        top: -10px;
+        bottom: 19.7rem;
   }
   .excalidraw--mobile {
     background-color: #e9e7e8 !important;
@@ -243,7 +243,7 @@ Excalidraw styling overrides
     margin-left: 14rem;
   }
   .colorBarContainer {
-    margin-top: 40%;
+    margin-top: 4%;
     margin-left: 0rem;
   }
   .excalidraw .welcome-screen-center {
@@ -267,7 +267,9 @@ Excalidraw styling overrides
 /* Target mobile devices in landscape orientation */
 @media (min-width: 480px) and (max-width: 767px) and (orientation: landscape) {
   .whiteboard .shareButton {
-    bottom: auto;
+    left: -15px;
+        top: -10px;
+        bottom: 19.7rem;
   }
   .excalidraw--mobile {
     display: none !important;
