@@ -76,11 +76,22 @@ label[title="Rectangle — R or 2"] {
   height: 180px !important;
   max-width: max-content !important;
 }
+.mobileHamBudger {
+  display: none;
+  border: none;
+  cursor: pointer;
+}
 @media (min-width: 480px) and (max-width: 767px) and (orientation: landscape) {
   #sessionMiniContainer .self-view {
   width: 100% !important;
   height: 82.15px !important;
   max-width: max-content !important;
+}
+.mobileHamBudger {
+  margin-top: 10px;
+  display: block;
+  position: relative;
+  left: 15rem;
 }
 }
 
@@ -219,7 +230,7 @@ Excalidraw styling overrides
   .whiteboard .shareButton {
     left: -15px;
         top: -10px;
-        bottom: 19.7rem;
+        bottom: 13.4rem;
   }
   .excalidraw--mobile {
     background-color: #e9e7e8 !important;
@@ -234,7 +245,7 @@ Excalidraw styling overrides
     margin-top: 10px;
     display: block;
     position: relative;
-    left: 15rem;
+    left: 6rem;
   }
   .excalidraw .App-toolbar-content {
     justify-content: unset;
@@ -252,9 +263,9 @@ Excalidraw styling overrides
   .undo-redo-buttons {
     display: none !important;
   } 
-  .App-toolbar--mobile {
+  /* .App-toolbar--mobile {
     margin-left: 0px !important;
-  }
+  } */
   .excalidraw .App-toolbar-content {
     display: none !important;
   }
@@ -269,7 +280,7 @@ Excalidraw styling overrides
   .whiteboard .shareButton {
     left: -15px;
         top: -10px;
-        bottom: 19.7rem;
+        bottom: 13.4rem;
   }
   .excalidraw--mobile {
     display: none !important;
@@ -302,6 +313,10 @@ Excalidraw styling overrides
   .excalidraw canvas {
     margin-top: 0px;
   }
+  .mobileHamBudger{
+    display: block;
+  }
+
 }
 
 .visible {

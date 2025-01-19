@@ -375,11 +375,7 @@ const WhiteBoard = () => {
               <button
                 className="mobileHamBudger"
                 onClick={toggleDrawer}
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                }}>
+               >
                 <FaBars style={{ fontSize: "24px" }} />
               </button>
               <div className="undoRedo">
