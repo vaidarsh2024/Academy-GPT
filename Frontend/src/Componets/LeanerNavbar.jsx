@@ -23,27 +23,27 @@ const LeanerNavbar = () => {
   const isWhiteBoardPage = () => window.location.href.includes('whiteboard');
 
   const menuItems = [
-    { label: "DASHBOARD", key: "dashboard", path: "/leanernavbar/dashboard" },
-    { label: "ONE ON ONE", key: "oneonone", path: "/leanernavbar/oneonone" },
-    { label: "GROUP (4)", key: "group4", path: "/leanernavbar/group4" },
-    {
-      label: "GROUP (4+)",
-      key: "group4plus",
-      path: "/leanernavbar/group4plus",
-    },
-    {
-      label: "LEARNER QUESTIONS",
-      key: "learnerquestions",
-      path: "/leanernavbar/leanerquestions",
-    },
+    // { label: "DASHBOARD", key: "dashboard", path: "/leanernavbar/dashboard" },
+    // { label: "ONE ON ONE", key: "oneonone", path: "/leanernavbar/oneonone" },
+    // { label: "GROUP (4)", key: "group4", path: "/leanernavbar/group4" },
+    // {
+    //   label: "GROUP (4+)",
+    //   key: "group4plus",
+    //   path: "/leanernavbar/group4plus",
+    // },
+    // {
+    //   label: "LEARNER QUESTIONS",
+    //   key: "learnerquestions",
+    //   path: "/leanernavbar/leanerquestions",
+    // },
     {
       label: "ASK QUESTION",
       key: "askquestion",
       path: "/leanernavbar/askquestion",
     },
-    { label: "CONTACT", key: "contact", path: "/leanernavbar/contact" },
-    { label: "REVIEW", key: "review", path: "/leanernavbar/review" },
-    { label: "ABOUT US", key: "aboutus", path: "/aboutpage" },
+    // { label: "CONTACT", key: "contact", path: "/leanernavbar/contact" },
+    // { label: "REVIEW", key: "review", path: "/leanernavbar/review" },
+    // { label: "ABOUT US", key: "aboutus", path: "/aboutpage" },
   ];
 
   const handleLogout = () => {

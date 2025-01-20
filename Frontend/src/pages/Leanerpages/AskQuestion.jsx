@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "axios";
 import { PiCameraLight } from "react-icons/pi";
 import { LuSendHorizonal } from "react-icons/lu";
 import Webcam from "react-webcam";
 import { IoMdAttach } from "react-icons/io";
 import ReactMarkdown from "react-markdown";
+
 import "./AskQuestion.css";
 
 function AskQuestion() {
@@ -25,6 +27,8 @@ function AskQuestion() {
   const fileInputRef = useRef(null);
   const mobileCameraInputRef = useRef(null);
 
+  const navigate = useNavigate(); 
+
   useEffect(() => {
     const detectLanguage = () => {
       const browserLang = navigator.language || navigator.userLanguage;
@@ -44,9 +48,9 @@ function AskQuestion() {
   }, []);
 
   useEffect(() => {
-    // Scroll to the latest question/answer after adding a new response
+ 
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [pastQA]); // This triggers whenever pastQA changes
+  }, [pastQA]);
 
   const handleCameraClick = () => {
     if (isMobileDevice) {
@@ -86,15 +90,36 @@ function AskQuestion() {
   const handleSend = async () => {
     if (!inputText.trim() && !file && !capturedImage) return;
 
+    if (preferredAnswer === "onlineClassroom") {
+     
+      const newQA = {
+        question: inputText,
+        answer: "Successfully sent",
+        image: null,
+        timestamp: new Date().toISOString(),
+      };
+
+      setPastQA((prev) => [...prev, newQA]);
+      setInputText("");
+      setFile(null);
+      setCapturedImage("");
+
+   
+      setTimeout(() => {
+        navigate("/leanernavbar/whiteboard");
+      }, 3000);
+      return;
+    }
+
     setIsLoading(true);
     const formData = new FormData();
 
     let fullQuestion = "";
     if (subject) {
-      fullQuestion = `${subject ? `Subject: ${subject}\n` : ""}`;
+      fullQuestion = subject ? `Subject:${subject}\n`  : "";
     }
     if (inputText) {
-      fullQuestion += `Question: ${inputText}`;
+      // fullQuestion += Question: ${inputText};
     }
 
     try {
