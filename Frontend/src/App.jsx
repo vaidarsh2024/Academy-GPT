@@ -10,7 +10,7 @@ import LeanerNavbar from "./Componets/LeanerNavbar";
 import TutorNavbar from "./Componets/TutorNavbar";
 import Paymentmethod from "./Componets/Paymentmethod";
 import WhiteBoard from "./Componets/WhiteBoard";
-import CalanderTimeSelect from "./Componets/CalanderTimeSelect";
+import CalanderTimeSelect from './Componets/CalanderTImeSelect';
 
 // Importing Leaner pages
 import LeanerDashboard from "./pages/Leanerpages/LeanerDashboard";
@@ -90,10 +90,10 @@ function App() {
           <Route path="review" element={<Review />} />
           <Route path="review/writereview" element={<Writereview />} />
           <Route path="tutorprofile" element={<TutorProfile />} />
-          <Route
+          {/* <Route
             path="tutorprofile/tutoraddprofile"
             element={<TutorAddProfile />}
-          />
+          /> */}
           <Route path="paymentmethod" element={<Paymentmethod />} />
           <Route path="whiteboard" element={<WhiteBoard />} />
           <Route path="calandertimeselect" element={<CalanderTimeSelect />} />
